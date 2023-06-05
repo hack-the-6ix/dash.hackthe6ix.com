@@ -1,0 +1,43 @@
+@use '~@ht6/react-ui/dist/styles/colors.module';
+
+.card {
+  margin: 3rem auto;
+  max-width: 36rem;
+  box-sizing: border-box;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 2rem auto;
+  grid-gap: 1rem;
+}
+
+%icon {
+  width: 100%;
+  height: auto;
+  margin-top: 0.25rem;
+}
+
+.error {
+  @extend %icon;
+  color: colors.getColor(error);
+}
+
+.spinner {
+  @extend %icon;
+  color: colors.getColor(primary-3);
+  animation: spin 1s linear 0s infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0.5rem;
+}

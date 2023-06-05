@@ -1,0 +1,26 @@
+@use '../../styles/mixins.module' as localMixins;
+@use '~@ht6/react-ui/dist/styles/colors.module';
+
+.root {
+  border-top: 1px solid colors.getColor(disabled-light);
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  grid-gap: 0.5rem;
+  display: grid;
+
+  @include localMixins.media(tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.action {
+  text-transform: uppercase;
+  & > * {
+    text-decoration: none;
+  }
+
+  @include localMixins.media(tablet) {
+    width: 100%;
+  }
+}

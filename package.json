@@ -1,0 +1,69 @@
+{
+  "name": "hacker-dashboard-2023",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ht6/react-ui": "^2.7.10",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.49",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-icons": "^3.0.0",
+    "airtable": "^0.11.4",
+    "class-validator": "^0.13.2",
+    "classnames": "^2.3.1",
+    "color": "^4.2.3",
+    "formik": "^2.2.9",
+    "notion-client": "^6.13.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.3.0",
+    "react-icons": "^4.4.0",
+    "react-notion": "^0.10.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "sass": "^1.54.4",
+    "string-similarity": "^4.0.4",
+    "typescript": "^4.7.4",
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
+  },
+  "scripts": {
+    "start": "GENERATE_SOURCEMAP=false react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "lint": "prettier --write ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@types/classnames": "^2.3.1",
+    "@types/color": "^3.0.3",
+    "@types/string-similarity": "^4.0.0",
+    "@types/yup": "^0.29.14",
+    "prettier": "^2.7.1"
+  },
+  "volta": {
+    "node": "14.21.3"
+  }
+}

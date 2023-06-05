@@ -1,0 +1,96 @@
+@use '../../../styles/colors.module' as localColors;
+@use '../../../styles/mixins.module' as localMixins;
+@use '~@ht6/react-ui/dist/styles/mixins.module';
+@use '~@ht6/react-ui/dist/styles/colors.module';
+
+.container {
+  grid-template-columns: 1fr;
+  grid-gap: 2.75rem;
+  display: grid;
+
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+.copy {
+  position: relative;
+}
+
+.icon {
+  color: colors.getColor(primary-3);
+  margin: auto 1rem auto auto;
+  position: absolute;
+  width: 1rem;
+  height: auto;
+  inset: 0;
+}
+
+.command {
+  @include mixins.transition(filter);
+  background-color: localColors.$bg-light-grey;
+  justify-content: center;
+  border-radius: 1.25rem;
+  padding: 0.75rem 2.75rem;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  border: none;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    filter: brightness(0.96);
+  }
+
+  &:active {
+    filter: brightness(0.92);
+  }
+}
+
+.links {
+  display: grid;
+  list-style-type: none;
+  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+  grid-gap: 1.25rem;
+  padding: 0;
+  margin: 1rem 0 0;
+
+  @include localMixins.media(laptop) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  filter: blur(0.125rem) saturate(0);
+  opacity: 0.2;
+}
+
+.qrBox {
+  background-color: localColors.$bg-light-grey;
+  justify-content: center;
+  display: flex;
+  border-radius: 1.25rem;
+  box-shadow: none;
+  padding: 1.25rem;
+}
+
+.qr {
+  width: 9.25rem;
+  height: 9.25rem;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-top: 0.25rem;
+  grid-gap: 0.25rem;
+}
+
+.action {
+  font-size: 0.75rem;
+  padding: 0.3rem 1rem;
+}

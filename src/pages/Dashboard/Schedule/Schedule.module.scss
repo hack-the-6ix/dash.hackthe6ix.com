@@ -1,0 +1,49 @@
+@use '~@ht6/react-ui/dist/styles/colors.module';
+
+.root {
+  grid-template-columns: minmax(1px, auto);
+  display: grid;
+}
+
+.event {
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0 0.75rem;
+  display: flex;
+  height: 100%;
+}
+
+.text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.buttons {
+  justify-content: space-between;
+  display: flex;
+}
+
+.button {
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  margin-top: 1rem;
+
+  & > span {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.iconl {
+  margin-right: 0.25rem;
+  margin-left: -0.25rem;
+  height: 100%;
+}
+
+.iconr {
+  margin-right: -0.25rem;
+  margin-left: 0.25rem;
+  height: 100%;
+}

@@ -1,0 +1,67 @@
+@use '../../styles/mixins.module' as localMixins;
+@use '~@ht6/react-ui/dist/styles/mixins.module';
+@use '~@ht6/react-ui/dist/styles/colors.module';
+
+.root {
+  flex-direction: column;
+  display: flex;
+}
+
+.tabs {
+  list-style-type: none;
+  position: relative;
+  bottom: -0.5rem;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.tab {
+  @include mixins.transition(background-color box-shadow opacity, fast);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  overflow: hidden;
+  flex-grow: 1;
+
+  &:not(&--selected) {
+    background-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      background-color: colors.getColor(primary-3, $alpha: 0.04);
+    }
+
+    &:active {
+      background-color: colors.getColor(primary-3, $alpha: 0.08);
+    }
+  }
+
+  &#{&}--disabled {
+    opacity: 0.2;
+  }
+}
+
+.tabText {
+  padding: 1.25rem 1.25rem 1.75rem;
+  text-transform: uppercase;
+  background: none;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.content {
+  box-shadow: 0 0.5rem 0.625rem rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  padding: 5.75rem;
+  z-index: 1;
+
+  @include localMixins.media(tablet) {
+    padding: 2.5rem;
+  }
+}

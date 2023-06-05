@@ -1,0 +1,26 @@
+@use '../../styles/mixins.module' as localMixins;
+
+.container {
+  grid-template-columns: auto max-content;
+  grid-gap: 1rem;
+  display: grid;
+
+  @include localMixins.media(tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.content {
+  grid-template-columns: 1fr;
+  grid-gap: 1.25rem;
+  display: grid;
+}
+
+.title {
+  letter-spacing: 0.085rem !important;
+  word-break: break-word;
+}
+
+.action {
+  margin: 1rem 0 auto;
+}
