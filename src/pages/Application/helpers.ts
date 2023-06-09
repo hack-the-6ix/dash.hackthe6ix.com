@@ -13,10 +13,13 @@ type ServerApplication = {
   // About
   emailConsent: boolean;
   phoneNumber: string;
+  age: number;
   gender: string;
   pronouns: string;
   ethnicity: string;
   country: string;
+  dietaryRestrictions: string;
+  healthWarnings: string;
   city: string;
   province: string;
   shirtSize: string;
@@ -67,10 +70,13 @@ export function serializeApplication(
       // About you
       ['phone', 'phoneNumber'],
       ['canEmail', 'emailConsent'],
+      ['age', 'age'],
       ['gender', 'gender'],
       ['pronouns', 'pronouns'],
       ['ethnicity', 'ethnicity'],
       ['size', 'shirtSize'],
+      ['dietaryRestrictions', 'dietaryRestrictions'],
+      ['healthWarnings', 'healthWarnings'],
       ['city', 'city'],
       ['province', 'province'],
       ['country', 'country'],
@@ -129,10 +135,13 @@ export function deserializeApplication(
         // About you
         ['phoneNumber', 'phone'],
         ['emailConsent', 'canEmail'],
+        ['age', 'age'],
         ['gender', 'gender'],
         ['pronouns', 'pronouns'],
         ['ethnicity', 'ethnicity'],
         ['shirtSize', 'size'],
+        ['dietaryRestrictions', 'dietaryRestrictions'],
+        ['healthWarnings', 'healthWarnings'],
         ['city', 'city'],
         ['province', 'province'],
         ['country', 'country'],

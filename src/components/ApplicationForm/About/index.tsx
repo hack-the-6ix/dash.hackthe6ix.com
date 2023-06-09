@@ -1,4 +1,4 @@
-import {Checkbox, Dropdown, Input, SearchDropdown, Typography} from '@ht6/react-ui';
+import {Checkbox, Dropdown, Input, SearchDropdown, Textarea, Typography} from '@ht6/react-ui';
 import { useEffect } from 'react';
 import * as yup from 'yup';
 
@@ -14,10 +14,13 @@ export const initialValues = {
   email: '',
   phone: '',
   canEmail: false,
+  age: '',
   gender: '',
   pronouns: '',
   ethnicity: '',
   size: '',
+  dietaryRestrictions: '',
+  healthWarnings: '',
   city: '',
   province: '',
   country: '',
@@ -39,7 +42,9 @@ export const validate = yup.lazy((values) => {
       .required("Email can't be blank"),
     phone: yup.string().required("Phone Number can't be blank"),
     canEmail: yup.boolean(),
+    age: yup.number().typeError("Age must be a number").required("Age can't be blank").positive("Age must be positive").integer("Age must be an integer"),
     gender: yup.string().required("Gender can't be blank"),
+    pronouns: yup.string().required("Pronouns can't be blank"),
     ethnicity: yup.string().required("Ethnicity can't be blank"),
     size: yup.string().required("Size can't be blank"),
     city: yup.string().required("City can't be blank"),
@@ -112,6 +117,14 @@ function About(props: SectionProps<typeof initialValues>) {
         })}
         color='primary-3'
       />
+      <Input
+        {...applyFieldProps({
+            name: 'age',
+            label: 'Age',
+            required: true,
+        })}
+        placeholder='Your age'
+      />
       <Dropdown
         {...applyFieldProps({
           name: 'gender',
@@ -156,6 +169,17 @@ function About(props: SectionProps<typeof initialValues>) {
                 required: true,
             })}
             options={enums.shirt.map((label) => ({
+                value: label,
+                label,
+            }))}
+        />
+        <Dropdown
+            {...applyFieldProps({
+                name: 'dietaryRestrictions',
+                label: 'Dietary Restrictions',
+                omitOutline: true
+            })}
+            options={enums.dietaryRestrictions.map((label) => ({
                 value: label,
                 label,
             }))}
@@ -252,6 +276,23 @@ function About(props: SectionProps<typeof initialValues>) {
                 value: label,
                 label,
             }))}
+        />
+        <div className={sharedStyles['field--full-width']}>
+            <Typography textColor='primary-3' textType='heading3' as='h2'>
+                Additional Information
+            </Typography>
+        </div>
+        <Textarea
+            {...applyFieldProps({
+                name: 'healthWarnings',
+                label:
+                    'Please list all additional allergies/dietary restrictions or any other information we may need to accommodate you.',
+                omitOutline: true,
+                isNextRow: true,
+                isFullWidth: true
+            })}
+            limit={200}
+            rows={3}
         />
 
     </ApplicationFormSection>

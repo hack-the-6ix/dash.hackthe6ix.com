@@ -14,7 +14,8 @@ const initEnum = {
   shirt: [],
   levelOfStudy: [],
   requestedWorkshops: [],
-  emergencyContactRelationship: []
+  emergencyContactRelationship: [],
+  dietaryRestrictions: []
 };
 
 export type ApplicationEnumType = {
