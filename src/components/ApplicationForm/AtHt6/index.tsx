@@ -186,7 +186,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
       <Checkbox
         {...applyFieldProps({
           label:
-            'I authorize MLH to send me pre- and post-event informational emails, which contain free credit and opportunities from their partners.',
+            'I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements.',
           name: 'mlhEmail',
           omitOutline: true,
           isFullWidth: true,
