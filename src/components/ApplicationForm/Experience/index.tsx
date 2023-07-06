@@ -197,7 +197,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
         {...applyFieldProps({
           name: 'project',
           label:
-            'What is a project you hope to accomplish in the future? And why not now?.',
+            'What is a project you hope to accomplish in the future? And why not now?',
           omitOutline: true,
           isNextRow: true,
           isFullWidth: true,
