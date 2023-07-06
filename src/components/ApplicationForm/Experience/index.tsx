@@ -133,7 +133,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
       <Dropdown
         {...applyFieldProps({
           name: 'hackathons',
-          label: 'Number of Hacakthons Attended',
+          label: 'Number of Hackathons Attended',
           omitOutline: true,
           required: true,
         })}
