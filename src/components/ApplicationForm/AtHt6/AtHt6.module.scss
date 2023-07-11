@@ -1,0 +1,11 @@
+@use '../../../styles/mixins.module';
+
+.workshops {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+
+  @include mixins.media(laptop) {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrder": [
+    "\\utils/yup$",
+    "^[A-Za-z@]",
+    "^(.).*(?<!\\.scss)$",
+    "\\.scss$"
+  ]
+}

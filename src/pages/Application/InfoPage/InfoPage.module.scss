@@ -1,0 +1,23 @@
+@use '~@ht6/react-ui/dist/styles/colors.module';
+
+.card {
+  margin: 8rem 0;
+  padding: 5.25rem 2.5rem 2.5rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  max-width: 44.5rem;
+  margin: 0 auto;
+}
+
+.heading {
+  margin-bottom: 1rem;
+}
+
+.footer {
+  border-top: 0;
+  margin-top: 1.5rem;
+}

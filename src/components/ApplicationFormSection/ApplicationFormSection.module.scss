@@ -1,0 +1,34 @@
+@use '../../styles/mixins.module' as localMixins;
+@use '../../styles/vars.module';
+
+.section {
+  max-width: map-get(vars.$widths, form) * 0.7;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1.5rem;
+  margin: 0 auto;
+  display: grid;
+  border: none;
+  padding: 0;
+
+  & > * {
+    margin-bottom: auto;
+  }
+
+  @include localMixins.media(tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  &--full-width {
+    grid-column-end: 2 span;
+
+    @include localMixins.media(tablet) {
+      grid-column-end: 1 span;
+    }
+  }
+
+  &--break {
+    grid-column-start: 1;
+  }
+}

@@ -1,0 +1,51 @@
+@use '../../styles/colors.module' as localColors;
+@use '../../styles/mixins.module' as localMixins;
+
+.root {
+  //background-image: url('../../assets/backdrop.png');
+  //background-attachment: fixed;
+  //background-repeat: no-repeat;
+  //background-size: cover;
+  background-color: #06162F;
+  min-height: 100vh;
+  display: flex;
+
+}
+
+.nav {
+  //position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  min-width: 10vw;
+  flex-basis: 15vw;
+  z-index: 100;
+  background-color: localColors.$bg-light;
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.content {
+  //justify-content: space-between;
+  //align-items: center;
+  //display: flex;
+  //
+  //@include localMixins.media(tablet) {
+  //  flex-direction: column;
+  //}
+}
+
+.logo {
+  grid-template-columns: 1.5rem auto;
+  text-transform: uppercase;
+  align-items: center;
+  padding-right: 1rem;
+  grid-gap: 1rem;
+  display: grid;
+}
+
+.appContainer {
+  overflow-y: scroll;
+  max-height: 100vh;
+  flex-grow: 1;
+}
