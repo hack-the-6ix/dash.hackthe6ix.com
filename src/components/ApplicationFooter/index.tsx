@@ -17,10 +17,10 @@ function ApplicationFooter({
   return (
     <div {...props} className={cx(styles.root, className)}>
       <div className={styles.action}>
-        {leftAction && <Button type='button' {...leftAction} />}
+        {leftAction && <Button type='button' buttonVariant='secondary' className={styles.button} {...leftAction} />}
       </div>
       <div className={styles.action}>
-        {rightAction && <Button type='button' {...rightAction} />}
+        {rightAction && <Button type='button' className={styles.button} {...rightAction} />}
       </div>
     </div>
   );
