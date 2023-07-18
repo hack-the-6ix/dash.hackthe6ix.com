@@ -18,6 +18,10 @@
   margin: 0 auto;
 }
 
+.title {
+  margin-bottom: 0.625rem;
+}
+
 .buttons {
   grid-template-columns: max-content max-content max-content;
   align-items: center;
@@ -75,7 +79,11 @@
 }
 
 .teamScreenContainer {
-  gap: 2rem;
+  gap: 2rem;  
+
+  @include localMixins.media(tablet) {
+    gap: 4rem;
+  }
 }
 
 .joinScreenContainer {
@@ -86,4 +94,9 @@
 .teamScreenContent {
   display: flex;
   justify-content: space-around;
+
+  @include localMixins.media(tablet) {
+    flex-direction: column;
+    gap: 4rem;
+  }
 }
