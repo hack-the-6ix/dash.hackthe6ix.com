@@ -1,4 +1,4 @@
-import { Button, Input, Typography } from '@ht6/react-ui';
+import { Button, Input, Typography, Link } from '@ht6/react-ui';
 import cx from 'classnames';
 import {
   Dispatch,
@@ -68,15 +68,24 @@ function InitScreen() {
 
   return (
     <>
-      <Typography textColor='primary-700' textType='heading2' as='h2'>
-        You're currently not on a team.
+      <Typography textColor='neutral-400' textType='heading4' as='h4'>
+        Hi {/* TODO: Get hacker name */}! 
       </Typography>
-      <Typography textColor='copy-dark' textType='heading4' as='p'>
-        Don't have a team? No worries! You can go solo or decide after
-        submitting your application. Just remember to do so before{' '}
-        {formattedDate} at {formattedTime} EST.
+      <Typography textColor='neutral-50' textType='heading2' as='h2'>
+        You are currently a solo hacker.
+      </Typography>
+      <Typography textColor='neutral-50' textType='heading6' as='p' className={styles.teamFormationDescription}>
+        Don't have a team? No worries! You can create your own team and invite your friends, join a team, or decide to go solo. You can chnage this at any point before <span className={styles.dateHighlight}> {' '} {formattedDate} at {formattedTime} EST. </span>
       </Typography>
       <div className={styles.buttons}>
+        <Button
+          disabled={isLoading}
+          onClick={() => setShowJoin(true)}
+          type='button'
+          buttonVariant='secondary'
+        >
+          Join a team
+        </Button>
         <Button
           disabled={isLoading}
           onClick={async () => {
@@ -90,15 +99,19 @@ function InitScreen() {
           }}
           type='button'
         >
-          Create Team
+          Create a team
         </Button>
-        <Button
-          disabled={isLoading}
-          onClick={() => setShowJoin(true)}
+        <Link
+          className={styles.link} 
+          textColor='neutral-400'
+          textType={'paragraph1'}
+          underline
+          // TODO: Override text color?
+          // TODO: Add onClick to redirect to About Section
           type='button'
         >
-          Join Team
-        </Button>
+          Continue solo →
+        </Link>
       </div>
     </>
   );
@@ -119,48 +132,55 @@ function TeamScreen({ onNext }: TeamFormationProps) {
 
   return (
     <>
-      <Typography textColor='primary-700' textType='heading2' as='h2'>
-        {isOwner ? 'Your team has been created!' : 'You have joined a team!'}
-      </Typography>
-      <Typography
-        className={styles.title}
-        textColor='primary-700'
-        textType='heading3'
-        as='h3'
-      >
-        Team Code
-      </Typography>
-      <Typography
-        className={sharedStyles.items}
-        textColor='copy-dark'
-        textType='heading4'
-        as='ul'
-      >
-        <li>{team?.code}</li>
-        <li>Teammates can join by entering the Team Code above.</li>
-      </Typography>
-      <Typography
-        className={styles.title}
-        textColor='primary-700'
-        textType='heading3'
-        as='h3'
-      >
-        Members
-      </Typography>
-      <Typography
-        className={sharedStyles.items}
-        textColor='copy-dark'
-        textType='heading4'
-        as='ul'
-      >
-        {team?.memberNames.map((member, key) => (
-          <li key={key}>{member}</li>
-        ))}
-      </Typography>
+      <div className={styles.teamScreenContainer}>
+        <Typography textColor='neutral-50' textType='heading2' as='h2'>
+          {isOwner ? 'Your team has been created!' : 'You have joined a team!'}
+        </Typography>
+        <div className={styles.teamScreenContent}>
+          <div>
+            <Typography
+              className={styles.title}
+              textColor='neutral-50'
+              textType='heading4'
+              as='h4'
+            >
+              Team Code
+            </Typography>
+            <Typography
+              className={sharedStyles.items}
+              textColor='warning-400'
+              textType='heading6'
+              as='ul'
+            >
+              <li>{team?.code}</li>
+            </Typography>
+          </div>
+          <div>
+            <Typography
+              className={styles.title}
+              textColor='neutral-50'
+              textType='heading4'
+              as='h4'
+            >
+              Members
+            </Typography>
+            <Typography
+              className={sharedStyles.items}
+              textColor='neutral-50'
+              textType='heading6'
+              as='ul'
+            >
+              {team?.memberNames.map((member, key) => (
+                <li key={key}>{member}</li>
+              ))}
+            </Typography>
+          </div>
+        </div>
+      </div>
       <ApplicationFooter
         className={styles.footer}
         leftAction={{
-          children: 'Leave Team',
+          children: 'Leave team',
           disabled: isLoading,
           onClick: async () => {
             const res = await leaveTeam({ method: 'POST' });
@@ -170,7 +190,7 @@ function TeamScreen({ onNext }: TeamFormationProps) {
         }}
         rightAction={{
           ...onNext,
-          children: 'Save & Continue',
+          children: 'Save & continue',
           disabled: isLoading,
         }}
       />
@@ -192,52 +212,55 @@ function JoinScreen() {
 
   return (
     <>
-      <Typography textColor='primary-700' textType='heading2' as='h2'>
-        Join Team
-      </Typography>
-      <Typography textColor='copy-dark' textType='heading4' as='p'>
-        Already have a code? Enter it below to join!
-      </Typography>
-      <div className={styles.join}>
-        <Input
-          onChange={(e) => setCode(e.currentTarget.value)}
-          placeholder='Enter team code'
-          outlineColor='primary-700'
-          label='Team Code'
-          value={code}
-          name='code'
-        />
-        <Button
-          onClick={async () => {
-            const res = await joinTeam({
-              method: 'POST',
-              body: JSON.stringify({
-                teamCode: code,
-              }),
-            });
+      <div className={styles.joinScreenContainer}>
+        <Typography textColor='neutral-50' textType='heading2' as='h2'>
+          Join a Team
+        </Typography>
+        <Typography textColor='neutral-50' textType='heading6' as='p'>
+          Already have a team code? Enter it below!
+        </Typography>
+        <div className={styles.join}>
+          <Input
+            onChange={(e) => setCode(e.currentTarget.value)}
+            placeholder='Enter team code'
+            outlineColor='primary-700'
+            label='Team Code'
+            value={code}
+            name='code'
+            required
+          />
+          <Button
+            onClick={async () => {
+              const res = await joinTeam({
+                method: 'POST',
+                body: JSON.stringify({
+                  teamCode: code,
+                }),
+              });
 
-            if (res?.status !== 200) return;
-            setTeam({
-              memberNames: res.message.memberNames,
-              code: res.message.code,
-            });
+              if (res?.status !== 200) return;
+              setTeam({
+                memberNames: res.message.memberNames,
+                code: res.message.code,
+              });
 
-            setShowJoin(false);
-          }}
-          disabled={!code || isLoading}
-          className={styles.joinBtn}
-          buttonVariant='tertiary'
-          type='button'
-        >
-          Join Team
-        </Button>
+              setShowJoin(false);
+            }}
+            className={styles.joinBtn}
+            type='button'
+          >
+            Join Team
+          </Button>
+        </div>
       </div>
+      {/* TODO: Add left arrow to Back button */}
       <ApplicationFooter
         className={styles.footer}
         leftAction={{
-          children: 'Back',
+          children: '← Back',
           disabled: isLoading,
           onClick: () => setShowJoin(false),
+          buttonVariant:'tertiary'
         }}
       />
     </>
