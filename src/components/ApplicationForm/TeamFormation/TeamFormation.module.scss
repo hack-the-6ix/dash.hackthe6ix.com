@@ -18,10 +18,6 @@
   margin: 0 auto;
 }
 
-// .title {
-//   margin-top: 1.25rem;
-// }
-
 .buttons {
   grid-template-columns: max-content max-content max-content;
   align-items: center;
@@ -53,8 +49,6 @@
 }
 
 .link {
-  // @include mixins.transition(color);
-  // color: colors.getColor(neutral-400);
   text-decoration: none;
 
   &:hover,
