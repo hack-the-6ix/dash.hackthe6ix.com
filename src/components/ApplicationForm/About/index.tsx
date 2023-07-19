@@ -63,7 +63,7 @@ export const validate = yup.lazy((values) => {
   });
 }) as any;
 
-function About(props: SectionProps<typeof initialValues>) {
+function About(props: SectionProps<typeof initialValues> & { readonly? : boolean }) {
   const { applyFieldProps } = useFormikHelpers<typeof initialValues>(props);
   const { enums } = useApplicationData();
 
@@ -76,7 +76,7 @@ function About(props: SectionProps<typeof initialValues>) {
           required: true,
         })}
         placeholder='Enter first name'
-        disabled
+        disabled={props.readonly}
       />
       <Input
         {...applyFieldProps({
@@ -85,7 +85,7 @@ function About(props: SectionProps<typeof initialValues>) {
           required: true,
         })}
         placeholder='Enter last name'
-        disabled
+        disabled={props.readonly}
       />
       <Input
         {...applyFieldProps({
@@ -95,7 +95,7 @@ function About(props: SectionProps<typeof initialValues>) {
         })}
         placeholder='name@gmail.com'
         type='email'
-        disabled
+        disabled={props.readonly}
       />
       <Input
         {...applyFieldProps({
@@ -116,6 +116,7 @@ function About(props: SectionProps<typeof initialValues>) {
           isCheckbox: true,
         })}
         color='primary-700'
+        disabled={props.readonly}
       />
       <Input
         {...applyFieldProps({
@@ -136,6 +137,7 @@ function About(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        disabled={props.readonly}
       />
       <Dropdown
         {...applyFieldProps({
@@ -148,6 +150,7 @@ function About(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        disabled={props.readonly}
       />
       <Dropdown
         {...applyFieldProps({
@@ -160,6 +163,7 @@ function About(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        disabled={props.readonly}
       />
         <Dropdown
             {...applyFieldProps({
@@ -172,6 +176,7 @@ function About(props: SectionProps<typeof initialValues>) {
                 value: label,
                 label,
             }))}
+            disabled={props.readonly}
         />
         <Dropdown
             {...applyFieldProps({
@@ -183,6 +188,7 @@ function About(props: SectionProps<typeof initialValues>) {
                 value: label,
                 label,
             }))}
+            disabled={props.readonly}
         />
         <div className={sharedStyles['field--full-width']}>
             <Typography textColor='primary-700' textType='heading3' as='h2'>
@@ -199,6 +205,7 @@ function About(props: SectionProps<typeof initialValues>) {
                 required: true,
             })}
             placeholder='Enter city name'
+            disabled={props.readonly}
         />
 
         <SearchDropdown
@@ -216,6 +223,7 @@ function About(props: SectionProps<typeof initialValues>) {
             onChange={(e) => {
                 props.setFieldValue('province', e.currentTarget.value);
             }}
+            disabled={props.readonly}
         />
         <Dropdown
             {...applyFieldProps({
@@ -246,6 +254,7 @@ function About(props: SectionProps<typeof initialValues>) {
                 required: true,
             })}
             placeholder='Enter emergency contact first name'
+            disabled={props.readonly}
         />
         <Input
             {...applyFieldProps({
@@ -254,6 +263,7 @@ function About(props: SectionProps<typeof initialValues>) {
                 required: true,
             })}
             placeholder='Enter emergency contact last name'
+            disabled={props.readonly}
         />
         <Input
             {...applyFieldProps({
@@ -263,6 +273,7 @@ function About(props: SectionProps<typeof initialValues>) {
             })}
             placeholder='1234567890'
             type='phone'
+            disabled={props.readonly}
         />
         <Dropdown
             {...applyFieldProps({
@@ -293,6 +304,7 @@ function About(props: SectionProps<typeof initialValues>) {
             })}
             limit={200}
             rows={3}
+            disabled={props.readonly}
         />
 
     </ApplicationFormSection>

@@ -64,6 +64,15 @@ function TabContent<T>({
   );
 }
 
+interface BannerProps {
+  message: React.ReactNode
+}
+function Banner({ message }: BannerProps) {
+  return (
+    <InfoBanner className={styles.banner} children={message} type='info'/>
+  )
+}
+
 const tabs: (Omit<Tab, 'element'> & {
   element: ReactElement;
   module?: ApplicationModule;
@@ -122,6 +131,7 @@ type PageState = {
 
 function ApplicationContent() {
   const [inPerson, setInPerson] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
   const { makeRequest: rsvp, isLoading } =
     useRequest<ServerResponse>('/api/action/rsvp');
   const { abort, makeRequest } = useRequest<ServerResponse<string>>(
@@ -244,14 +254,22 @@ function ApplicationContent() {
           toast.success(`Application ${isLast ? 'Submitted' : 'Saved'}!`, {
             id: 'application',
           });
+
+          if (isLast) {
+            setReadOnly(true);
+          }
+
         } else {
           toast.error(res?.message ?? 'Unexpected error submitting application.', {
             id: 'application',
           });
+          setReadOnly(false);
         }
       }, 500);
     },
   });
+
+  const readOnlyBannerMessage = "Your application has been submitted. The HT6 team will review your application soon. Keep an eye on your inbox for your application results! Updates can be made to your teams until July 21 at 11:59PM EST. While you aren’t able to make any more edits, you can still review your submission details below.";
 
   const generatePageStates = (values = formik.values) => {
     const pagesIsValid = tabs.map(
@@ -629,7 +647,8 @@ function ApplicationContent() {
 
   return (
     <main>
-      <form onSubmit={formik?.handleSubmit} className={styles.root} noValidate>
+      {readOnly && <Banner message={readOnlyBannerMessage} />}
+      <form onSubmit={ readOnly? undefined : formik?.handleSubmit} className={styles.root} noValidate>
         {/*<HeadingSection*/}
         {/*  title='Hacker Application'*/}
         {/*  description={`Applications close on ${formattedApplicationEndDate.date} at ${formattedApplicationEndDate.time}.*/}

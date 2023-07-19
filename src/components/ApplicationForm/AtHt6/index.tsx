@@ -52,7 +52,7 @@ export const validate = yup.lazy((value) =>
   )
 ) as any;
 
-function AtHt6(props: SectionProps<typeof initialValues>) {
+function AtHt6(props: SectionProps<typeof initialValues> & { readonly? : boolean }) {
   const { applyFieldProps } = useFormikHelpers<typeof initialValues>(props);
   const { enums } = useApplicationData();
 
@@ -70,6 +70,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
         status={status}
         name='interest'
         required
+        disabled={props.readonly}
       >
         <div className={styles.workshops}>
           {enums.requestedWorkshops.map((workshop, key) => (
@@ -146,6 +147,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
         })}
         limit={200}
         rows={5}
+        disabled={props.readonly}
       />
       <Textarea
         {...applyFieldProps({
@@ -158,6 +160,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
         })}
         limit={200}
         rows={5}
+        disabled={props.readonly}
       />
       <Checkbox
         {...applyFieldProps({
@@ -182,6 +185,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
           isNextRow: true,
         })}
         color='primary-700'
+        disabled={props.readonly}
       />
       <Checkbox
         {...applyFieldProps({
@@ -193,6 +197,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
           isNextRow: true,
         })}
         color='primary-700'
+        disabled={props.readonly}
       />
       <Checkbox
         {...applyFieldProps({
@@ -229,6 +234,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
           required: true,
         })}
         color='primary-700'
+        disabled={props.readonly}
       />
     </ApplicationFormSection>
   );

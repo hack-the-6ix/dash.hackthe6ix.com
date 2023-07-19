@@ -46,7 +46,7 @@ export const validate = yup.object({
     .required("Project Description can't be blank"),
 });
 
-function Experience(props: SectionProps<typeof initialValues>) {
+function Experience(props: SectionProps<typeof initialValues> & { readonly? : boolean }) {
   const { applyFieldProps } = useFormikHelpers<typeof initialValues>(props);
   const { makeRequest } = useRequest<ServerResponse>('/api/action/updateResume');
   const { enums } = useApplicationData();
@@ -105,6 +105,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
         onChange={(e) => {
           props.setFieldValue('school', e.currentTarget.value);
         }}
+        disabled={props.readonly}
       />
       <Dropdown
         {...applyFieldProps({
@@ -117,6 +118,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        disabled={props.readonly}
       />
       <Dropdown
         {...applyFieldProps({
@@ -129,6 +131,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        disabled={props.readonly}
       />
       <Dropdown
         {...applyFieldProps({
@@ -141,6 +144,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        disabled={props.readonly}
       />
       <FileUpload
         {...applyFieldProps({
@@ -155,6 +159,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
         onChange={(e) => {
           props.setFieldValue('resume', e.currentTarget.files);
         }}
+        disabled={props.readonly}
       />
       <Checkbox
         {...applyFieldProps({
@@ -166,6 +171,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           isNextRow: true,
         })}
         color='primary-700'
+        disabled={props.readonly}
       />
       <Input
         {...applyFieldProps({
@@ -174,6 +180,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
         })}
         placeholder='Ex. https://github.com/fpunny'
         type='url'
+        disabled={props.readonly}
       />
       <Input
         {...applyFieldProps({
@@ -183,6 +190,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
         })}
         placeholder='Ex. https://fpunny.xyz'
         type='url'
+        disabled={props.readonly}
       />
       <Input
         {...applyFieldProps({
@@ -192,6 +200,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
         })}
         placeholder='Ex. https://linkedin.com/fpunny'
         type='url'
+        disabled={props.readonly}
       />
       <Textarea
         {...applyFieldProps({
@@ -205,6 +214,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
         })}
         limit={200}
         rows={5}
+        disabled={props.readonly}
       />
     </ApplicationFormSection>
   );
