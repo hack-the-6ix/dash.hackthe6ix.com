@@ -66,10 +66,13 @@ function InitScreen({ onNext }: TeamFormationProps) {
     return null;
   }
 
+  const firstName = authCtx.user.firstName;
+
   return (
     <>
+      {/* TODO: Heading 4 to be increased in size. */}
       <Typography textColor='neutral-400' textType='heading4' as='h4'>
-        Hi {/* TODO: Get hacker name */} ! 
+        Hi {firstName}! 
       </Typography>
       <Typography textColor='neutral-50' textType='heading2' as='h2'>
         You are currently a solo hacker.
