@@ -65,6 +65,23 @@
   margin-top: 1.5rem;
 }
 
+.continueSoloBtn {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.continueSoloBtn Button {
+  text-decoration: underline;
+  background: none;
+  @include mixins.transition(color);
+  color: colors.getColor(neutral-400);
+
+  &:hover {
+    background: none;
+  }
+}
+
 .dateHighlight {
   @include mixins.transition(color);
   color: colors.getColor(warning-400);

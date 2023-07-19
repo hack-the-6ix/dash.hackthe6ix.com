@@ -42,7 +42,7 @@ const TeamContext = createContext<{
   setShowJoin: () => {},
 });
 
-function InitScreen() {
+function InitScreen({ onNext }: TeamFormationProps) {
   const { setShowJoin, setTeam } = useContext(TeamContext);
   const { teamFormationEndDate } = useConfig();
   const authCtx = useAuth();
@@ -69,7 +69,7 @@ function InitScreen() {
   return (
     <>
       <Typography textColor='neutral-400' textType='heading4' as='h4'>
-        Hi {/* TODO: Get hacker name */}! 
+        Hi {/* TODO: Get hacker name */} ! 
       </Typography>
       <Typography textColor='neutral-50' textType='heading2' as='h2'>
         You are currently a solo hacker.
@@ -101,17 +101,14 @@ function InitScreen() {
         >
           Create a team
         </Button>
-        <Link
-          className={styles.link} 
-          textColor='neutral-400'
-          textType={'paragraph1'}
-          underline
-          // TODO: Override text color?
-          // TODO: Add onClick to redirect to About Section
-          type='button'
-        >
-          Continue solo →
-        </Link>
+        <ApplicationFooter
+          className={styles.continueSoloBtn}
+          rightAction={{
+            ...onNext,
+            children: 'Continue solo →',
+            disabled: isLoading,
+          }}
+      />
       </div>
     </>
   );
@@ -308,7 +305,7 @@ function TeamFormation({ onNext }: TeamFormationProps) {
           ) : showJoin ? (
             <JoinScreen />
           ) : (
-            <InitScreen />
+            <InitScreen onNext={onNext} />
           )}
         </div>
       )}
