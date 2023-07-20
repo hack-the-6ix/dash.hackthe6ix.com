@@ -1,4 +1,4 @@
-import { Button, Input, Typography, Link } from '@ht6/react-ui';
+import { Button, Input, Typography } from '@ht6/react-ui';
 import cx from 'classnames';
 import {
   Dispatch,
@@ -130,9 +130,56 @@ function TeamScreen({ onNext }: TeamFormationProps) {
 
   const isOwner = team?.memberNames[0] === authCtx.user.fullName;
 
+  const [leaveModal, setLeaveModal] = useState(false);
+
+  const toggleLeaveModal = () => {
+    setLeaveModal(!leaveModal);
+  };
+
+  // TODO: Override Layout Root styles to create background overlay
+  // Change classes that apply to the Root to make the background overlay style
+  // if(leaveModal) {
+  //   document.body.classList.add('active-modal')
+  // } else {
+  //   document.body.classList.remove('active-modal')
+  // }
+
   return (
     <>
       <div className={styles.teamScreenContainer}>
+        {leaveModal && (
+          <div 
+            className={styles.leaveTeamContainer}
+          >
+            <Typography textColor='warning-400' textType='heading4' as='h4'>
+              Leave the team?
+            </Typography>
+            <Typography textColor='neutral-50' textType='heading6' as='h6'>
+              This action cannot be undone.
+            </Typography>
+            <div className={styles.leaveTeamButtonContainer}>
+              <Button
+                disabled={isLoading}
+                onClick={toggleLeaveModal}
+                type='button'
+                buttonVariant='secondary'
+              >
+                Cancel
+              </Button>
+              <Button
+                disabled={isLoading}
+                onClick={async () => {
+                  const res = await leaveTeam({ method: 'POST' });
+                  if (res?.status !== 200) return;
+                  setTeam(null);
+                }}
+                type='button'
+              >
+                Leave team
+              </Button>
+            </div>
+          </div>
+        )}
         <Typography textColor='neutral-50' textType='heading2' as='h2'>
           {isOwner ? 'Your team has been created!' : 'You have joined a team!'}
         </Typography>
@@ -182,11 +229,7 @@ function TeamScreen({ onNext }: TeamFormationProps) {
         leftAction={{
           children: 'Leave team',
           disabled: isLoading,
-          onClick: async () => {
-            const res = await leaveTeam({ method: 'POST' });
-            if (res?.status !== 200) return;
-            setTeam(null);
-          },
+          onClick: toggleLeaveModal,
         }}
         rightAction={{
           ...onNext,
