@@ -269,7 +269,7 @@ function ApplicationContent() {
     },
   });
 
-  const readOnlyBannerMessage = "Your application has been submitted. The HT6 team will review your application soon. Keep an eye on your inbox for your application results! Updates can be made to your teams until July 21 at 11:59PM EST. While you aren’t able to make any more edits, you can still review your submission details below.";
+  //const readOnlyBannerMessage = "Your application has been submitted. The HT6 team will review your application soon. Keep an eye on your inbox for your application results! Updates can be made to your teams until July 21 at 11:59PM EST. While you aren’t able to make any more edits, you can still review your submission details below.";
 
   const generatePageStates = (values = formik.values) => {
     const pagesIsValid = tabs.map(
@@ -647,7 +647,7 @@ function ApplicationContent() {
 
   return (
     <main>
-      {readOnly && <Banner message={readOnlyBannerMessage} />}
+      {/* {readOnly && <Banner message={readOnlyBannerMessage} />} */}
       <form onSubmit={ readOnly? undefined : formik?.handleSubmit} className={styles.root} noValidate>
         {/*<HeadingSection*/}
         {/*  title='Hacker Application'*/}

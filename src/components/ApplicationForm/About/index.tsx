@@ -63,12 +63,40 @@ export const validate = yup.lazy((values) => {
   });
 }) as any;
 
+const AnonymousDiv = () => {
+  return (
+    <div
+      style={{
+        backgroundColor: 'lightgreen',
+        color: 'darkgreen',
+        textAlign: 'left',
+        padding: '10px',
+        borderRadius: '5px',
+      }}
+    >
+      <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
+        Your application has been submitted.
+      </span>
+      <span style={{ fontSize: '16px' }}>
+        The HT6 team will review your application soon. Keep an eye on your
+        inbox for your application results! Updates can be made to your teams
+        until July 21 at 11:59PM EST. While you aren’t able to make any more
+        edits, you can still review your submission details below.
+      </span>
+    </div>
+  );
+};
+
+//const readOnlyBannerMessage = "Your application has been submitted. The HT6 team will review your application soon. Keep an eye on your inbox for your application results! Updates can be made to your teams until July 21 at 11:59PM EST. While you aren’t able to make any more edits, you can still review your submission details below.";
+
 function About(props: SectionProps<typeof initialValues> & { readonly? : boolean }) {
   const { applyFieldProps } = useFormikHelpers<typeof initialValues>(props);
   const { enums } = useApplicationData();
 
   return (
+    <>
     <ApplicationFormSection>
+      {props.readonly && <AnonymousDiv />}
       <Input
         {...applyFieldProps({
           name: 'firstName',
@@ -308,6 +336,7 @@ function About(props: SectionProps<typeof initialValues> & { readonly? : boolean
         />
 
     </ApplicationFormSection>
+    </>
   );
 }
 
