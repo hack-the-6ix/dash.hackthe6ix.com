@@ -46,16 +46,16 @@
 
 .link {
   @include mixins.transition(color);
-  color: colors.getColor(primary-500);
+  color: colors.getColor(warning-400);
   text-decoration: none;
 
   &:hover,
   &:focus {
-    color: colors.getColor(primary-500, hover);
+    color: colors.getColor(warning-400, hover);
   }
 
   &:active {
-    color: colors.getColor(primary-500, active);
+    color: colors.getColor(warning-400, active);
   }
 }
 
@@ -173,4 +173,27 @@
             color: colors.getColor(shades-100);
         }
     }
+    span{
+      color: colors.getColor(shades-0);
+    }
+}
+
+.fileUpload{
+  > div{
+    background-color: colors.getColor(neutral-400, null, 0.18);
+    color: colors.getColor(shades-0);
+    &:hover{
+      background-color: colors.getColor(shades-0);
+      color: colors.getColor(shades-100);
+      p {
+        color: colors.getColor(shades-100);
+      }
+    }
+    p {
+      color: colors.getColor(shades-0);
+      span{
+        color: colors.getColor(warning-400);
+      }
+    }
+  }
 }

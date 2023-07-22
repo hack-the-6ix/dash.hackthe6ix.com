@@ -1,5 +1,13 @@
 @use '../../../styles/mixins.module';
 
+.workshopInput{
+  label{
+    margin-left: 0;
+    line-height: 1.75rem;
+    font-size: 1.125rem;
+  }
+}
+
 .workshops {
   display: grid;
   grid-template-columns: 1fr 1fr;

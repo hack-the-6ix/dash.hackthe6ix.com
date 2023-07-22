@@ -5,6 +5,7 @@ import {
   Input,
   SearchDropdown,
   Textarea,
+  Typography,
 } from '@ht6/react-ui';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
@@ -12,9 +13,11 @@ import stringSimilarity from 'string-similarity';
 import * as yup from 'yup';
 
 import { useApplicationData } from '..';
-import {ServerResponse, useRequest} from '../../../utils/useRequest';
+import { ServerResponse, useRequest } from '../../../utils/useRequest';
 import ApplicationFormSection from '../../ApplicationFormSection';
 import { SectionProps, useFormikHelpers } from '../helpers';
+
+import sharedStyles from '../ApplicationForm.module.scss';
 
 export const initialValues = {
   school: '',
@@ -48,7 +51,9 @@ export const validate = yup.object({
 
 function Experience(props: SectionProps<typeof initialValues>) {
   const { applyFieldProps } = useFormikHelpers<typeof initialValues>(props);
-  const { makeRequest } = useRequest<ServerResponse>('/api/action/updateResume');
+  const { makeRequest } = useRequest<ServerResponse>(
+    '/api/action/updateResume'
+  );
   const { enums } = useApplicationData();
 
   useEffect(() => {
@@ -67,20 +72,19 @@ function Experience(props: SectionProps<typeof initialValues>) {
       });
       const responseStatus = res?.status ?? 500;
 
-      if(responseStatus > 399) {
-          if(responseStatus === 403) {
-              toast.error(res?.message, { id: 'experience-resume' });
-          }
-          else {
-              toast.error('Unexpected error uploading resume.', { id: 'experience-resume' });
-          }
+      if (responseStatus > 399) {
+        if (responseStatus === 403) {
+          toast.error(res?.message, { id: 'experience-resume' });
+        } else {
+          toast.error('Unexpected error uploading resume.', {
+            id: 'experience-resume',
+          });
+        }
 
-          props.setFieldValue('resume', '');
+        props.setFieldValue('resume', '');
+      } else {
+        toast.success('Resume Uploaded', { id: 'experience-resume' });
       }
-      else {
-          toast.success('Resume Uploaded', { id: 'experience-resume' });
-      }
-
     })();
   }, [makeRequest, props.values.resume]);
 
@@ -90,12 +94,18 @@ function Experience(props: SectionProps<typeof initialValues>) {
 
   return (
     <ApplicationFormSection>
+      <div className={sharedStyles['field--full-width']}>
+        <Typography textColor='warning-400' textType='heading3' as='h3'>
+          Your Experiences
+        </Typography>
+      </div>
       <SearchDropdown
         {...applyFieldProps({
           name: 'school',
           label: 'Your School (Most Recently Attended)',
           omitOutline: true,
           required: true,
+          className: `${sharedStyles.searchDropdown}`,
         })}
         placeholder='Select an option'
         options={schoolSubset.slice(0, 10).map((school) => ({
@@ -112,6 +122,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           label: 'Your Program of Study',
           omitOutline: true,
           required: true,
+          className: `${sharedStyles.dropdown}`,
         })}
         options={enums.programOfStudy.map((label) => ({
           value: label,
@@ -124,6 +135,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           label: 'Level of Study',
           omitOutline: true,
           required: true,
+          className: `${sharedStyles.dropdown}`,
         })}
         options={enums.levelOfStudy.map((label) => ({
           value: label,
@@ -136,6 +148,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           label: 'Number of Hacakthons Attended',
           omitOutline: true,
           required: true,
+          className: `${sharedStyles.dropdown}`,
         })}
         options={enums.hackathonsAttended.map((label) => ({
           value: label,
@@ -149,6 +162,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           omitOutline: true,
           required: true,
           isFullWidth: true,
+          className: `${sharedStyles.fileUpload}`,
         })}
         accept={['application/pdf']}
         value={props.values.resume}
@@ -165,12 +179,13 @@ function Experience(props: SectionProps<typeof initialValues>) {
           isFullWidth: true,
           isNextRow: true,
         })}
-        color='primary-700'
+        color='shades-0'
       />
       <Input
         {...applyFieldProps({
           name: 'github',
           label: 'Github Link',
+          className: `${sharedStyles.field}`,
         })}
         placeholder='Ex. https://github.com/fpunny'
         type='url'
@@ -180,6 +195,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           name: 'portfolio',
           label: 'Personal Website or Portfolio',
           isNextRow: true,
+          className: `${sharedStyles.field}`,
         })}
         placeholder='Ex. https://fpunny.xyz'
         type='url'
@@ -189,6 +205,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           name: 'linkedin',
           label: 'LinkedIn',
           isNextRow: true,
+          className: `${sharedStyles.field}`,
         })}
         placeholder='Ex. https://linkedin.com/fpunny'
         type='url'
@@ -202,6 +219,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           isNextRow: true,
           isFullWidth: true,
           required: true,
+          className: `${sharedStyles.textarea}`,
         })}
         limit={200}
         rows={5}
