@@ -13,12 +13,13 @@ function Protected({ children, redirect, fallback = null }: ProtectedProps) {
   const { makeRequest } = useRequest<ServerResponse<{ url: string }>>(
     `/auth/${process.env.REACT_APP_API_AUTH_PROVIDER}/login`
   );
-  const { isAuthenticated, isReady } = useAuth();
+  const authCtx = useAuth();
+  const { isAuthenticated, isReady } = authCtx;
   const location = useLocation();
 
   useEffect(() => {
     // If auth already updating or is authenticated. Then ignore
-    if (isAuthenticated || !isReady) return;
+    if (isAuthenticated || !isReady || (!authCtx.isAuthenticated && !authCtx.isAuthenticating && !authCtx.isRefreshing && authCtx.isLogout)) return;
 
     makeRequest({
       method: 'POST',

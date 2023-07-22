@@ -38,6 +38,7 @@ export default function AuthenticationProvider({
         isAuthenticating: false,
         isAuthenticated: false,
         isRefreshing: false,
+        isLogout: false
       };
     }
   });
@@ -51,8 +52,10 @@ export default function AuthenticationProvider({
       abortRequest('authentication__profile');
     }
 
+    let redirectUrl = "https://hackthe6ix.com"
+
     if (_state.current.isAuthenticated) {
-      await request(
+      const logoutResponse = await request(
         `/auth/${process.env.REACT_APP_API_AUTH_PROVIDER}/logout`,
         {
           method: 'POST',
@@ -65,6 +68,16 @@ export default function AuthenticationProvider({
         },
         'authentication__logout'
       );
+
+      try {
+        const potentialRedirectUrl = (await logoutResponse.json())?.message?.logoutRedirectUrl;
+        if(potentialRedirectUrl) {
+          redirectUrl = potentialRedirectUrl;
+        }
+      }
+      catch(e) {
+        // pass
+      }
     }
 
     TokenController.clear();
@@ -72,7 +85,10 @@ export default function AuthenticationProvider({
       isAuthenticating: false,
       isAuthenticated: false,
       isRefreshing: false,
+      isLogout: true
     });
+
+    window.location.href = redirectUrl;
   }, []);
 
   const refreshAuth = useCallback(async () => {
