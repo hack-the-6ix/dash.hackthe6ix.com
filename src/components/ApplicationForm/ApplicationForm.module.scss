@@ -58,3 +58,119 @@
     color: colors.getColor(primary-500, active);
   }
 }
+
+.field{
+    label:has(+ input:disabled){
+        opacity: 0.3799999952316284;
+    }
+    input{
+        border: none;
+        background-color: colors.getColor(neutral-400, null, 0.18);
+        color: colors.getColor(neutral-400);
+        &:disabled{
+            background-color: colors.getColor(neutral-50, null, 0.08);
+            color: colors.getColor(neutral-50, null, 0.38);
+        }
+        &:focus{
+            color: colors.getColor(shades-100);
+        }
+    }
+}
+
+.dropdown{
+    select ~ div{
+        border: none;
+        > button{
+            position: absolute;
+            border-radius: 4rem;
+            background-color: colors.getColor(neutral-400, null, 0.18);
+            color: colors.getColor(neutral-400, null, 0.7);
+            > svg{
+                color: colors.getColor(neutral-200);
+            }
+            &:focus{
+                background-color: colors.getColor(shades-0);
+                span{
+                    color: colors.getColor(shades-100);
+                }
+            }
+        }
+        ul{
+            border-radius: 1.5rem;
+            background-color: colors.getColor(shades-0, null);
+            color: colors.getColor(shades-100);
+            &::before{
+                content: "";
+                display: block;
+                height: 3rem;
+                width: 100%;
+            }
+        }
+        span, button{
+            font-size: 0.875rem;
+            letter-spacing: .0109375rem;
+            font-weight: 400;
+            line-height: 1.5rem;
+        }
+        button{
+            padding: 0.75rem;
+        }
+    }
+}
+
+.searchDropdown{
+    > div{
+        height: 3rem;
+    }
+    div {
+        border: none;
+        input {
+            position: absolute;
+            border: none;
+            border-radius: 4rem;
+            background-color: colors.getColor(neutral-400, null, 0.18);
+            color: colors.getColor(neutral-400, null, 0.7);
+            padding: 0.75rem;
+            &:focus{
+                background-color: colors.getColor(shades-0);
+                color: colors.getColor(shades-100);
+            }
+        }
+        input ~ svg{
+            margin-top: 1rem;
+            color: colors.getColor(neutral-200);
+        }
+        ul{
+            border-radius: 1.5rem;
+            background-color: colors.getColor(shades-0, null);
+            color: colors.getColor(shades-100);
+            &::before{
+                content: "";
+                display: block;
+                height: 3rem;
+                width: 100%;
+            }
+        }
+        input, button{
+            font-size: 0.875rem;
+            letter-spacing: .0109375rem;
+            font-weight: 400;
+            line-height: 1.5rem;
+        }
+    }
+}
+
+.textarea{
+    margin-top: -1rem;
+    textarea{
+        border: none;
+        border-radius: 1.25rem;
+        background-color: colors.getColor(neutral-50, null, 0.18);
+
+        color: colors.getColor(neutral-50);
+
+        &:focus{
+            color: colors.getColor(shades-100);
+        }
+    }
+}
