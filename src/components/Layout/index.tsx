@@ -4,8 +4,6 @@ import { Typography } from '@ht6/react-ui/dist/esm';
 import {HTMLAttributes, useState} from 'react';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { useConfig } from '../Configuration/context';
-import Highlight from '../Highlight';
 import Section from '../Section';
 
 import styles from './Layout.module.scss';
@@ -16,22 +14,7 @@ import useAuth from "../Authentication/context";
 export interface LayoutProps extends HTMLAttributes<HTMLDivElement> {}
 
 function Layout({ children }: LayoutProps) {
-  const { startDate, endDate } = useConfig();
   const [navOpen, setNavOpen] = useState<boolean>(false);
-  // const formatStart = new Intl.DateTimeFormat('en', {
-  //   month: 'short',
-  //   day: 'numeric',
-  //   timeZone: 'est',
-  // });
-  // const formatEnd = new Intl.DateTimeFormat('en', {
-  //   day: 'numeric',
-  //   timeZone: 'est',
-  //   ...(startDate.getMonth() !== endDate.getMonth()
-  //     ? {
-  //         month: 'short',
-  //       }
-  //     : {}),
-  // });
 
   const authCtx = useAuth();
   const navigationManager = useNavigationManager();
@@ -85,13 +68,6 @@ function Layout({ children }: LayoutProps) {
                               {authCtx.isAuthenticated && authCtx.user.status.applied ? "Submitted" : "Not Submitted"}
                           </Typography>
                           </Typography>
-                          {/*<Typography*/}
-                          {/*    textType={"heading4"}*/}
-                          {/*    as={"h4"}*/}
-                          {/*    textColor={authCtx.isAuthenticated && authCtx.user.status.applied ? "success" : "error-500"}*/}
-                          {/*>*/}
-                          {/*    */}
-                          {/*</Typography>*/}
                       </div>
                       <div className={cx(styles.navBottomInfoContainer)}>
                           <Typography
