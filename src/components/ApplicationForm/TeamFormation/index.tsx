@@ -70,8 +70,7 @@ function InitScreen({ onNext }: TeamFormationProps) {
 
   return (
     <>
-      {/* TODO: Heading 4 to be increased in size. */}
-      <Typography textColor='neutral-400' textType='heading4' as='h4'>
+      <Typography textColor='neutral-400' textType='heading3' as='h3'>
         Hi {firstName}! 
       </Typography>
       <Typography textColor='neutral-50' textType='heading2' as='h2'>
@@ -123,14 +122,13 @@ function TeamScreen({ onNext }: TeamFormationProps) {
     ServerResponse<string>
   >('/api/action/leaveTeam');
   const authCtx = useAuth();
+  const [leaveModal, setLeaveModal] = useState(false);
 
   if (!authCtx.isAuthenticated) {
     return null;
   }
 
   const isOwner = team?.memberNames[0] === authCtx.user.fullName;
-
-  const [leaveModal, setLeaveModal] = useState(false);
 
   const toggleLeaveModal = () => {
     setLeaveModal(!leaveModal);
@@ -147,39 +145,6 @@ function TeamScreen({ onNext }: TeamFormationProps) {
   return (
     <>
       <div className={styles.teamScreenContainer}>
-        {leaveModal && (
-          <div 
-            className={styles.leaveTeamContainer}
-          >
-            <Typography textColor='warning-400' textType='heading4' as='h4'>
-              Leave the team?
-            </Typography>
-            <Typography textColor='neutral-50' textType='heading6' as='h6'>
-              This action cannot be undone.
-            </Typography>
-            <div className={styles.leaveTeamButtonContainer}>
-              <Button
-                disabled={isLoading}
-                onClick={toggleLeaveModal}
-                type='button'
-                buttonVariant='secondary'
-              >
-                Cancel
-              </Button>
-              <Button
-                disabled={isLoading}
-                onClick={async () => {
-                  const res = await leaveTeam({ method: 'POST' });
-                  if (res?.status !== 200) return;
-                  setTeam(null);
-                }}
-                type='button'
-              >
-                Leave team
-              </Button>
-            </div>
-          </div>
-        )}
         <Typography textColor='neutral-50' textType='heading2' as='h2'>
           {isOwner ? 'Your team has been created!' : 'You have joined a team!'}
         </Typography>
@@ -229,7 +194,11 @@ function TeamScreen({ onNext }: TeamFormationProps) {
         leftAction={{
           children: 'Leave team',
           disabled: isLoading,
-          onClick: toggleLeaveModal,
+          onClick: async () => { // TODO: hook this into a confirmation modal
+              const res = await leaveTeam({ method: 'POST' });
+              if (res?.status !== 200) return;
+              setTeam(null);
+          },
         }}
         rightAction={{
           ...onNext,
@@ -296,7 +265,6 @@ function JoinScreen() {
           </Button>
         </div>
       </div>
-      {/* TODO: Add left arrow to Back button */}
       <ApplicationFooter
         className={styles.footer}
         leftAction={{

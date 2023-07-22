@@ -78,7 +78,7 @@
   color: colors.getColor(neutral-400);
 
   &:hover {
-    background: none;
+    background: none !important;
   }
 }
 
