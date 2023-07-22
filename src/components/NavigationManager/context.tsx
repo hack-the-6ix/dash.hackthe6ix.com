@@ -8,18 +8,25 @@ export interface NavigationManagerEntry {
 
 export type NavigationManagerHandler = (entry: NavigationManagerEntry) => void;
 
+export type NavBottomMode = "ApplicationStatus" | "EventInfo" | "None";
+
 export interface NavigationManagerContext {
-    takeoverNavigation: (newOwner: string, entries: NavigationManagerEntry[], handler: NavigationManagerHandler) => boolean,
+    takeoverNavigation: (newOwner: string, bottomMode: NavBottomMode, entries: NavigationManagerEntry[], handler: NavigationManagerHandler) => boolean,
     navigationEntries: NavigationManagerEntry[],
     owner: string,
     onNavigation?: React.MutableRefObject<NavigationManagerHandler>,
+    activeEntry: number,
+    setActiveEntry: (newEntry: number) => void | ((oldEntry: number) => number),
+    navBottomMode: string
 }
-
 
 export const NavigationManagerContext = createContext<NavigationManagerContext>({
     takeoverNavigation: () => false,
     navigationEntries: [],
-    owner: ""
+    owner: "",
+    setActiveEntry: () => {},
+    activeEntry: 0,
+    navBottomMode: "None"
 });
 
 export function useNavigationManager() {

@@ -61,6 +61,7 @@ export type UnAuthenticatedAuthContext = {
     }
   | {
       isAuthenticating: false;
+      isLogout: boolean;
     }
 );
 
@@ -85,6 +86,7 @@ export const AuthenticationContext = createContext<AuthContext>({
   isAuthenticated: false,
   isRefreshing: false,
   isReady: true,
+  isLogout: false
 });
 
 export function useAuth() {

@@ -1,48 +1,162 @@
 @use '../../styles/colors.module' as localColors;
 @use '../../styles/mixins.module' as localMixins;
+@use '@ht6/react-ui/dist/styles/_colors.module';
 
 .root {
-  //background-image: url('../../assets/backdrop.png');
-  //background-attachment: fixed;
-  //background-repeat: no-repeat;
-  //background-size: cover;
   background-color: #06162F;
   min-height: 100vh;
+  min-height: 100dvh;
+  max-height: 100vh;
   display: flex;
-
+  @include localMixins.media(mobile) {
+    flex-direction: column;
+  }
 }
 
 .nav {
-  //position: absolute;
+  position: relative;
   top: 0;
   bottom: 0;
   left: 0;
   min-width: 10vw;
-  flex-basis: 15vw;
+  flex-basis: 20vw;
+  flex-shrink: 0;
   z-index: 100;
-  background-color: localColors.$bg-light;
+  background-color: localColors.$nav-bg;
   padding-bottom: 0.75rem;
   padding-top: 0.75rem;
+  border-right: thin white solid;
+
+  display: flex;
+
+  @include localMixins.media(laptop) {
+    flex-basis: 25vw;
+  }
+
+  @include localMixins.media(tablet) {
+    flex-basis: 30vw;
+  }
+
+  @include localMixins.media(mobile) {
+    flex-basis: unset;
+    border: none;
+  }
+
+  transition: flex-grow 250ms ease;
+}
+
+.mobileNavOpenGrow {
+  @include localMixins.media(mobile) {
+    flex-grow: 1;
+  }
 }
 
 .content {
-  //justify-content: space-between;
-  //align-items: center;
-  //display: flex;
-  //
-  //@include localMixins.media(tablet) {
-  //  flex-direction: column;
-  //}
+  color: white;
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
 }
 
-.logo {
-  grid-template-columns: 1.5rem auto;
-  text-transform: uppercase;
+.top {
+  display: flex;
   align-items: center;
-  padding-right: 1rem;
-  grid-gap: 1rem;
-  display: grid;
+  justify-content: center;
+  margin-top: 2rem;
+
+  @include localMixins.media(mobile) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }
+
+.navLogoWrapper {
+  display: flex;
+  align-items: center;
+
+  @include localMixins.media(mobile) {
+    margin-right: auto;
+  }
+}
+
+.navMobileStatus {
+  display: none;
+  margin-left: 1.5rem;
+
+  @include localMixins.media(mobile) {
+    display: inline-block;
+  }
+}
+
+.navMobileControl {
+  font-size: 2rem;
+  padding: 1rem;
+  display: none;
+
+  @include localMixins.media(mobile) {
+    display: block;
+  }
+}
+
+.navBtnContainer {
+  margin-top: 2rem;
+
+  @include localMixins.media(mobile) {
+    display: none;
+  }
+}
+
+.mobileNavOpenDisplay {
+  @include localMixins.media(mobile) {
+    display: block !important;
+  }
+}
+
+.mobileNavOpenHidden {
+  @include localMixins.media(mobile) {
+    display: none !important;
+  }
+}
+
+.navBtn {
+  width: 100%;
+  justify-content: left;
+}
+
+.selectedNavBtn {
+  background-color: colors.getColor(primary-200, $alpha: 0.18);
+}
+
+.navBottomContainer {
+  margin-bottom: 1rem;
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+
+  @include localMixins.media(mobile) {
+    display: none;
+  }
+}
+
+.navBottomContent {
+  @include localMixins.media(mobile) {
+    display: none;
+  }
+}
+
+.navBottomInfoContainer {
+  margin-bottom: 2rem;
+
+  @include localMixins.media(mobile) {
+    margin-bottom: 0;
+  }
+}
+
+.logoutBtn {
+  width: 100%;
+}
+
 
 .appContainer {
   overflow-y: scroll;

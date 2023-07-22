@@ -290,11 +290,12 @@ function ApplicationContent() {
     setPageStates(generatePageStates());
 
     navigate(`${location.pathname}#${tab.id}`, { replace: true });
+    navigationManager.setActiveEntry(idx);
     setSelected(idx);
   };
 
   useEffect(() => {
-    navigationManager.takeoverNavigation("application", [{
+    navigationManager.takeoverNavigation("application", "ApplicationStatus", [{
       id: "team-formation",
       text: "1. Team Formation",
       data: 0
