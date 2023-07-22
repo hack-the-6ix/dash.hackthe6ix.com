@@ -4,13 +4,16 @@
 @use '../../../styles/vars.module';
 
 .field{
+    label:has(+ input:disabled){
+        opacity: 0.3799999952316284;
+    }
     input{
         border: none;
         background-color: colors.getColor(neutral-400, null, 0.18);
         color: colors.getColor(neutral-400);
         &:disabled{
             background-color: colors.getColor(neutral-50, null, 0.08);
-            color: colors.getColor(neutral-50);
+            color: colors.getColor(neutral-50, null, 0.38);
         }
         &:focus{
             color: colors.getColor(shades-100);
