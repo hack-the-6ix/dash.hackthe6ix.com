@@ -49,6 +49,9 @@
 }
 
 .searchDropdown{
+    > div{
+        height: 3rem;
+    }
     div {
         border: none;
         input {
@@ -69,6 +72,21 @@
             letter-spacing: .0109375rem;
             font-weight: 400;
             line-height: 1.5rem;
+        }
+    }
+}
+
+.textarea{
+    margin-top: -1rem;
+    textarea{
+        border: none;
+        border-radius: 1.25rem;
+        background-color: colors.getColor(neutral-50, null, 0.18);
+
+        color: colors.getColor(neutral-50);
+
+        &:focus{
+            color: colors.getColor(shades-100);
         }
     }
 }

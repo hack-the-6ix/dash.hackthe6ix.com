@@ -222,10 +222,10 @@ function About(props: SectionProps<typeof initialValues>) {
         }))}
       />
       <div className={sharedStyles['field--full-width']}>
-        <Typography textColor='primary-700' textType='heading3' as='h2'>
+        <Typography textColor='warning-400' textType='heading3' as='h2'>
           Your Location
         </Typography>
-        <Typography textColor='copy-dark' textType='paragraph1' as='p'>
+        <Typography textColor='neutral-50' textType='paragraph1' as='p'>
           If you are travelling far from the Toronto area, you may be eligible
           to apply for a travel reimbursement. We'll reach out with more details
           if that's the case.
@@ -273,10 +273,10 @@ function About(props: SectionProps<typeof initialValues>) {
         }))}
       />
       <div className={sharedStyles['field--full-width']}>
-        <Typography textColor='primary-700' textType='heading3' as='h2'>
+        <Typography textColor='warning-400' textType='heading3' as='h2'>
           Emergency Contact
         </Typography>
-        <Typography textColor='copy-dark' textType='paragraph1' as='p'>
+        <Typography textColor='neutral-50' textType='paragraph1' as='p'>
           Your safety is our priority. In the case of an emergency, the person
           below will be contacted. We respect your privacy and guarantee that
           this information will only be accessed by authorized personnel on an
@@ -326,18 +326,22 @@ function About(props: SectionProps<typeof initialValues>) {
         }))}
       />
       <div className={sharedStyles['field--full-width']}>
-        <Typography textColor='primary-700' textType='heading3' as='h2'>
+        <Typography textColor='warning-400' textType='heading3' as='h2'>
           Additional Information
+        </Typography>
+        <Typography textColor='neutral-50' textType='paragraph1' as='p'>
+          Please list all additional allergies/dietary restrictions or any other
+          information we may need to accommodate you.
         </Typography>
       </div>
       <Textarea
         {...applyFieldProps({
           name: 'healthWarnings',
-          label:
-            'Please list all additional allergies/dietary restrictions or any other information we may need to accommodate you.',
+          label: '',
           omitOutline: true,
           isNextRow: true,
           isFullWidth: true,
+          className: `${styles.textarea}`,
         })}
         limit={200}
         rows={3}
