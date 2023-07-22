@@ -100,8 +100,8 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'firstName',
           label: 'First Name',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='Enter first name'
         disabled
       />
@@ -110,8 +110,8 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'lastName',
           label: 'Last Name',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='Enter last name'
         disabled
       />
@@ -120,8 +120,8 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'email',
           label: 'Email',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='name@gmail.com'
         type='email'
         disabled
@@ -131,8 +131,8 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'phone',
           label: 'Phone Number',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='1234567890'
         type='phone'
       />
@@ -144,16 +144,17 @@ function About(props: SectionProps<typeof initialValues>) {
           omitOutline: true,
           isFullWidth: true,
           isCheckbox: true,
+          className: `${styles.checkbox}`,
         })}
-        color='primary-700'
+        color='neutral-50'
       />
       <Input
         {...applyFieldProps({
           name: 'age',
           label: 'Age',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='Your age'
       />
       <Dropdown
@@ -162,6 +163,7 @@ function About(props: SectionProps<typeof initialValues>) {
           label: 'Gender',
           omitOutline: true,
           required: true,
+          className: `${styles.dropdown}`,
         })}
         options={enums.gender.map((label) => ({
           value: label,
@@ -174,6 +176,7 @@ function About(props: SectionProps<typeof initialValues>) {
           label: 'Pronouns',
           omitOutline: true,
           required: true,
+          className: `${styles.dropdown}`,
         })}
         options={enums.pronouns.map((label) => ({
           value: label,
@@ -186,6 +189,7 @@ function About(props: SectionProps<typeof initialValues>) {
           label: 'Ethnicity',
           omitOutline: true,
           required: true,
+          className: `${styles.dropdown}`,
         })}
         options={enums.ethnicity.map((label) => ({
           value: label,
@@ -198,6 +202,7 @@ function About(props: SectionProps<typeof initialValues>) {
           label: 'Shirt Size',
           omitOutline: true,
           required: true,
+          className: `${styles.dropdown}`,
         })}
         options={enums.shirt.map((label) => ({
           value: label,
@@ -209,6 +214,7 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'dietaryRestrictions',
           label: 'Dietary Restrictions',
           omitOutline: true,
+          className: `${styles.dropdown}`,
         })}
         options={enums.dietaryRestrictions.map((label) => ({
           value: label,
@@ -230,8 +236,8 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'city',
           label: 'City',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='Enter city name'
       />
 
@@ -241,6 +247,7 @@ function About(props: SectionProps<typeof initialValues>) {
           label: 'Province / State',
           required: true,
           omitOutline: true,
+          className: `${styles.searchDropdown}`,
         })}
         placeholder='Select an option'
         options={enums.province.map((label) => ({
@@ -257,6 +264,7 @@ function About(props: SectionProps<typeof initialValues>) {
           label: 'Country',
           required: true,
           omitOutline: true,
+          className: `${styles.dropdown}`,
         })}
         disabled={props.readonly}
         options={enums.countries.map((label) => ({
@@ -280,8 +288,8 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'emergencyContact.firstName',
           label: 'First Name',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='Enter emergency contact first name'
       />
       <Input
@@ -289,8 +297,8 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'emergencyContact.lastName',
           label: 'Last Name',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='Enter emergency contact last name'
       />
       <Input
@@ -298,8 +306,8 @@ function About(props: SectionProps<typeof initialValues>) {
           name: 'emergencyContact.phoneNumber',
           label: 'Phone Number',
           required: true,
+          className: `${styles.field}`,
         })}
-        className={styles.field}
         placeholder='1234567890'
         type='phone'
       />
@@ -309,6 +317,7 @@ function About(props: SectionProps<typeof initialValues>) {
           label: 'Relationship',
           required: true,
           omitOutline: true,
+          className: `${styles.dropdown}`,
         })}
         disabled={props.readonly}
         options={enums.emergencyContactRelationship.map((label) => ({

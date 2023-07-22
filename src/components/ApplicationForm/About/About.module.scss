@@ -20,3 +20,55 @@
         }
     }
 }
+
+.dropdown{
+    select ~ div{
+        border: none;
+        > button{
+            border-radius: 4rem;
+            background-color: colors.getColor(neutral-400, null, 0.18);
+            > svg{
+                color: colors.getColor(neutral-200);
+            }
+        }
+        ul{
+            // TODO: Get information about the dropdown menu itself
+            background-color: colors.getColor(neutral-400, null);
+        }
+        span, button{
+            color: colors.getColor(neutral-400, null, 0.7);
+            font-size: 0.875rem;
+            letter-spacing: .0109375rem;
+            font-weight: 400;
+            line-height: 1.5rem;
+        }
+        button{
+            padding: 0.75rem;
+        }
+    }
+}
+
+.searchDropdown{
+    div {
+        border: none;
+        input {
+            border-radius: 4rem;
+            background-color: colors.getColor(neutral-400, null, 0.18);
+            padding: 0.75rem;
+        }
+        input ~ svg{
+            color: colors.getColor(neutral-200);
+        }
+        ul{
+            // TODO: Get information about the dropdown menu itself
+            background-color: colors.getColor(neutral-400, null);
+        }
+        input, button{
+            color: colors.getColor(neutral-400, null, 0.7);
+            font-size: 0.875rem;
+            letter-spacing: .0109375rem;
+            font-weight: 400;
+            line-height: 1.5rem;
+        }
+    }
+}
