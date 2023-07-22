@@ -14,8 +14,8 @@
   }
 }
 
-.action {
-  text-transform: uppercase;
+.action,
+.button {
   & > * {
     text-decoration: none;
   }
