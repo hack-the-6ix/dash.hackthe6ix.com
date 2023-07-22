@@ -90,6 +90,11 @@ function About(props: SectionProps<typeof initialValues>) {
 
   return (
     <ApplicationFormSection>
+      <div className={sharedStyles['field--full-width']}>
+        <Typography textColor='warning-400' textType='heading3' as='h3'>
+          About You
+        </Typography>
+      </div>
       <Input
         {...applyFieldProps({
           name: 'firstName',
