@@ -1,0 +1,48 @@
+@use '~@ht6/react-ui/dist/styles/colors.module';
+@use '~@ht6/react-ui/dist/styles/mixins.module';
+
+.root {
+  grid-template-columns: 2.5rem auto 1rem;
+  box-sizing: border-box;
+  grid-gap: 2.25rem;
+  padding: 2.25rem;
+  display: grid;
+
+  @each $tag in map-keys(colors.$config) {
+    &--c-#{$tag} {
+      border-left: 0.25rem solid colors.getColor($tag);
+      background-color: colors.getColor($tag, $alpha: 0.06);
+      color: colors.getColor($tag);
+    }
+  }
+}
+
+.icon {
+  width: 100%;
+  height: auto;
+}
+
+.close {
+  @include mixins.transition(color);
+  color: colors.getColor(copy-dark);
+  cursor: pointer;
+  border: none;
+  background: none;
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  width: 1.5rem;
+  padding: 0;
+
+  right: -1rem;
+  top: -1.5rem;
+
+  &:hover,
+  &:focus {
+    color: colors.getColor(copy-dark, hover);
+  }
+
+  &:active {
+    color: colors.getColor(copy-dark, active);
+  }
+}

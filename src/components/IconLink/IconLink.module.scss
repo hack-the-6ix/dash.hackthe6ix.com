@@ -1,0 +1,27 @@
+@use '../../styles/mixins.module' as localMixins;
+@use '~@ht6/react-ui/dist/styles/mixins.module';
+
+.container {
+  @include mixins.transition(transform);
+  text-decoration: none;
+  grid-template-columns: 4.25rem auto;
+  cursor: pointer;
+  display: grid;
+  grid-gap: 1rem;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+  }
+}
+
+.icon {
+  width: 100%;
+}
+
+.content {
+  grid-template-columns: 1fr;
+  margin-bottom: auto;
+  grid-gap: 0.25rem;
+  display: grid;
+}

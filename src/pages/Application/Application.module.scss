@@ -1,0 +1,35 @@
+@use '../../styles/mixins.module' as localMixins;
+@use '../../styles/vars.module';
+
+.root {
+  grid-template-columns: 1fr;
+  box-sizing: border-box;
+  padding: 3.75rem 0;
+  grid-gap: 3.75rem;
+  display: grid;
+}
+
+.label {
+  @include localMixins.media(tablet) {
+    display: none;
+  }
+}
+
+.banner {
+  max-width: map-get(vars.$widths, form) * 0.7;
+  margin: 0 auto 2.25rem;
+}
+
+.list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.5rem;
+
+  & li {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.footer {
+  margin-top: 2.25rem;
+}
