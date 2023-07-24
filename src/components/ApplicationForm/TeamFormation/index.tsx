@@ -77,7 +77,7 @@ function InitScreen({ onNext }: TeamFormationProps) {
         You are currently a solo hacker.
       </Typography>
       <Typography textColor='neutral-50' textType='heading6' as='p' className={styles.teamFormationDescription}>
-        Don't have a team? No worries! You can create your own team and invite your friends, join a team, or decide to go solo. You can chnage this at any point before <span className={styles.dateHighlight}> {' '} {formattedDate} at {formattedTime} EST. </span>
+        Don't have a team? No worries! You can create your own team and invite your friends, join a team, or decide to go solo. You can change this at any point before <span className={styles.dateHighlight}> {' '} {formattedDate} at {formattedTime} EST. </span>
       </Typography>
       <div className={styles.buttons}>
         <Button
