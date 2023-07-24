@@ -23,7 +23,7 @@
 
 .spinner {
   @extend %icon;
-  color: colors.getColor(primary-700);
+  color: colors.getColor(copy-light);
   animation: spin 1s linear 0s infinite;
 
   @keyframes spin {
