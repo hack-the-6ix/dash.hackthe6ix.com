@@ -15,7 +15,6 @@ export default function NavigationManager({
 
     const takeoverNavigation = useCallback((newOwner: string, bottomMode: NavBottomMode, entries: NavigationManagerEntry[], handler: NavigationManagerHandler) => {
         if(newOwner !== owner) {
-            console.log("setting owner", newOwner, owner)
             setOwner(newOwner);
             setEntries(entries);
             setNavBottomMode(bottomMode);

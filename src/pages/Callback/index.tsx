@@ -69,7 +69,7 @@ function Callback() {
                 Something is bonked D:
               </Typography>
               <Typography
-                textColor='copy-dark'
+                textColor='copy-light'
                 textType='paragraph1'
                 textWeight={600}
                 as='p'
@@ -91,10 +91,10 @@ function Callback() {
           <>
             <CgSpinner className={styles.spinner} />
             <div className={styles.content}>
-              <Typography textColor='primary-700' textType='heading3' as='h1'>
+              <Typography textColor='warning-400' textType='heading3' as='h1'>
                 Hang in there!
               </Typography>
-              <Typography textColor='copy-dark' textType='paragraph1' as='p'>
+              <Typography textColor='copy-light' textType='paragraph1' as='p'>
                 You will be redirected shortly...
               </Typography>
             </div>

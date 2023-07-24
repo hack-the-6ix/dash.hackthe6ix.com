@@ -153,7 +153,7 @@ function Layout({ children }: LayoutProps) {
               <Button
                   buttonVariant={"secondary"}
                   className={cx(styles.logoutBtn)}
-                  onClick={() => authCtx.revokeAuth()}
+                  onClick={() => authCtx.revokeAuth(true)}
                   >
                   Log Out
               </Button>

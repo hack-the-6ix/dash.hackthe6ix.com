@@ -8,7 +8,7 @@ import styles from './InfoBanner.module.scss';
 
 export interface InfoBannerProps {
   onClose?: MouseEventHandler<HTMLButtonElement>;
-  type: 'error' | 'success' | 'info';
+  type: 'error' | 'success' | 'info' | 'warning';
   children: ReactNode;
   className?: string;
 }
@@ -31,6 +31,10 @@ const typeToConfig: {
     color: 'copy-dark',
     icon: FaExclamationCircle,
   },
+  warning: {
+    color: 'warning-400',
+    icon: FaExclamationCircle,
+  }
 };
 
 function InfoBanner({

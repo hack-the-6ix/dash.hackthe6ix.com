@@ -46,15 +46,36 @@
 
 .link {
   @include mixins.transition(color);
-  color: colors.getColor(primary-500);
+  color: colors.getColor(warning-400);
   text-decoration: none;
 
   &:hover,
   &:focus {
-    color: colors.getColor(primary-500, hover);
+    color: colors.getColor(warning-400, hover);
   }
 
   &:active {
-    color: colors.getColor(primary-500, active);
+    color: colors.getColor(warning-400, active);
   }
+}
+
+.field{
+    label:has(+ input:disabled){
+        opacity: 0.38;
+    }
+    input{
+        border: none;
+        background-color: colors.getColor(neutral-50, null, 0.18);
+        color: colors.getColor(copy-light);
+        &:disabled{
+            background-color: colors.getColor(neutral-50, null, 0.08);
+            color: colors.getColor(neutral-50, null, 0.38);
+        }
+        &::placeholder {
+          color: colors.getColor(neutral-400);
+        }
+        &:focus{
+          background-color: colors.getColor(neutral-50, null, 0.5);
+        }
+    }
 }

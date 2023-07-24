@@ -46,7 +46,7 @@ export type BaseAuthContext = {
   ) => void;
   setAuth: (token: string, refreshToken: string) => Promise<void>;
   refreshAuth: () => Promise<{ token: string; refreshToken: string } | void>;
-  revokeAuth: () => Promise<void>;
+  revokeAuth: (logout?:boolean) => Promise<void>;
   isReady: boolean;
 };
 

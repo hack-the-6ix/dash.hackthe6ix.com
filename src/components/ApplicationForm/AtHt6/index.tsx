@@ -1,4 +1,11 @@
-import { Checkbox, Input, InputLayout, Textarea } from '@ht6/react-ui';
+import {
+  Checkbox,
+  Input,
+  InputLayout,
+  Textarea,
+  Typography,
+} from '@ht6/react-ui';
+import cx from 'classnames';
 import { isNil, omitBy } from 'lodash';
 import * as yup from 'yup';
 
@@ -64,8 +71,13 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
 
   return (
     <ApplicationFormSection>
+      <div className={sharedStyles['field--full-width']}>
+        <Typography textColor='warning-400' textType='heading3' as='h3'>
+          At HT6
+        </Typography>
+      </div>
       <InputLayout
-        className={sharedStyles['field--full-width']}
+        className={cx(sharedStyles['field--full-width'], styles.workshopInput)}
         label='Please choose 3 workshops that you are interested in'
         status={status}
         name='interest'
@@ -92,7 +104,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
                 (!props.values.interest.includes(workshop) &&
                   props.values.interest.length >= 3)
               }
-              color='primary-700'
+              color='shades-0'
               key={key}
             />
           ))}
@@ -103,6 +115,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
                 {...applyFieldProps({
                   name: 'otherInterest',
                   label: 'Other',
+                  className: `${sharedStyles.field}`,
                 })}
                 disabled={
                   props.readonly || !props.values.interest.includes('other')
@@ -132,7 +145,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
               (!props.values.interest.includes('other') &&
                 props.values.interest.length >= 3)
             }
-            color='primary-700'
+            color='shades-0'
           />
         </div>
       </InputLayout>
@@ -143,6 +156,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
           omitOutline: true,
           isFullWidth: true,
           required: true,
+          className: `${sharedStyles.textarea}`,
         })}
         limit={200}
         rows={5}
@@ -155,6 +169,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
           omitOutline: true,
           isFullWidth: true,
           required: true,
+          className: `${sharedStyles.textarea}`,
         })}
         limit={200}
         rows={5}
@@ -181,7 +196,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
           isFullWidth: true,
           isNextRow: true,
         })}
-        color='primary-700'
+        color='shades-0'
       />
       <Checkbox
         {...applyFieldProps({
@@ -192,7 +207,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
           isFullWidth: true,
           isNextRow: true,
         })}
-        color='primary-700'
+        color='shades-0'
       />
       <Checkbox
         {...applyFieldProps({
@@ -228,7 +243,7 @@ function AtHt6(props: SectionProps<typeof initialValues>) {
           isNextRow: true,
           required: true,
         })}
-        color='primary-700'
+        color='shades-0'
       />
     </ApplicationFormSection>
   );
