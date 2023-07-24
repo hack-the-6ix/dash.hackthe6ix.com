@@ -115,6 +115,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
         onChange={(e) => {
           props.setFieldValue('school', e.currentTarget.value);
         }}
+        backgroundColor={"#06162F"}
       />
       <Dropdown
         {...applyFieldProps({
@@ -128,6 +129,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        backgroundColor={"#06162F"}
       />
       <Dropdown
         {...applyFieldProps({
@@ -141,6 +143,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        backgroundColor={"#06162F"}
       />
       <Dropdown
         {...applyFieldProps({
@@ -154,6 +157,7 @@ function Experience(props: SectionProps<typeof initialValues>) {
           value: label,
           label,
         }))}
+        backgroundColor={"#06162F"}
       />
       <FileUpload
         {...applyFieldProps({

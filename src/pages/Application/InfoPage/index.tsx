@@ -23,7 +23,7 @@ function InfoPage({ heading, content, action }: InfoPageProps) {
             <Typography textType='heading4' textColor='grey' as='span'>
               Hack the 6ix Application
             </Typography>
-            <Typography textType='heading2' textColor='primary-700' as='h1'>
+            <Typography textType='heading2' textColor='warning-400' as='h1'>
               {heading}
             </Typography>
           </div>

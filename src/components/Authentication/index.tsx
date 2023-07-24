@@ -46,7 +46,7 @@ export default function AuthenticationProvider({
   const _state = useRef(state);
   _state.current = state;
 
-  const revokeAuth = useCallback(async () => {
+  const revokeAuth = useCallback(async (logout?:boolean) => {
     if (_state.current.isAuthenticating) {
       console.warn('User authentication in progress. Cancelling...');
       abortRequest('authentication__profile');
@@ -85,10 +85,12 @@ export default function AuthenticationProvider({
       isAuthenticating: false,
       isAuthenticated: false,
       isRefreshing: false,
-      isLogout: true
+      isLogout: logout ?? false
     });
-
-    window.location.href = redirectUrl;
+    
+    if(logout) {
+      window.location.href = redirectUrl;
+    }
   }, []);
 
   const refreshAuth = useCallback(async () => {
