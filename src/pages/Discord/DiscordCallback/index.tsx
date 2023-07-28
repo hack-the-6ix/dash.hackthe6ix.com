@@ -1,5 +1,6 @@
 import { Typography } from '@ht6/react-ui';
 import { useEffect, useState } from 'react';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import { CgSpinner, CgCheckO } from 'react-icons/cg';
 import { MdError } from 'react-icons/md';
 
@@ -24,6 +25,8 @@ function DiscordCallback() {
   const [error, setError] = useState<ServerResponse<string> | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const [, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     const params = getQueryParams<QueryParams>();
     associateDiscord({
@@ -35,6 +38,7 @@ function DiscordCallback() {
     }).then((res) => {
       if (res?.status === 200) {
         setSuccess(true);
+        setSearchParams(new URLSearchParams());
         return;
       }
 
@@ -62,7 +66,7 @@ function DiscordCallback() {
                       textWeight={600}
                       as='p'
                   >
-                    Looks like something unexpected has happened. Please try again
+                    Looks like something unexpected has happened. Please reload the page or try again
                     later...
                   </Typography>
                   <Typography
