@@ -2,22 +2,14 @@ import { Typography } from '@ht6/react-ui';
 import { useEffect, useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { MdError } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
 
 import useAuth from '../../../components/Authentication/context';
 import Card from '../../../components/Card';
 import Section from '../../../components/Section';
-import getQueryParams from '../../../utils/getQueryParams';
 import { ServerResponse, useRequest } from '../../../utils/useRequest';
 
 import styles from './DiscordLink.module.scss';
 import Protected from "../../../components/Authentication/Protected";
-
-type QueryParams = {
-  code: string;
-  session_state: string;
-  state: string;
-};
 
 function DiscordLink() {
   const { makeRequest: getOAuthLink } = useRequest<
