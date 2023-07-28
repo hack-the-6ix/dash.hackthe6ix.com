@@ -56,7 +56,7 @@ function DiscordLink() {
                       textWeight={600}
                       as='p'
                   >
-                    Looks like something unexpected has happened. Please try again
+                    Looks like something unexpected has happened. Please reload the page or try again
                     later...
                   </Typography>
                   <Typography
