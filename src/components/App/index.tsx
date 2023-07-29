@@ -11,6 +11,9 @@ import Notion from '../../pages/Notion';
 import Layout from '../Layout';
 
 import styles from './App.module.scss';
+import DiscordCallback from "../../pages/Discord/DiscordCallback";
+import Discord from "../../pages/Discord";
+import DiscordLink from "../../pages/Discord/DiscordLink";
 
 function App() {
   return (
@@ -28,6 +31,10 @@ function App() {
           <Route path='home' element={<Dashboard />} />
           <Route path='notion' element={<Notion />} />
           <Route path='callback' element={<Callback />} />
+          <Route path='discord' element={<Discord />}>
+            <Route path='link' element={<DiscordLink />} />
+            <Route path='callback' element={<DiscordCallback />} />
+          </Route>
           {process.env.NODE_ENV === 'development' && (() => {
             const component = require('../../pages/Dashboard/Schedule');
             const Card = require('../../components/Card').default;

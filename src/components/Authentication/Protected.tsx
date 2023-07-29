@@ -25,7 +25,7 @@ function Protected({ children, redirect, fallback = null }: ProtectedProps) {
       method: 'POST',
       body: JSON.stringify({
         callbackURL: `${window.location.origin}/callback`,
-        redirectTo: redirect ?? location.pathname,
+        redirectTo: redirect ?? location.pathname + location.search,
       }),
     }).then((res) => {
       if (res?.status === 200) {

@@ -74,7 +74,7 @@ function Callback() {
                 textWeight={600}
                 as='p'
               >
-                Looks like something unexpected have happened. Please try again
+                Looks like something unexpected has happened. Please try again
                 later...
               </Typography>
               <Typography
