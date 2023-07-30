@@ -91,36 +91,58 @@ function Schedule() {
   const isReady = types && events;
   return isReady ? (
     <div className={styles.root}>
-      <Calendar
-        renderEvent={item => (
-          <div className={styles.event}>
-            <Typography className={styles.text} textType='paragraph2' textColor='primary-700'>
-              {item.name}
-            </Typography>
-            <Typography className={styles.text} textType='paragraph3' textColor='grey'>
-              {formatTimeRange(item.start, item.end)} | {item.location}
+      <Typography textColor='neutral-50' textType='heading2' as='h2' className={styles.scheduleHeading}>
+        Event Schedule
+      </Typography>
+      <Typography textColor='neutral-50' textType='heading6' as='p' className={styles.scheduleCaption}>
+        There are <span className={styles.dateHighlight}>x days</span> left until the hackathon begins. Click on each block for more details about each workshop.
+      </Typography>
+      <div className={styles.scheduleContentContainer}>
+        <Calendar
+          renderEvent={item => (
+            <div className={styles.event}>
+              <Typography className={styles.text} textType='paragraph2' textColor='primary-700'>
+                {item.name}
+              </Typography>
+              <Typography className={styles.text} textType='paragraph3' textColor='grey'>
+                {formatTimeRange(item.start, item.end)} | {item.location}
+              </Typography>
+            </div>
+          )}
+          categories={types}
+          schedule={events}
+          className={styles.calendarContainer}
+        />
+        {/*<div className={styles.buttons}>
+          <Button
+            className={styles.button}
+            buttonVariant='outline'
+          >
+            <FaAngleLeft className={styles.iconl}/>
+            Yesterday
+          </Button>
+          <Button
+            className={styles.button}
+            buttonVariant='outline'
+          >
+            Tomorrow
+            <FaAngleRight className={styles.iconr}/>
+          </Button>
+          </div>*/}
+          <div className={styles.legendContainer}>
+            <Typography textColor='neutral-50' textType='heading6' as='p'>
+              hackathon legend here
             </Typography>
           </div>
-        )}
-        categories={types}
-        schedule={events}
-      />
-      {/*<div className={styles.buttons}>
-        <Button
-          className={styles.button}
-          buttonVariant='outline'
-        >
-          <FaAngleLeft className={styles.iconl}/>
-          Yesterday
-        </Button>
-        <Button
-          className={styles.button}
-          buttonVariant='outline'
-        >
-          Tomorrow
-          <FaAngleRight className={styles.iconr}/>
-        </Button>
-        </div>*/}
+          <div className={styles.socialsContainer}>
+            <Typography textColor='neutral-50' textType='p' as='p'>
+              Stay updated with us!
+            </Typography>
+            <div>
+              socials here
+            </div>
+          </div>
+        </div>
     </div>
   ) : null;
 }
