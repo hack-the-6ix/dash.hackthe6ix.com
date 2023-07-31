@@ -542,13 +542,6 @@ function ApplicationContent() {
             </Button>
             </div>
           </div>
-          <div style={{height: 20}} />
-          <a href ="/">
-            <Typography>
-            <span className={styles.greylink}>{'Review my application ->'}</span> 
-            {/* TODO: IMPLEMENT */}
-            </Typography>
-          </a>
         </div>
       </div>
       );
@@ -584,13 +577,6 @@ function ApplicationContent() {
             </Button>
             </div>
           </div>
-          <div style={{height: 20}} />
-          <a href ="/">
-            <Typography>
-            <span className={styles.greylink}>{'Review my application ->'}</span> 
-            {/* TODO: IMPLEMENT */}
-            </Typography>
-          </a>
         </div>
       </div>
       );
