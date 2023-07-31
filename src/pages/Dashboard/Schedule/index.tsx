@@ -6,6 +6,7 @@ import Calendar, { CalendarProps, ScheduleData } from "../../../components/Calen
 import styles from './Schedule.module.scss';
 
 import ScheduleLegend from '../../../components/ScheduleLegend';
+import Socials from "../../../components/Socials";
 
 type EventTypeRes = {
   Name: string;
@@ -133,14 +134,11 @@ function Schedule() {
           </Button>
           </div>*/}
           <ScheduleLegend />
-          <div className={styles.socialsContainer}>
-            <Typography textColor='neutral-50' textType='p' as='p'>
-              Stay updated with us!
-            </Typography>
-            <div>
-              socials here
-            </div>
-          </div>
+          <Socials
+            baseColor='neutral-50'
+            activeColor='neutral-50' 
+            gap='0.25rem'
+          />
         </div>
     </div>
   ) : null;
