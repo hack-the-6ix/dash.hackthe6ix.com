@@ -58,7 +58,7 @@
 .content {
   //box-shadow: 0 0.5rem 0.625rem rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
-  padding: 5.75rem;
+  padding: 5rem;
   z-index: 1;
 
   @include localMixins.media(tablet) {

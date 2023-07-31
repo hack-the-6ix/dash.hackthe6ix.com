@@ -3,7 +3,6 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import Protected from '../../components/Authentication/Protected';
 import useAuth from '../../components/Authentication/context';
-import HeadingSection from '../../components/HeadingSection';
 import TabSection, { Tab } from '../../components/TabSection';
 import HackerInfo from './HackerInfo';
 import Resources from './Resources';
@@ -88,7 +87,7 @@ function DashboardContent() {
   }
 
   const userConfirmed = authCtx.user.status.confirmed;
-  const firstName = authCtx.user.firstName;
+  // const firstName = authCtx.user.firstName;
 
   if (!userConfirmed) {
     return <Navigate replace to='/' />;
@@ -96,7 +95,7 @@ function DashboardContent() {
 
   return (
     <main className={styles.root}>
-      <HeadingSection
+      {/* <HeadingSection
         title={`Welcome back, ${firstName}!`}
         action={{
           onClick: async () => {
@@ -107,7 +106,7 @@ function DashboardContent() {
         }}
         textType='heading2'
         as='h2'
-      />
+      /> */}
       <TabSection
         onChange={(_, idx) => {
           updateUrl(idx);
