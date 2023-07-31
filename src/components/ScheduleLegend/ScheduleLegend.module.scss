@@ -1,0 +1,75 @@
+@use '../../styles/mixins.module' as localMixins;
+
+.legendContainer {
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+    background-color: rgba(243, 246, 246, 0.18);
+    grid-area: legend;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-self: start;
+    
+    @include localMixins.media(tablet) {
+        padding: 1.5rem 1.25rem;
+    }
+}
+
+.legendHeading {
+    font-size: 1.5rem;
+}
+  
+.legendDetails {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  
+    @include localMixins.media(tablet) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+  
+.legendDetails li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+  
+.legendBox {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 0.5rem;
+}
+  
+.occurringNowLegendBox {
+    // TODO: Check for background-color mixin?
+    // @include mixins.transition(color);
+    // color: colors.getColor(primary-100);
+    background-color: rgba(206, 245, 244, 1);
+}
+  
+.mainEventsLegendBox {
+    // @include mixins.transition(color);
+    // color: colors.getColor(secondary-500);
+    background-color: rgba(12, 130, 162, 1);
+}
+  
+.sponsorBayLegendBox {
+    background-color: rgba(155, 81, 224, 1);
+}
+  
+.socialsLegendBox {
+    // @include mixins.transition(color);
+    // color: colors.getColor(warning-600);
+    background-color: rgba(217, 119, 6, 1);
+}
+  
+.workshopsLegendBox {
+    // @include mixins.transition(color);
+    // color: colors.getColor(success-600);
+    background-color: rgba(5, 150, 105, 1);
+}

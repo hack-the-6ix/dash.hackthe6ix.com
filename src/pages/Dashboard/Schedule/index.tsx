@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Calendar, { CalendarProps, ScheduleData } from "../../../components/Calendar";
 import styles from './Schedule.module.scss';
 
+import ScheduleLegend from '../../../components/ScheduleLegend';
+
 type EventTypeRes = {
   Name: string;
   Color: `#${string}`;
@@ -95,6 +97,7 @@ function Schedule() {
         Event Schedule
       </Typography>
       <Typography textColor='neutral-50' textType='heading6' as='p' className={styles.scheduleCaption}>
+        {/* TODO: Remove "There are..." sentence when hackathon begins */}
         There are <span className={styles.dateHighlight}>x days</span> left until the hackathon begins. Click on each block for more details about each workshop.
       </Typography>
       <div className={styles.scheduleContentContainer}>
@@ -129,11 +132,7 @@ function Schedule() {
             <FaAngleRight className={styles.iconr}/>
           </Button>
           </div>*/}
-          <div className={styles.legendContainer}>
-            <Typography textColor='neutral-50' textType='heading6' as='p'>
-              hackathon legend here
-            </Typography>
-          </div>
+          <ScheduleLegend />
           <div className={styles.socialsContainer}>
             <Typography textColor='neutral-50' textType='p' as='p'>
               Stay updated with us!

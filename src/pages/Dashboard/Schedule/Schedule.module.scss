@@ -92,30 +92,10 @@
   color: colors.getColor(warning-400);
 }
 
-// .scheduleSideBar {
-//   min-width: 250px;
-//   height: auto;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 4rem;
-// }
-
-// .scheduleSocialsContainer {
-//   width: 75%;
-//   height: auto;
-// }
-
 .calendarContainer {
   width: 100%;
   height: auto;
   grid-area: calendar;
-}
-
-.legendContainer {
-  width: 100%;
-  height: 300px;
-  background-color: rgb(55, 55, 184);
-  grid-area: legend;
 }
 
 .socialsContainer {
