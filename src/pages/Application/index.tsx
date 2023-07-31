@@ -533,13 +533,13 @@ function ApplicationContent() {
           <div style={{height: 20}}/>
           <div className={styles.buttoncontainer}>
             <div className={styles.button}>
-            <Button
-                buttonVariant={"primary"}
-                onClick={()=>{}}
-                >
-                E-mail HT6
-                {/* TODO: IMPLEMENT */}
-            </Button>
+              <a href="mailto: hello@hackthe6ix.com" style={{textDecoration:"none"}}>
+                <Button
+                    buttonVariant={"primary"}
+                    >
+                    E-mail HT6
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -568,13 +568,13 @@ function ApplicationContent() {
           <div style={{height: 20}}/>
           <div className={styles.buttoncontainer}>
             <div className={styles.button}>
-            <Button
-                buttonVariant={"primary"}
-                onClick={()=>{}}
-                >
-                E-mail HT6
-                {/* TODO: IMPLEMENT */}
-            </Button>
+              <a href="mailto: hello@hackthe6ix.com" style={{textDecoration:"none"}}>
+                <Button
+                    buttonVariant={"primary"}
+                    >
+                    E-mail HT6
+                </Button>
+              </a>
             </div>
           </div>
         </div>
