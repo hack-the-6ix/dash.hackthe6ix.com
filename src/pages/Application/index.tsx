@@ -158,19 +158,6 @@ function ApplicationContent() {
 
   const [needToUpdateNav, setNeedToUpdateNav] = useState(-1);
 
-  // useEffect(() => {
-  //   navigationManager.setNavigationEntries([{
-  //     id: "test",
-  //     text: "adfasdf"
-  //   }])
-  //
-  //   if(navigationManager.onNavigation) {
-  //     navigationManager.onNavigation.current = (entry) => {
-  //       console.log(entry)
-  //     }
-  //   }
-  // }, [navigationManager]);
-
   useEffect(() => {
     makeSettingsRequest();
     return () => settingsAbort();
@@ -403,6 +390,32 @@ function ApplicationContent() {
     timeZone: 'est',
   }).format(endDate);
 
+  const commitDecline = async () => {
+    toast.loading('Declining Offer...', { id: 'rsvp-home' });
+    const res = await makeRequest({
+      method: 'POST',
+      body: JSON.stringify({
+        rsvp: {
+          attending: false,
+        },
+      }),
+    });
+
+    if (res?.status === 200) {
+      toast.success('Offer Declined :(', { id: 'rsvp-home' });
+      window.location.reload();
+    } else {
+      toast.error(
+        `${res?.message ?? 'An error occurred.'} Please try again later.`,
+        { id: 'rsvp-home' }
+      );
+    }
+  };
+
+  const decline = () => {
+    commitDecline();
+  }
+
   if(!showApplication) {
     if (!authCtx.isAuthenticated) {
       return null;
@@ -428,27 +441,50 @@ function ApplicationContent() {
             </Typography>
             <div style={{height: 20}}/>
             <div className={styles.buttoncontainer}>
-              <div className={styles.button}>
               <Button
                   buttonVariant={"secondary"}
-                  onClick={()=>{}}
-                  // TODO: IMPLEMENT
+                  className={styles.button}
+                  onClick={() => {decline()}
+                  }
                   >
                   I can no longer attend
               </Button>
-              </div>
-              <div className={styles.button}>
-               <div style={{width:20}}/>
-              </div>
-              <div className={styles.button}>
+              <div className={styles.button} style={{width:20}} />
               <Button
                   buttonVariant={"primary"}
-                  onClick={()=>{}}
-                  // TODO: IMPLEMENT
+                  className={styles.button}
+                  onClick={async () =>  {
+                    toast.loading('Accepting Offer...', { id: 'rsvp' });
+                    const res = await rsvp({
+                      method: 'POST',
+                      body: JSON.stringify({
+                        rsvp: {
+                          attending: true,
+                          form: {
+                            remindInPersonRSVP: inPerson,
+                          },
+                        },
+                      }),
+                    });
+
+                    if (res?.status !== 200) {
+                      toast.error(res?.message ?? 'Unexpected error accepting offer.', {
+                        id: 'rsvp',
+                      });
+                    } else {
+                      toast.success('Attendance Accepted!', { id: 'rsvp' });
+                      authCtx.updateUser({
+                        status: {
+                          ...authCtx.user.status,
+                          confirmed: true,
+                        },
+                      })
+                      navigate('/home');
+                    }
+                  }}
                   >
                   Accept invitation
               </Button>
-              </div>
             </div>
           </div>
         </div>
@@ -532,15 +568,14 @@ function ApplicationContent() {
           </Typography>
           <div style={{height: 20}}/>
           <div className={styles.buttoncontainer}>
-            <div className={styles.button}>
               <a href="mailto: hello@hackthe6ix.com" style={{textDecoration:"none"}}>
                 <Button
                     buttonVariant={"primary"}
+                    className={styles.button}
                     >
                     E-mail HT6
                 </Button>
               </a>
-            </div>
           </div>
         </div>
       </div>
@@ -567,15 +602,14 @@ function ApplicationContent() {
           </Typography>
           <div style={{height: 20}}/>
           <div className={styles.buttoncontainer}>
-            <div className={styles.button}>
               <a href="mailto: hello@hackthe6ix.com" style={{textDecoration:"none"}}>
                 <Button
                     buttonVariant={"primary"}
+                    className={styles.button}
                     >
                     E-mail HT6
                 </Button>
               </a>
-            </div>
           </div>
         </div>
       </div>

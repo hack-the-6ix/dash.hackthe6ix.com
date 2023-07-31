@@ -157,13 +157,6 @@ function Layout({ children }: LayoutProps) {
                   >
                   Log Out
               </Button>
-              <Button
-                  buttonVariant={"secondary"}
-                  className={cx(styles.logoutBtn)}
-                  onClick={() => console.log(authCtx)}
-                  >
-                  Testing
-              </Button>
           </div>
 
 

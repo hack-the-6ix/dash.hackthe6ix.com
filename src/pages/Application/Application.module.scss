@@ -15,6 +15,13 @@
   padding: 15%;
 }
 
+.toastcontent{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding: 2%;
+}
+
 .heading {
   margin-bottom: 1rem;
 }
@@ -38,17 +45,26 @@
 .button{
   display: inline-block;
   vertical-align: middle;
+  @include localMixins.media(tablet) {
+    width: 100%
+  }
 }
 
 .socials{
   margin: auto;
   width:50%;
+  @include localMixins.media(tablet) {
+    width: 90%
+  }
 }
 
 .icon{
   display: inline-block;
   vertical-align: middle;
   padding: 15px;
+  @include localMixins.media(tablet) {
+    padding: px;
+  }
 }
 
 .whiteicon{
