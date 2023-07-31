@@ -1,4 +1,4 @@
-import { Checkbox, Typography } from '@ht6/react-ui';
+import { Button, Checkbox, Typography } from '@ht6/react-ui';
 import { FormikProps, useFormik, yupToFormErrors } from 'formik';
 import {
   FC,
@@ -35,6 +35,7 @@ import { deserializeApplication, serializeApplication } from './helpers';
 
 import styles from './Application.module.scss';
 import {useNavigationManager} from "../../components/NavigationManager/context";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 interface TabContentProps<T> {
   element: FC<any>;
@@ -407,172 +408,191 @@ function ApplicationContent() {
       return null;
     }
 
+    if (authCtx.user.status.accepted) {
+      return (
+        <div className={styles.container}>
+          <div className={styles.content}>
+            <Typography textType='heading3' textColor='neutral-400' as='p'>
+              Welcome Back, {authCtx.user.firstName}!
+            </Typography>
+            <Typography textType='heading2' textColor='neutral-50' as='p'>
+              Congratulations, you've been <span className={styles.textsuccess}>accepted</span> 🎉
+            </Typography>
+            <div style={{height: 35}}/>
+            <Typography textType='heading6' textColor='neutral-50' as='p'>
+              Welcome to Hack the 6ix 2023! We are excited to offer you the opportunity to hack with us. 
+            </Typography>
+            <div style={{height: 25}}/>
+            <Typography textType='heading6' textColor='neutral-50' as='p'>
+              To confirm your attendance, please RSVP below.
+            </Typography>
+            <div style={{height: 20}}/>
+            <div className={styles.buttoncontainer}>
+              <div className={styles.button}>
+              <Button
+                  buttonVariant={"secondary"}
+                  onClick={()=>{}}
+                  // TODO: IMPLEMENT
+                  >
+                  I can no longer attend
+              </Button>
+              </div>
+              <div className={styles.button}>
+               <div style={{width:20}}/>
+              </div>
+              <div className={styles.button}>
+              <Button
+                  buttonVariant={"primary"}
+                  onClick={()=>{}}
+                  // TODO: IMPLEMENT
+                  >
+                  Accept invitation
+              </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+    );
+    }
+
     if (authCtx.user.status.confirmed) {
       return <Navigate to='/home' replace />;
     }
 
-    if (authCtx.user.status.canRSVP) {
-      return (
-          <InfoPage
-              heading='Hacker Invitation'
-              content={
-                <>
-                  <Typography textType='paragraph1' textColor='copy-light' as='p'>
-                    Congratulations and welcome to Hack the 6ix 2022! We are excited
-                    to offer you the opportunity to hack with us! To confirm your
-                    attendance, please RSVP below.
-                  </Typography>
-                  <Checkbox
-                      label='I would like to be notified through e-mail when in-person hacking RSVPs are open on August 14th at 1PM EST'
-                      onChange={(e) => setInPerson(!inPerson)}
-                      name='remind-in-person'
-                      checked={inPerson}
-                      color='primary-700'
-                  />
-                </>
-              }
-              action={{
-                rightAction: {
-                  children: 'Accept Invitation',
-                  disabled: isLoading,
-                  async onClick() {
-                    toast.loading('Updating RSVP...', { id: 'rsvp' });
-                    const res = await rsvp({
-                      method: 'POST',
-                      body: JSON.stringify({
-                        rsvp: {
-                          attending: true,
-                          form: {
-                            remindInPersonRSVP: inPerson,
-                          },
-                        },
-                      }),
-                    });
-
-                    if (res?.status !== 200) {
-                      toast.error(res?.message ?? 'Unexpected error accepting RSVP.', {
-                        id: 'rsvp',
-                      });
-                    } else {
-                      toast.success('Attendance Accepted!', { id: 'rsvp' });
-                      authCtx.updateUser({
-                        status: {
-                          ...authCtx.user.status,
-                          confirmed: true,
-                        },
-                      })
-                      navigate('/home');
-                    }
-                  },
-                },
-                leftAction: {
-                  children: 'Decline',
-                  buttonVariant: 'tertiary',
-                  disabled: isLoading,
-                  async onClick() {
-                    toast.loading('Updating RSVP...', { id: 'rsvp' });
-                    const res = await rsvp({
-                      method: 'POST',
-                      body: JSON.stringify({
-                        attending: false,
-                      }),
-                    });
-
-                    if (res?.status !== 200) {
-                      toast.error(res?.message ?? 'Unexpected error declining RSVP.', {
-                        id: 'rsvp',
-                      });
-                    } else {
-                      toast.success('Attendance Declined :c', { id: 'rsvp' });
-                      window.location.reload();
-                    }
-                  },
-                },
-              }}
-          />
-      );
-    }
-
     if (authCtx.user.status.declined) {
       return (
-          <InfoPage
-              heading='You have declined'
-              content={
-                <>
-                  <Typography textType='paragraph1' textColor='copy-light' as='p'>
-                    We're sorry to hear that you aren't able to attend Hack the 6ix
-                    this year. Thank you for applying and we hope to see you again
-                    next year!
-                  </Typography>
-                </>
-              }
-              action={{
-                rightAction: {
-                  children: 'Back to Home',
-                  href: 'https://hackthe6ix.com',
-                  as: 'a',
-                },
-              }}
-          />
+        <div className={styles.container}>
+          <div className={styles.content}>
+            <Typography textType='heading3' textColor='neutral-400' as='p'>
+               Bye, {authCtx.user.firstName}!
+            </Typography>
+            <Typography textType='heading2' textColor='neutral-50' as='p'>
+              We're sad to see you go :(
+            </Typography>
+            <div style={{height: 30}}/>
+            <Typography textType='heading6' textColor='neutral-50' as='p'>
+            Thank you for letting us know you will no longer be attending Hack The 6ix 2023. 
+            </Typography>
+            <div style={{height: 10}}/>
+            <Typography textType='heading6' textColor='neutral-50' as='p'>
+              We hope to see you next year!
+            </Typography>
+            <div style={{height: 40}}/>
+            <div className={styles.socials}>
+              <hr />
+              <div style={{height: 15}}/>
+              <Typography textType='paragraph' textColor='neutral-50' as='p'>
+              In the mean time, let's stay connected:
+              </Typography>
+              <div className={styles.buttoncontainer}>
+                <div className={styles.icon}>
+                  <a href="https://www.facebook.com/Hackthe6ix/">
+                  <FaFacebook size={20} className={styles.whiteicon}/>
+                  </a>
+                </div>
+                <div className={styles.icon}>
+                  <a href="https://www.instagram.com/hackthe6ix/">
+                  <FaInstagram size={20} className={styles.whiteicon} />
+                  </a>
+                </div>
+                <div className={styles.icon}>
+                  <a href="https://www.linkedin.com/company/hackthe6ixofficial/">
+                  <FaLinkedin size={20} className={styles.whiteicon}/>
+                  </a>
+                </div>
+                <div className={styles.icon}>
+                  <a href="https://twitter.com/HackThe6ix">
+                  <FaTwitter size={20} className={styles.whiteicon}/>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
 
     if (authCtx.user.status.waitlisted) {
       return (
-          <InfoPage
-              heading="You're on the waitlist"
-              content={
-                <>
-                  <Typography textType='paragraph1' textColor='copy-light' as='p'>
-                    Thank you for your application for Hack the 6ix. We were very
-                    impressed with your application, resume, and accomplishments.
-                    However, due to the immense number of applications that we
-                    received this year, we are only able to offer you a conditional
-                    waitlist acceptance at this time.
-                  </Typography>
-                  <Typography textType='paragraph1' textColor='copy-light' as='p'>
-                    We would love to see you at our event and you will be notified via
-                    e-mail as soon as more space opens up!
-                  </Typography>
-                </>
-              }
-              action={{
-                rightAction: {
-                  children: 'Back to Home',
-                  href: 'https://hackthe6ix.com',
-                  as: 'a',
-                },
-              }}
-          />
+        <div className={styles.container}>
+        <div className={styles.content}>
+          <Typography textType='heading3' textColor='neutral-400' as='p'>
+            Welcome Back, {authCtx.user.firstName}!
+          </Typography>
+          <Typography textType='heading2' textColor='neutral-50' as='p'>
+            You have been placed on the <span className={styles.textwarning}>waitlist</span>
+          </Typography>
+          <div style={{height: 35}}/>
+          <Typography textType='heading6' textColor='neutral-50' as='p'>
+          We received an overwhelming amount of applications this year and have placed you on the waitlist. We’ll let you know if a spot opens up, so make sure to check your inbox! 
+          </Typography>
+          <div style={{height: 30}}/>
+          <Typography textType='heading6' textColor='neutral-50' as='p'>
+          Have a question? Feel free to reach out to us!
+          </Typography>
+          <div style={{height: 20}}/>
+          <div className={styles.buttoncontainer}>
+            <div className={styles.button}>
+            <Button
+                buttonVariant={"primary"}
+                onClick={()=>{}}
+                >
+                E-mail HT6
+                {/* TODO: IMPLEMENT */}
+            </Button>
+            </div>
+          </div>
+          <div style={{height: 20}} />
+          <a href ="/">
+            <Typography>
+            <span className={styles.greylink}>{'Review my application ->'}</span> 
+            {/* TODO: IMPLEMENT */}
+            </Typography>
+          </a>
+        </div>
+      </div>
       );
     }
 
     if (authCtx.user.status.rejected) {
       return (
-          <InfoPage
-              heading='Application Status'
-              content={
-                <>
-                  <Typography textType='paragraph1' textColor='copy-light' as='p'>
-                    Unfortunately, due to the overwhelming number of applications that
-                    we have received, we are not able to offer you admission to this
-                    year's hackathon. We know putting together an application takes
-                    time and effort, and we sincerely appreciate your interest.
-                  </Typography>
-                  <Typography textType='paragraph1' textColor='copy-light' as='p'>
-                    Thank you once again for your time and interest in Hack the 6ix;
-                    we wish you all the best and hope to see you next year!
-                  </Typography>
-                </>
-              }
-              action={{
-                rightAction: {
-                  children: 'Back to Home',
-                  href: 'https://hackthe6ix.com',
-                  as: 'a',
-                },
-              }}
-          />
+        <div className={styles.container}>
+        <div className={styles.content}>
+          <Typography textType='heading3' textColor='neutral-400' as='p'>
+            Welcome Back, {authCtx.user.firstName}!
+          </Typography>
+          <Typography textType='heading2' textColor='neutral-50' as='p'>
+            Unfortunately, your hacker <br/> application has <span className={styles.texterror}>not been selected</span> :(
+          </Typography>
+          <div style={{height: 35}}/>
+          <Typography textType='heading6' textColor='neutral-50' as='p'>
+          Thank you for your enthusiasm and dedication in applying to Hack the 6ix 2023. We received an overwhelming number of applications and after careful consideration, we regret to inform you that your application was not chosen for this year's hackathon. We strongly encourage you to try again next year.
+          </Typography>
+          <div style={{height: 30}}/>
+          <Typography textType='heading6' textColor='neutral-50' as='p'>
+          Have a question? Feel free to reach out to us!
+          </Typography>
+          <div style={{height: 20}}/>
+          <div className={styles.buttoncontainer}>
+            <div className={styles.button}>
+            <Button
+                buttonVariant={"primary"}
+                onClick={()=>{}}
+                >
+                E-mail HT6
+                {/* TODO: IMPLEMENT */}
+            </Button>
+            </div>
+          </div>
+          <div style={{height: 20}} />
+          <a href ="/">
+            <Typography>
+            <span className={styles.greylink}>{'Review my application ->'}</span> 
+            {/* TODO: IMPLEMENT */}
+            </Typography>
+          </a>
+        </div>
+      </div>
       );
     }
 

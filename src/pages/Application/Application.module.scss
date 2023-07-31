@@ -1,5 +1,66 @@
 @use '../../styles/mixins.module' as localMixins;
 @use '../../styles/vars.module';
+@use '~@ht6/react-ui/dist/styles/colors.module';
+
+.container {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15%;
+}
+
+.heading {
+  margin-bottom: 1rem;
+}
+
+.textsuccess{
+  color: colors.getColor(success) !important
+}
+
+.textwarning{
+  color: colors.getColor(warning-400) !important
+}
+
+.texterror{
+  color: colors.getColor(error-500) !important
+}
+
+.buttoncontainer{
+  text-align: center;
+}
+
+.button{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.socials{
+  margin: auto;
+  width:50%;
+}
+
+.icon{
+  display: inline-block;
+  vertical-align: middle;
+  padding: 15px;
+}
+
+.whiteicon{
+  color: colors.getColor(neutral-50) !important;
+}
+
+.greylink{
+  color: colors.getColor(neutral-400);
+  text-decoration: underline;
+  text-decoration-color: colors.getColor(neutral-400);
+}
+
 
 .root {
   grid-template-columns: 1fr;
