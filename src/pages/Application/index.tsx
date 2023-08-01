@@ -123,7 +123,6 @@ type PageState = {
 };
 
 function ApplicationContent() {
-  const [inPerson, setInPerson] = useState(false);
   const { makeRequest: rsvp, isLoading } =
     useRequest<ServerResponse>('/api/action/rsvp');
   const { abort, makeRequest } = useRequest<ServerResponse<string>>(
@@ -323,7 +322,8 @@ function ApplicationContent() {
       !authCtx.user.status.declined &&
       !authCtx.user.status.waitlisted &&
       !authCtx.user.status.rejected &&
-      (authCtx.user.status.canApply || authCtx.user.status.applied); // TODO: handle past confirmation/waitlist deadline
+      !(authCtx.user.status.accepted && !authCtx.user.status.canRSVP) &&
+      (authCtx.user.status.canApply || authCtx.user.status.applied);
 
   useEffect(() => {
     navigationManager.takeoverNavigation("application", showApplication ? "ApplicationStatus" : "None", showApplication ? [{
@@ -392,7 +392,7 @@ function ApplicationContent() {
 
   const commitDecline = async () => {
     toast.loading('Declining Offer...', { id: 'rsvp-home' });
-    const res = await makeRequest({
+    const res = await rsvp({
       method: 'POST',
       body: JSON.stringify({
         rsvp: {
@@ -421,7 +421,43 @@ function ApplicationContent() {
       return null;
     }
 
-    if (authCtx.user.status.accepted) {
+    if (authCtx.user.status.confirmed) {
+      return (
+          <div className={styles.container}>
+            <div className={styles.content}>
+              <Typography textType='heading3' textColor='neutral-400' as='p'>
+                Welcome Back, {authCtx.user.firstName}!
+              </Typography>
+              <Typography textType='heading2' textColor='neutral-50' as='p'>
+                Congratulations, you've been <span className={styles.textsuccess}>accepted</span> 🎉
+              </Typography>
+              <div style={{height: 35}}/>
+              <Typography textType='heading6' textColor='neutral-50' as='p'>
+                Welcome to Hack the 6ix 2023! We are excited to offer you the opportunity to hack with us.
+              </Typography>
+              <div style={{height: 25}}/>
+              <Typography textType='heading6' textColor='neutral-50' as='p'>
+                Thanks for confirming your attendance. If can no longer join us in person, please click the button below.
+              </Typography>
+              <div style={{height: 20}}/>
+              <div className={styles.buttoncontainer}>
+                <Button
+                    buttonVariant={"secondary"}
+                    className={styles.button}
+                    onClick={() => {decline()}
+                    }
+                >
+                  I can no longer attend
+                </Button>
+              </div>
+            </div>
+          </div>
+      );
+      // TODO: redirect once the dashboard is completed
+      // return <Navigate to='/home' replace />;
+    }
+
+    if (authCtx.user.status.canRSVP) {
       return (
         <div className={styles.container}>
           <div className={styles.content}>
@@ -437,7 +473,8 @@ function ApplicationContent() {
             </Typography>
             <div style={{height: 25}}/>
             <Typography textType='heading6' textColor='neutral-50' as='p'>
-              To confirm your attendance, please RSVP below.
+              To confirm your attendance, please RSVP below. Note that we are only offering an in-person hacking experience this year.
+              If you are unable to join us in person in Toronto, we ask that you decline this offer so that your spot can be given to someone else.
             </Typography>
             <div style={{height: 20}}/>
             <div className={styles.buttoncontainer}>
@@ -460,9 +497,7 @@ function ApplicationContent() {
                       body: JSON.stringify({
                         rsvp: {
                           attending: true,
-                          form: {
-                            remindInPersonRSVP: inPerson,
-                          },
+                          form: {}
                         },
                       }),
                     });
@@ -479,7 +514,8 @@ function ApplicationContent() {
                           confirmed: true,
                         },
                       })
-                      navigate('/home');
+                      // TODO: once main dashboard is completed, redirect
+                      // navigate('/home');
                     }
                   }}
                   >
@@ -489,10 +525,6 @@ function ApplicationContent() {
           </div>
         </div>
     );
-    }
-
-    if (authCtx.user.status.confirmed) {
-      return <Navigate to='/home' replace />;
     }
 
     if (authCtx.user.status.declined) {
@@ -568,7 +600,7 @@ function ApplicationContent() {
           </Typography>
           <div style={{height: 20}}/>
           <div className={styles.buttoncontainer}>
-              <a href="mailto: hello@hackthe6ix.com" style={{textDecoration:"none"}}>
+              <a href="mailto:hello@hackthe6ix.com" style={{textDecoration:"none"}}>
                 <Button
                     buttonVariant={"primary"}
                     className={styles.button}
@@ -602,7 +634,7 @@ function ApplicationContent() {
           </Typography>
           <div style={{height: 20}}/>
           <div className={styles.buttoncontainer}>
-              <a href="mailto: hello@hackthe6ix.com" style={{textDecoration:"none"}}>
+              <a href="mailto:hello@hackthe6ix.com" style={{textDecoration:"none"}}>
                 <Button
                     buttonVariant={"primary"}
                     className={styles.button}
@@ -650,6 +682,59 @@ function ApplicationContent() {
                 },
               }}
           />
+      );
+    }
+
+    if(authCtx.user.status.accepted && !authCtx.user.status.canRSVP) {
+      return (
+          <div className={styles.container}>
+            <div className={styles.content}>
+              <Typography textType='heading3' textColor='neutral-400' as='p'>
+                Bye, {authCtx.user.firstName}!
+              </Typography>
+              <Typography textType='heading2' textColor='neutral-50' as='p'>
+                Your RSVP has expired.
+              </Typography>
+              <div style={{height: 30}}/>
+              <Typography textType='heading6' textColor='neutral-50' as='p'>
+                Unfortunately, you did not confirm or decline your invitation by the deadline so your spot was given to someone else.
+              </Typography>
+              <div style={{height: 10}}/>
+              <Typography textType='heading6' textColor='neutral-50' as='p'>
+                We hope to see you next year!
+              </Typography>
+              <div style={{height: 40}}/>
+              <div className={styles.socials}>
+                <hr />
+                <div style={{height: 15}}/>
+                <Typography textType='paragraph' textColor='neutral-50' as='p'>
+                  In the mean time, let's stay connected:
+                </Typography>
+                <div className={styles.buttoncontainer}>
+                  <div className={styles.icon}>
+                    <a href="https://www.facebook.com/Hackthe6ix/">
+                      <FaFacebook size={20} className={styles.whiteicon}/>
+                    </a>
+                  </div>
+                  <div className={styles.icon}>
+                    <a href="https://www.instagram.com/hackthe6ix/">
+                      <FaInstagram size={20} className={styles.whiteicon} />
+                    </a>
+                  </div>
+                  <div className={styles.icon}>
+                    <a href="https://www.linkedin.com/company/hackthe6ixofficial/">
+                      <FaLinkedin size={20} className={styles.whiteicon}/>
+                    </a>
+                  </div>
+                  <div className={styles.icon}>
+                    <a href="https://twitter.com/HackThe6ix">
+                      <FaTwitter size={20} className={styles.whiteicon}/>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       );
     }
   }
