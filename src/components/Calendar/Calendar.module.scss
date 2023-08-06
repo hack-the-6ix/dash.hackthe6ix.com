@@ -1,6 +1,7 @@
 @use '~@ht6/react-ui/dist/styles/colors.module';
 @use '~@ht6/react-ui/dist/styles/mixins.module';
 @use 'sass:math';
+@use '../../styles/mixins.module' as localMixins;
 
 $_width: 10rem;
 $_height: 4.5rem;
@@ -28,20 +29,6 @@ $_height: 4.5rem;
   height: 100%;
 }
 
-// Category Label Stuff
-.label {
-  @extend %cell;
-  height: calc($_height + 1px);
-  background-color: white;
-  box-sizing: border-box;
-  padding: 1.5rem 0.5rem;
-  align-items: center;
-  position: sticky;
-  display: flex;
-  z-index: 5;
-  left: 0;
-}
-
 .accent {
   background-color: rgb(var(--a));
   margin-right: 0.625rem;
@@ -51,80 +38,74 @@ $_height: 4.5rem;
 }
 
 // Date label stuff
+.dayContainer {
+  display: flex;
+  align-items: center;
+}
+
 .day {
-  @extend %cell;
-  background-color: white;
-  left: calc($_width + 1px);
-  padding: 0 1rem 0.25rem;
   box-sizing: border-box;
   position: sticky;
-  width: 100%;
+  width: 33%;
+  color: white;
+  white-space: nowrap;
+  text-align: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid white;
+
+  &:hover, &:active {
+    cursor: pointer;
+    color: colors.getColor(warning-400);
+    border-bottom: 4px solid colors.getColor(warning-400);
+  }
 }
 
 .hour {
-  @extend %cell;
-  padding: 0 1rem 0.825rem;
+  grid-column: 1;
+  grid-row: var(--rows) span;
   box-sizing: border-box;
   position: relative;
-  width: 100%;
+  width: 7.25rem;
+  color: colors.getColor(neutral-50);
+  font-size: 1.125rem;
+  margin: 1rem 0;
+  display: flex;
+}
+
+.hourMinutes {
+  display: block;
+
+  @include localMixins.media(tablet) {
+    display: none;
+  }
+}
+
+.timeZone {
+  margin-left: 0.25rem;
 }
 
 // Misc stuff
 .root {
   grid-template-rows: max-content max-content 1px repeat(var(--rows), $_height 1px);
-  grid-template-columns: $_width 1px repeat(var(--cols), math.div($_width, 2) math.div($_width, 2));
+  // grid-template-columns: $_width 1px repeat(var(--cols), math.div($_width, 2) math.div($_width, 2));
+  grid-template-columns: $_width repeat(var(--cols));
   overflow: auto;
   display: grid;
-}
-
-.line {
-  @extend %cell;
-  background-color: colors.getColor(primary-200, $alpha: 0.8);
-  z-index: 1;
-}
-
-.cover {
-  @extend %cell;
-  background-color: white;
-  position: sticky;
-  z-index: 5;
-  left: 0;
-}
-
-.hline {
-  z-index: 3;
-}
-
-.vline {
-  height: calc((var(--rows) + 0.5) * ($_height + 1px));
-  inset: 0 auto auto 0;
-  position: absolute;
-  width: 1px;
-  margin: 0;
-
-  &.fixed {
-    position: sticky;
-    left: $_width;
-    z-index: 2;
-  }
-}
-
-.dline {
-  height: calc((var(--rows) + 1) * $_height);
 }
 
 .now {
   @extend %cell;
   @include mixins.transition(transform);
   transform: translateX(calc(var(--p) * $_width));
-  background-color: colors.getColor(error-500);
+  background-color: colors.getColor(neutral-400);
   position: relative;
   width: 0.25rem;
   height: 100%;
   z-index: 4;
+  rotate: 270deg;
 
   &::before {
-    background-color: colors.getColor(error-500);
+    background-color: colors.getColor(neutral-400);
     inset: -0.375rem -0.25rem auto auto;
     border-radius: 999px;
     position: absolute;

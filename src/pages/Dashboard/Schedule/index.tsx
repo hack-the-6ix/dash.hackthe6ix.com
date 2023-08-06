@@ -3,10 +3,12 @@ import Airtable from "airtable";
 import { useEffect, useState } from "react";
 // import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Calendar, { CalendarProps, ScheduleData } from "../../../components/Calendar";
-import styles from './Schedule.module.scss';
-
 import ScheduleLegend from '../../../components/ScheduleLegend';
 import Socials from "../../../components/Socials";
+import styles from './Schedule.module.scss';
+import { startDate } from "../../../config";
+import { get } from "http";
+import { date } from "yup";
 
 type EventTypeRes = {
   Name: string;
@@ -91,6 +93,10 @@ function Schedule() {
     return `${s}-${e}`;
   }
 
+  // TODO: X DAYS LEFT
+  // const currDate: Date = new Date();
+  // const daysLeft = currDate - startDate;
+
   const isReady = types && events;
   return isReady ? (
     <div className={styles.root}>
@@ -99,7 +105,8 @@ function Schedule() {
       </Typography>
       <Typography textColor='neutral-50' textType='heading6' as='p' className={styles.scheduleCaption}>
         {/* TODO: Remove "There are..." sentence when hackathon begins */}
-        There are <span className={styles.dateHighlight}>x days</span> left until the hackathon begins. Click on each block for more details about each workshop.
+        {/* TODO: Update x days with actual data */}
+        There are <span className={styles.dateHighlight}>[x days]</span> left until the hackathon begins. Click on each block for more details about each workshop.
       </Typography>
       <div className={styles.scheduleContentContainer}>
         <Calendar
