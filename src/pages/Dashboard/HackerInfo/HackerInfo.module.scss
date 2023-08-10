@@ -69,9 +69,16 @@
   
     .status{
       grid-column: 2;  
-      display: absolute;
+      display: flex;
+      flex-direction: column;
+      row-gap: 2rem;
       grid-row-start: 2;
       grid-row-end: 15;
+
+      p{
+        margin-bottom: 0;
+      }
+
       .status_indicator_text{
         display: flex;
         flex-direction: row;
@@ -143,10 +150,6 @@
           }
           &.show{
             max-height: 30rem;
-          }
-
-          p{
-            margin-bottom: 0;
           }
         }
       }

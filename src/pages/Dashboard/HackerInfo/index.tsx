@@ -172,7 +172,7 @@ function HackerInfo() {
                   className={styles.qr}
                 />
                 <Typography
-                 textType='paragraph1'
+                 textType='paragraph'
                  as='p'
                  textColor='neutral-50'
                  >
@@ -181,12 +181,12 @@ function HackerInfo() {
               </div>
             </Card>
           )}
-          <Typography textColor='neutral-50' textType='paragraph-regular' as='p'>
+          <Typography textColor='neutral-50' textType='paragraph' as='p'>
             If you can no longer attend Hack the 6ix, please let us know so we can
             pass this opportunity to a waitlisted participant.
           </Typography>
           <Button
-            buttonVariant='tertiary'
+            buttonVariant='secondary'
             disabled={isLoading}
             onClick={() =>
               toast(
