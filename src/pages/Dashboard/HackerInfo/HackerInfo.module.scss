@@ -71,7 +71,85 @@
       grid-column: 2;  
       display: absolute;
       grid-row-start: 2;
-      grid-row-end: 5;
+      grid-row-end: 15;
+      .status_indicator_text{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        h3{
+          width: auto;
+        }
+
+        .attending, .not_attending{
+          margin: 0;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+          background-color: #d1fae512; // No colour exists in the mixins that matches design
+          border-radius: 1rem;
+        }
+      }
+
+      .qr_code_container{
+        position: relative;
+        overflow: visible;
+        background-color: #f3f6f612;
+        padding: 0.75rem;
+        border-radius: 1.5rem;
+        &.show{
+          z-index: 1;
+        }
+
+        .button{
+          grid-template-columns: auto 1rem;
+          align-items: center;
+          grid-gap: 0.75rem;
+          display: grid;
+          padding: 0.75rem;
+          border-radius: 0.25rem;
+          box-sizing: border-box;
+          text-align: start;
+          background: none;
+          cursor: pointer;
+          border: none;
+          width: 100%;
+
+          .caret {
+            @include mixins.transition(transform color);
+            color: colors.getColor(neutral-50);
+            transform: rotate(180deg);
+            &.show {
+              transform: rotate(0deg);
+            }
+          
+            .disabled & {
+              color: colors.getColor(grey);
+            }
+          }
+        }
+
+        .qr_image{
+          @include mixins.transition(max-height);
+          max-height: 0;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          overflow: hidden;
+          row-gap: 2rem;
+          img{
+            display: block;
+            width: 60%;
+          }
+          &.show{
+            max-height: 30rem;
+          }
+
+          p{
+            margin-bottom: 0;
+          }
+        }
+      }
     }
   }
   
@@ -132,20 +210,6 @@
   pointer-events: none;
   filter: blur(0.125rem) saturate(0);
   opacity: 0.2;
-}
-
-.qrBox {
-  background-color: localColors.$bg-light-grey;
-  justify-content: center;
-  display: flex;
-  border-radius: 1.25rem;
-  box-shadow: none;
-  padding: 1.25rem;
-}
-
-.qr {
-  width: 9.25rem;
-  height: 9.25rem;
 }
 
 .actions {

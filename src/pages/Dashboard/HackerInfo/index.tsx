@@ -1,8 +1,9 @@
 import { Button, Link, Typography } from '@ht6/react-ui';
 import cx from 'classnames';
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { HiClipboard, HiLocationMarker } from 'react-icons/hi';
+import { HiClipboard, HiLocationMarker, HiCheckCircle, HiXCircle, HiChevronDown } from 'react-icons/hi';
+import Card from '../../../components/Card';
 
 import useAuth from '../../../components/Authentication/context';
 import IconLink from '../../../components/IconLink';
@@ -35,16 +36,26 @@ const links = [
 ];
 
 function HackerInfo() {
-  // const { makeRequest: getQrCode, data: qrCode } = useRequest<
-  //   ServerResponse<string>
-  // >('/api/action/checkInQR');
+  const [showQRCode, setShowQRCode] = useState(false);
+  const [delayedShowQR, setDelayedShowQR] = useState(false);
+  const { makeRequest: getQrCode, data: qrCode } = useRequest<
+    ServerResponse<string>
+  >('/api/action/checkInQR');
   const { makeRequest, isLoading } =
     useRequest<ServerResponse>('/api/action/rsvp');
   const authCtx = useAuth();
 
-  // useEffect(() => {
-  //   getQrCode();
-  // }, [getQrCode]);
+  useEffect(() => {
+    getQrCode();
+  }, [getQrCode]);
+
+  useEffect(() => {
+    const action = () => setDelayedShowQR(showQRCode);
+    if (showQRCode) return action();
+
+    const timer = window.setTimeout(action, 250);
+    return () => window.clearTimeout(timer);
+  }, [showQRCode]);
 
   if (!authCtx.isAuthenticated) {
     return null;
@@ -53,10 +64,10 @@ function HackerInfo() {
   const email = authCtx.user.email;
   const firstName = authCtx.user.firstName;
   
-  // const dateFormat = new Intl.DateTimeFormat('en-CA', {
-  //   month: 'short',
-  //   day: 'numeric',
-  // });
+  const dateFormat = new Intl.DateTimeFormat('en-CA', {
+    month: 'short',
+    day: 'numeric',
+  });
   
   const unrsvp = async () => {
     toast.loading('Cancelling RSVP...', { id: 'rsvp-home' });
@@ -81,8 +92,6 @@ function HackerInfo() {
   };
       
   const welcomeMessage = (authCtx.user.status.checkedIn) ? "Thanks for checking in" : "Welcome back";
-  // TODO: Not sure what field checks for attendance, assuming it's canRSVP?
-  const attending = authCtx.user.status.canRSVP;
 
   return (
     <div className={styles.container}>
@@ -119,31 +128,59 @@ function HackerInfo() {
         </div>
         <div className={styles.row_border}></div>
         <div className={styles.status}>
-          <Typography
-           textType='heading3'
-           as='h3'
-           textColor='neutral-50'>
-            Your Status: 
-          </Typography>
-          {/*{qrCode && (*/}
-          {/*  <>*/}
-          {/*    <Typography*/}
-          {/*      textColor='primary-700'*/}
-          {/*      textType='paragraph1'*/}
-          {/*      textWeight='bold'*/}
-          {/*      as='p'*/}
-          {/*    >*/}
-          {/*      Scan the QR code on {dateFormat.format(inPersonDate)} to check in:*/}
-          {/*    </Typography>*/}
-          {/*    <Card className={styles.qrBox}>*/}
-          {/*      <img*/}
-          {/*        src={qrCode.message}*/}
-          {/*        alt='Your QR code'*/}
-          {/*        className={styles.qr}*/}
-          {/*      />*/}
-          {/*    </Card>*/}
-          {/*  </>*/}
-          {/*)}*/}
+          <div className={styles.status_indicator_text}>
+            <Typography
+            textType='heading3'
+            as='h3'
+            textColor='neutral-50'>
+              Your Status:&nbsp;
+            </Typography>
+            {qrCode ? <Typography
+                        textType='heading4'
+                        as='h4'
+                        textColor='success' // No colour exists that matches design, i.e success-500 doesn't exist
+                        className={styles.attending}>
+                          <HiCheckCircle />&nbsp;Attending
+                      </Typography> : 
+                      <Typography
+                        textType='heading4'
+                        as='h4'
+                        textColor='error-500'
+                        className={styles.not_attending}>
+                          <HiXCircle />&nbsp;Not Attending
+                      </Typography>}
+          </div>
+          {qrCode && (
+            <Card className={cx(styles.qr_code_container, delayedShowQR && styles.show)}>
+              <Typography
+               onClick={() => setShowQRCode((old) => !old)}
+               className={cx(styles.button, showQRCode && styles.expanded)}
+               textWeight='medium'
+               textType='heading3'
+               type='button'
+               as='button'
+               textColor='neutral-50'>
+                Participant Code
+                <HiChevronDown
+                  className={cx(showQRCode && styles.show, styles.caret)}
+                />
+              </Typography>
+              <div className={cx(showQRCode && styles.show, styles.qr_image)}>
+                <img
+                  src={qrCode.message}
+                  alt='Your QR code'
+                  className={styles.qr}
+                />
+                <Typography
+                 textType='paragraph1'
+                 as='p'
+                 textColor='neutral-50'
+                 >
+                Show this QR code to check-in, grab food, participate in activities, etc! We recommend screenshotting this.
+                </Typography>
+              </div>
+            </Card>
+          )}
           <Typography textColor='neutral-50' textType='paragraph-regular' as='p'>
             If you can no longer attend Hack the 6ix, please let us know so we can
             pass this opportunity to a waitlisted participant.
