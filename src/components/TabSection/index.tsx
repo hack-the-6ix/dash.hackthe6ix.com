@@ -18,6 +18,7 @@ export interface TabSectionProps<T extends Tab> extends ComponentProps<'div'> {
   className?: string;
   lazy?: boolean;
   value?: number;
+  type?: string;
   tabs: T[];
 }
 
@@ -26,6 +27,7 @@ function TabSection<T extends Tab>({
   value: _value = 0,
   className,
   lazy,
+  type='form',
   tabs,
   ...props
 }: TabSectionProps<T>) {
@@ -34,7 +36,7 @@ function TabSection<T extends Tab>({
     <Section
       {...props}
       className={cx(className, styles.root)}
-      type='form'
+      type={type}
       as='div'
     >
       {/*<ul className={styles.tabs}>*/}
