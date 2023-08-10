@@ -92,8 +92,31 @@
   color: colors.getColor(warning-400);
 }
 
-.calendarContainer {
+.calendarContentContainer {
   width: 100%;
-  height: auto;
-  grid-area: calendar;
+  height: 75vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: colors.getColor(warning-400);
+
+  // Scroll Bar Width
+  ::-webkit-scrollbar {
+    width: 1.25rem;
+  }
+
+  // Scroll Bar Track
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0.25rem colors.getColor(neutral-50); 
+    border-radius: 0.75rem;
+  }
+  
+  // Scroll Bar Handle
+  ::-webkit-scrollbar-thumb {
+    background: white; 
+    border-radius: 0.75rem;
+    &:hover {
+      background: colors.getColor(neutral-50); 
+    }
+  }
 }

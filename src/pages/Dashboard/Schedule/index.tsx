@@ -122,7 +122,7 @@ function Schedule() {
           )}
           categories={types}
           schedule={events}
-          className={styles.calendarContainer}
+          className={styles.calendarContentContainer}
         />
         {/*<div className={styles.buttons}>
           <Button

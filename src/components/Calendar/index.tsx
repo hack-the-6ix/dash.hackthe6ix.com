@@ -71,12 +71,13 @@ function Calendar<Categories extends string, Item extends ScheduleData<Categorie
     }
   }, [ startDate ]);
 
+  // Testing
   const changeTabSchedule = () => {
     console.log("Click. Tab changed");
   }
 
   return (
-    <div>
+    <div className={styles.calendarContainer}>
       <div className={styles.dayContainer}>
         {days.map((day, idx) => {
           const offset = (idx * 48) + 3;

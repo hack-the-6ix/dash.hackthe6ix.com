@@ -11,6 +11,10 @@ $_height: 4.5rem;
   grid-row: var(--r) / var(--rs, 1) span;
 }
 
+.calendarContainer {
+  grid-area: calendar;
+}
+
 // Event Stuff
 .event {
   @extend %cell;
@@ -87,7 +91,6 @@ $_height: 4.5rem;
 // Misc stuff
 .root {
   grid-template-rows: max-content max-content 1px repeat(var(--rows), $_height 1px);
-  // grid-template-columns: $_width 1px repeat(var(--cols), math.div($_width, 2) math.div($_width, 2));
   grid-template-columns: $_width repeat(var(--cols));
   overflow: auto;
   display: grid;
