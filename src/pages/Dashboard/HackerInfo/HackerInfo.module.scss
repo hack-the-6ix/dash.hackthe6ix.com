@@ -4,14 +4,79 @@
 @use '~@ht6/react-ui/dist/styles/colors.module';
 
 .container {
-  grid-template-columns: 1fr;
-  grid-gap: 2.75rem;
-  display: grid;
+  
 
   p {
     margin-bottom: 1rem;
   }
+
+  .title{
+    letter-spacing: normal;
+    margin-bottom: 1rem;
+  }
+  .grid{
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: min-content auto;
+    grid-gap: 3rem;
+    column-gap: 9rem;
+    display: grid;
+
+    .title{
+      margin-bottom: -2rem;
+    }
+
+    .heading, .row_border, .discord, .links{
+      grid-column: 1;
+    }
+
+    .heading{
+      align-self: start;
+      .subheading{
+        .date{
+          color: colors.getColor(warning-400);
+        }
+        margin-bottom: 1.5rem;
+      }
+  
+      .location{
+        margin-bottom: 0;
+        .link {
+          @include mixins.transition(color);
+          color: colors.getColor(neutral-300);
+          text-decoration: underline;
+        
+          &:hover,
+          &:focus {
+            color: colors.getColor(neutral-300, hover);
+          }
+        
+          &:active {
+            color: colors.getColor(neutral-300, active);
+          }
+        }
+      }
+  
+      @include localMixins.media(mobile){
+        text-align: center;   
+      }
+    }
+
+    .row_border{
+      border-bottom: 1px solid colors.getColor(neutral-50);
+      max-height: 0;
+      align-self: start;
+    }
+  
+    .status{
+      grid-column: 2;  
+      display: absolute;
+      grid-row-start: 2;
+      grid-row-end: 5;
+    }
+  }
+  
 }
+
 
 .copy {
   position: relative;
