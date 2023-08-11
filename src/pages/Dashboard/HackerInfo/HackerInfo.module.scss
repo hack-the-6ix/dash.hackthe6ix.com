@@ -101,7 +101,7 @@
       .qr_code_container{
         position: relative;
         overflow: visible;
-        background-color: #f3f6f612;
+        background-color: colors.getColor(neutral-50, null, 0.12);
         padding: 0.75rem;
         border-radius: 1.5rem;
         &.show{
@@ -154,75 +154,150 @@
         }
       }
     }
+
+    .discord{
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .heading{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        p{
+          margin-bottom: 0;
+        }
+      }
+
+      .discord_command_container{
+        padding: 2rem 4rem;
+        border-radius: 2rem;
+        background-color: colors.getColor(copy-light, null, 0.18);
+        column-gap: 1.5rem;
+        row-gap: 0.75rem;
+        display: grid;
+
+        .useful_link .text h3{
+          color: #8c9eff;
+        }
+
+        .copy {
+          position: relative;
+          .command {
+            @include mixins.transition(filter);
+            background-color: colors.getColor(neutral-50, null, 0.12);
+            justify-content: center;
+            border-radius: 1.25rem;
+            padding: 0.75rem 2.75rem;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            border: none;
+            width: 100%;
+            &:hover,
+            &:focus {
+              filter: brightness(0.9);
+            }
+          }
+        }        
+      }
+    }
+
+    .links{
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .heading{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        p{
+          margin-bottom: 0;
+        }
+      }
+
+      .links_container{
+        padding: 2rem 4rem;
+        border-radius: 2rem;
+        background-color: colors.getColor(copy-light, null, 0.18);
+        column-gap: 1.5rem;
+        row-gap: 0.75rem;
+        grid-template-columns: repeat(2, 1fr);
+        list-style-type: none;
+        display: grid;
+
+        .copy {
+          position: relative;
+          .command {
+            @include mixins.transition(filter);
+            background-color: colors.getColor(neutral-50, null, 0.12);
+            justify-content: center;
+            border-radius: 1.25rem;
+            padding: 0.75rem 2.75rem;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            border: none;
+            width: 100%;
+            &:hover,
+            &:focus {
+              filter: brightness(0.9);
+            }
+          }
+        }        
+      }
+    }
   }
   
-}
+  .useful_link{
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 5rem auto;
+    cursor: pointer;
+    gap: 1.5rem;
+    align-items: center;
+    height:100%;
+    &:hover .text h3 .arrow{
+      margin-left: 0.75rem;
+    }
 
+    img{
+      grid-column: 1;
+      width: 100%;
+    }
 
-.copy {
-  position: relative;
-}
+    .text{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      align-items: center;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0.5rem 0;
+      h3{
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        .arrow{
+          @include mixins.transition(margin);
+          margin-left: 0.25rem;
+        }
+      }
 
-.icon {
-  color: colors.getColor(primary-700);
-  margin: auto 1rem auto auto;
-  position: absolute;
-  width: 1rem;
-  height: auto;
-  inset: 0;
-}
-
-.command {
-  @include mixins.transition(filter);
-  background-color: localColors.$bg-light-grey;
-  justify-content: center;
-  border-radius: 1.25rem;
-  padding: 0.75rem 2.75rem;
-  box-sizing: border-box;
-  text-align: center;
-  cursor: pointer;
-  display: flex;
-  border: none;
-  width: 100%;
-
-  &:hover,
-  &:focus {
-    filter: brightness(0.96);
+      p {
+        margin-bottom: 0;
+      }
+    }
   }
 
-  &:active {
-    filter: brightness(0.92);
+  .hopin{
+    color: #4881FF;
   }
-}
 
-.links {
-  display: grid;
-  list-style-type: none;
-  grid-template-columns: repeat(3, 1fr);
-  position: relative;
-  grid-gap: 1.25rem;
-  padding: 0;
-  margin: 1rem 0 0;
-
-  @include localMixins.media(laptop) {
-    grid-template-columns: 1fr;
+  .devpost{
+    color: #2D88A8;
   }
-}
-
-.disabled {
-  pointer-events: none;
-  filter: blur(0.125rem) saturate(0);
-  opacity: 0.2;
-}
-
-.actions {
-  display: grid;
-  grid-template-columns: auto auto;
-  margin-top: 0.25rem;
-  grid-gap: 0.25rem;
-}
-
-.action {
-  font-size: 0.75rem;
-  padding: 0.3rem 1rem;
 }

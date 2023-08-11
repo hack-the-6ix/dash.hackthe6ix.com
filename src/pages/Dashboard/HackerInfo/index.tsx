@@ -1,8 +1,8 @@
-import { Button, Link, Typography } from '@ht6/react-ui';
+import { Button, Typography } from '@ht6/react-ui';
 import cx from 'classnames';
 import { MouseEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { HiClipboard, HiLocationMarker, HiCheckCircle, HiXCircle, HiChevronDown } from 'react-icons/hi';
+import { HiLocationMarker, HiCheckCircle, HiXCircle, HiChevronDown, HiArrowRight } from 'react-icons/hi';
 import Card from '../../../components/Card';
 
 import useAuth from '../../../components/Authentication/context';
@@ -13,25 +13,18 @@ import styles from './HackerInfo.module.scss';
 
 const links = [
   {
-    logo: require('../../../assets/discord.png'),
-    title: 'Discord',
-    link: 'https://discord.com/invite/ZZm2Ycu7UH',
-    description: 'Connect with hackers, mentors and sponsors!',
-    disabled: false
-  },
-  {
     logo: require('../../../assets/hopin.png'),
     title: 'Hopin',
     link: 'https://hopin.com/events/hack-the-6ix-2022?code=x251djeXmLiKPglrQsBHavu3B',
     description: 'All our live events and workshops are here!',
-    disabled: false
+    color: styles.hopin
   },
   {
     logo: require('../../../assets/devpost.png'),
     title: 'Devpost',
-    link: 'https://hackthe6ix2022.devpost.com/',
-    description: 'Submit your projects here!',
-    disabled: false
+    link: 'https://hackthe6ix2023.devpost.com/',
+    description: 'Submit & share your projects here!',
+    color: styles.devpost
   },
 ];
 
@@ -220,46 +213,80 @@ function HackerInfo() {
           </Button>
         </div>
         <div className={styles.discord}>
-          <Typography textColor='primary-700' textType='heading3' as='h3'>
-            JOIN OUR DISCORD
-          </Typography>
-          <Typography textColor='primary-700' textType='paragraph1' as='p'>
-            Join our Discord server to get the latest updates and meet fellow
-            hackers!
-          </Typography>
-          <Typography textColor='primary-700' textType='paragraph1' as='p'>
-            Issue the following command in the <b>#verification</b> channel to
-            gain access:
-          </Typography>
-          <div className={styles.copy}>
-            <Typography
-              onClick={(e: MouseEvent<HTMLInputElement>) => {
-                navigator.clipboard.writeText(e.currentTarget.value);
-                toast.success('Copied to clipboard!');
-              }}
-              className={styles.command}
-              textColor='primary-700'
-              textType='heading4'
-              value={`!verify ${email}`}
-              as='input'
-              readOnly
-            />
-            <HiClipboard className={styles.icon} />
+          <div className={styles.heading}>
+            <Typography textColor='neutral-50' textType='heading3' as='h3'>
+              Join Our Discord
+            </Typography>
+            <Typography textColor='neutral-50' textType='paragraph1' as='p'>
+              Join our Discord server to get the latest updates and connect with fellow
+              hackers, mentors, and sponsors!
+            </Typography>
+          </div>
+          <div className={styles.discord_command_container}>
+            <a 
+             className={styles.useful_link}
+             href='https://discord.com/invite/A5jM5Dg7N2'
+             target='_blank'
+             rel='noreferrer noopener'
+            >
+              <img src={require('../../../assets/discord.png')}/>
+              <div className={styles.text}>
+                <Typography textType='heading3' as='h3'>
+                  Discord <HiArrowRight className={styles.arrow}/>
+                </Typography>
+                <Typography textColor='neutral-50' textType='paragraph1' as='p'>
+                  Issue the following command in the <b>#verification</b> channel to
+                  gain access:
+                </Typography>
+              </div>
+            </a>
+            <div className={styles.copy}>
+              <Typography
+                onClick={(e: MouseEvent<HTMLInputElement>) => {
+                  navigator.clipboard.writeText(e.currentTarget.value);
+                  toast.success('Copied to clipboard!');
+                }}
+                className={styles.command}
+                textColor='neutral-50'
+                textType='heading4'
+                value={`!verify ${email}`}
+                as='input'
+                readOnly
+              />
+            </div>
           </div>
         </div>
         <div className={styles.links}>
-          <Typography textColor='primary-700' textType='heading3' as='h3'>
-            USEFUL LINKS
-          </Typography>
-          <div>
-            <ul className={styles.links}>
-              {links.map((link, idx) => (
-                <li className={cx(link.disabled && styles.disabled)} key={idx}>
-                  <IconLink {...link} />
-                </li>
-              ))}
-            </ul>
-          </div> 
+          <div className={styles.heading}>
+            <Typography textColor='neutral-50' textType='heading3' as='h3'>
+              Useful Links
+            </Typography>
+            <Typography textColor='neutral-50' textType='paragraph1' as='p'>
+            Explore these links to learn more about our event this year and get familiar with Hack the 6ix!
+            </Typography>
+          </div>
+          <ul className={styles.links_container}>
+            {links.map((link, idx) => (
+              <li key={idx}>
+                <a 
+                className={styles.useful_link}
+                href={link.link}
+                target='_blank'
+                rel='noreferrer noopener'
+                >
+                  <img src={link.logo}/>
+                  <div className={styles.text}>
+                    <Typography textType='heading3' as='h3' className={link.color}>
+                      {link.title} <HiArrowRight className={styles.arrow}/>
+                    </Typography>
+                    <Typography textColor='neutral-50' textType='paragraph1' as='p'>
+                      {link.description}
+                    </Typography>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
