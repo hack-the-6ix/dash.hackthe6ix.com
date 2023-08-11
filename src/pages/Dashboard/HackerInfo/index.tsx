@@ -4,9 +4,9 @@ import { MouseEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { HiLocationMarker, HiCheckCircle, HiXCircle, HiChevronDown, HiArrowRight } from 'react-icons/hi';
 import Card from '../../../components/Card';
+import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa';
 
 import useAuth from '../../../components/Authentication/context';
-import IconLink from '../../../components/IconLink';
 import { ServerResponse, useRequest } from '../../../utils/useRequest';
 
 import styles from './HackerInfo.module.scss';
@@ -26,6 +26,25 @@ const links = [
     description: 'Submit & share your projects here!',
     color: styles.devpost
   },
+];
+
+const socials = [
+  {
+    logo: FaFacebook,
+    link: 'https://www.facebook.com/HackThe6ix'
+  },
+  {
+    logo: FaInstagram,
+    link: 'https://www.instagram.com/hackthe6ix'
+  },
+  {
+    logo: FaTwitter,
+    link: 'https://twitter.com/hackthe6ix?lang=en'
+  },
+  {
+    logo: FaLinkedin,
+    link: 'https://linkedin.com/company/hackthe6ixofficial'
+  }
 ];
 
 function HackerInfo() {
@@ -211,6 +230,25 @@ function HackerInfo() {
           >
             I can no longer attend
           </Button>
+          <div className={styles.socials}>
+          <Typography textType='paragraph-regular' as='p'>
+            Stay updated with us!
+          </Typography>
+          <ul className={styles.socials_row}>
+            {socials.map((social, idx) => (
+              <li key={idx}>
+                <a 
+                className={styles.social_link}
+                href={social.link}
+                target='_blank'
+                rel='noreferrer noopener'
+                >
+                  <social.logo />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
         </div>
         <div className={styles.discord}>
           <div className={styles.heading}>
@@ -283,6 +321,25 @@ function HackerInfo() {
                       {link.description}
                     </Typography>
                   </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={styles.socials}>
+          <Typography textType='paragraph-regular' as='p'>
+            Stay updated with us!
+          </Typography>
+          <ul className={styles.socials_row}>
+            {socials.map((social, idx) => (
+              <li key={idx}>
+                <a 
+                className={styles.social_link}
+                href={social.link}
+                target='_blank'
+                rel='noreferrer noopener'
+                >
+                  <social.logo />
                 </a>
               </li>
             ))}

@@ -4,8 +4,6 @@
 @use '~@ht6/react-ui/dist/styles/colors.module';
 
 .container {
-  
-
   p {
     margin-bottom: 1rem;
   }
@@ -13,13 +11,20 @@
   .title{
     letter-spacing: normal;
     margin-bottom: 1rem;
+    @include localMixins.media(desktop){
+      text-align: center;   
+    }
   }
   .grid{
     grid-template-columns: 3fr 1fr;
     grid-template-rows: min-content auto;
-    grid-gap: 3rem;
-    column-gap: 9rem;
+    gap: 3rem 9rem;
     display: grid;
+
+    @include localMixins.media(desktop){
+      grid-template-columns: 1fr;
+      row-gap: 4rem;
+    }
 
     .title{
       margin-bottom: -2rem;
@@ -56,7 +61,7 @@
         }
       }
   
-      @include localMixins.media(mobile){
+      @include localMixins.media(desktop){
         text-align: center;   
       }
     }
@@ -73,7 +78,15 @@
       flex-direction: column;
       row-gap: 2rem;
       grid-row-start: 2;
-      grid-row-end: 15;
+      grid-row-end: 6;
+
+      @include localMixins.media(desktop){
+        grid-column: 1;
+        grid-row: auto;
+        .socials{
+          display: none;
+        }
+      }
 
       p{
         margin-bottom: 0;
@@ -146,7 +159,6 @@
           row-gap: 2rem;
           img{
             display: block;
-            width: 60%;
           }
           &.show{
             max-height: 30rem;
@@ -228,6 +240,10 @@
         list-style-type: none;
         display: grid;
 
+        @include localMixins.media(laptop){
+          grid-template-columns: 1fr;
+        }
+
         .copy {
           position: relative;
           .command {
@@ -248,6 +264,14 @@
             }
           }
         }        
+      }
+    }
+
+    > .socials{
+      display: none;
+      @include localMixins.media(desktop){
+        display: block;
+        text-align: center;
       }
     }
   }
@@ -299,5 +323,33 @@
 
   .devpost{
     color: #2D88A8;
+  }
+
+  .socials{
+    color: colors.getColor(neutral-50);
+    .socials_row{
+      list-style-type: none;
+      display: flex;
+      padding: 0;
+      gap: 2rem;
+      a{
+        svg{
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+        @include mixins.transition(filter);
+        color: colors.getColor(neutral-50);
+        filter: brightness(1);
+        &:hover,
+        &:focus,
+        &:active {
+          filter: brightness(0.9);
+        }
+      }
+
+      @include localMixins.media(desktop){
+        justify-content: center;
+      }
+    }
   }
 }
