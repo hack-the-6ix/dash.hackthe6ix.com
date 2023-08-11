@@ -103,7 +103,8 @@ function HackerInfo() {
     }
   };
       
-  const welcomeMessage = (authCtx.user.status.checkedIn) ? "Thanks for checking in" : "Welcome back";
+  const checkedIn = authCtx.user.status.checkedIn;
+  const welcomeMessage = checkedIn ? "Thanks for checking in" : "Welcome back";
 
   return (
     <div className={styles.container}>
@@ -193,43 +194,46 @@ function HackerInfo() {
               </div>
             </Card>
           )}
-          <Typography textColor='neutral-50' textType='paragraph' as='p'>
-            If you can no longer attend Hack the 6ix, please let us know so we can
-            pass this opportunity to a waitlisted participant.
-          </Typography>
-          <Button
-            buttonVariant='secondary'
-            disabled={isLoading}
-            onClick={() =>
-              toast(
-                <div>
-                  <p>Are you sure you want to un-RSVP?</p>
-                  <div className={styles.actions}>
-                    <Button
-                      onClick={unrsvp}
-                      className={styles.action}
-                      buttonColor='success'
-                    >
-                      Yes
-                    </Button>
-                    <Button
-                      onClick={() => toast.dismiss('rsvp-home')}
-                      className={styles.action}
-                      buttonColor='error-600'
-                    >
-                      No
-                    </Button>
-                  </div>
-                </div>,
-                {
-                  id: 'rsvp-home',
-                  duration: 30000,
+          {!checkedIn && 
+            <>
+              <Typography textColor='neutral-50' textType='paragraph' as='p'>
+                If you can no longer attend Hack the 6ix, please let us know so we can
+                pass this opportunity to a waitlisted participant.
+              </Typography>
+              <Button
+                buttonVariant='secondary'
+                disabled={isLoading}
+                onClick={() =>
+                  toast(
+                    <div>
+                      <p>Are you sure you want to un-RSVP?</p>
+                      <div className={styles.actions}>
+                        <Button
+                          onClick={unrsvp}
+                          className={styles.action}
+                          buttonColor='success'
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          onClick={() => toast.dismiss('rsvp-home')}
+                          className={styles.action}
+                          buttonColor='error-600'
+                        >
+                          No
+                        </Button>
+                      </div>
+                    </div>,
+                    {
+                      id: 'rsvp-home',
+                      duration: 30000,
+                    }
+                  )
                 }
-              )
-            }
-          >
-            I can no longer attend
-          </Button>
+              >
+                I can no longer attend
+              </Button>
+            </>}
           <div className={styles.socials}>
           <Typography textType='paragraph-regular' as='p'>
             Stay updated with us!
