@@ -3,6 +3,7 @@ import Airtable from "airtable";
 import { useEffect, useState } from "react";
 // import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Calendar, { CalendarProps, ScheduleData } from "../../../components/Calendar";
+import ScheduleDisplay from "../../../components/Schedule";
 import styles from './Schedule.module.scss';
 
 type EventTypeRes = {
@@ -91,20 +92,21 @@ function Schedule() {
   const isReady = types && events;
   return isReady ? (
     <div className={styles.root}>
-      <Calendar
-        renderEvent={item => (
-          <div className={styles.event}>
-            <Typography className={styles.text} textType='paragraph2' textColor='primary-700'>
-              {item.name}
-            </Typography>
-            <Typography className={styles.text} textType='paragraph3' textColor='grey'>
-              {formatTimeRange(item.start, item.end)} | {item.location}
-            </Typography>
-          </div>
-        )}
-        categories={types}
-        schedule={events}
-      />
+      <ScheduleDisplay></ScheduleDisplay>
+      {/*<Calendar*/}
+      {/*  renderEvent={item => (*/}
+      {/*    <div className={styles.event}>*/}
+      {/*      <Typography className={styles.text} textType='paragraph2' textColor='primary-700'>*/}
+      {/*        {item.name}*/}
+      {/*      </Typography>*/}
+      {/*      <Typography className={styles.text} textType='paragraph3' textColor='grey'>*/}
+      {/*        {formatTimeRange(item.start, item.end)} | {item.location}*/}
+      {/*      </Typography>*/}
+      {/*    </div>*/}
+      {/*  )}*/}
+      {/*  categories={types}*/}
+      {/*  schedule={events}*/}
+      {/*/>*/}
       {/*<div className={styles.buttons}>
         <Button
           className={styles.button}

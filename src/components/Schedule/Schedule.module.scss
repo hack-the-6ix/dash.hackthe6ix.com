@@ -1,0 +1,59 @@
+@use '~@ht6/react-ui/dist/styles/colors.module';
+@use '~@ht6/react-ui/dist/styles/mixins.module';
+@use 'sass:math';
+
+$eventColorMap: (
+  mainEvent: (
+    borderColor: #fffff
+  )
+);
+
+.event {
+  @each $event, $value in $eventColorMap {
+    &--#{$event} {
+      border-color: map-get($value, 'borderColor')
+    }
+  }
+}
+
+.scheduleRoot {
+  display: grid;
+  column-gap: 10px;
+  row-gap: 10px;
+
+  grid-template-columns: 50px repeat(6, 1fr);
+  grid-template-rows: repeat(96, 1fr);
+  color: white;
+}
+
+.scheduleTime {
+  grid-column-start: 1;
+  grid-column-end: span 1;
+
+  grid-row-start: calc(var(--start-hour) * 4 + 1);
+  grid-row-end: span 4;
+
+  text-align: right;
+}
+
+.scheduleBasicItem {
+
+}
+
+.scheduleItem {
+  grid-column-start: calc(var(--event-offset) + 2);
+  grid-column-end: span var(--event-width);
+  grid-row-start: calc(var(--start-hour) * 4 + 1 + calc(var(--event-height-offset) * 4));
+  grid-row-end: span calc(var(--event-height) * 4);
+
+  background-color: green;
+  border-left-style: solid;
+  border-left-width: 10px;
+
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+
+  padding: 1rem;
+
+  //height: 4rem;
+}
