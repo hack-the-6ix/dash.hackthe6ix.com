@@ -1,98 +1,95 @@
+import {BsSquareFill} from 'react-icons/bs';
 import { Typography } from "@ht6/react-ui";
-import Airtable from "airtable";
-import { useEffect, useState } from "react";
-// import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import Calendar, { CalendarProps, ScheduleData } from "../../../components/Calendar";
+import { CSSProperties, useEffect, useState } from "react";
 import ScheduleDisplay from "../../../components/Schedule";
 import styles from './Schedule.module.scss';
 
-type EventTypeRes = {
-  Name: string;
-  Color: `#${string}`;
-  Events: string[];
-  Hidden: boolean;
-};
+import cx from "classnames";
 
-type EventRes = {
-  Name: string;
-  Platform: string;
-  'HT6 Support': string;
-  Start: string;
-  End: string;
-  Description: string;
-  Host: string[];
-  'Type of Event': string[];
-  'Is Mentor added to Hopin session?': string[];
-  Day: string;
-  PlatformLink: string;
-}
-
-interface Event extends ScheduleData {
-  location: string;
-  name: string;
-}
-
-function parseDate(date: string) {
-  const d = new Date(date);
-  // Apply Toronto offset to fix GMT conversion
-  d.setMinutes(d.getMinutes() + 240);
-  return d;
-}
-
-const base = new Airtable({
-  // By all means steal this, its readonly
-  apiKey: process.env.REACT_APP_AIRTABLE_KEY,
-}).base(process.env.REACT_APP_AIRTABLE_ID!);
 
 function Schedule() {
-  const [events, setEvents] = useState<Event[]>();
-  const [types, setTypes] = useState<CalendarProps['categories']>();
-  useEffect(() => {
-    let mounted = true;
-    Promise.all([
-      base<EventTypeRes>('Type of Events').select({
-        filterByFormula: 'NOT({Hidden} = TRUE())',
-      }).all(),
-      base<EventRes>('Events 2022').select({
-        filterByFormula: 'NOT({Type of Event} = BLANK())',
-        sort: [{ field: 'Start', direction: 'asc' }],
-      }).all(),
-    ]).then(([_types, _events]) => {
-      if (!mounted) return;
-      setTypes(_types.map(type => ({
-        label: type.fields.Name,
-        color: type.fields.Color,
-        ref: type.id,
-      })));
-      setEvents(_events.map(event => ({
-        category: event.fields["Type of Event"][0],
-        location: event.fields["Platform"],
-        start: parseDate(event.fields.Start),
-        end: parseDate(event.fields.End),
-        name: event.fields.Name,
-      })));
-    })
-    return () => {
-      mounted = false;
+  const isReady = true;
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const tabs = [
+    {
+      text: 'Fri. August 18'
+    },
+    {
+      text: 'Sat. August 19'
+    },
+    {
+      text: 'Sun. August 20'
     }
-  }, []);
+  ];
 
-  const timeFormat = new Intl.DateTimeFormat('en-CA', {
-    minute: '2-digit',
-    hour: 'numeric',
-    hour12: true,
-  });
-  const formatTimeRange = (start: Date, end: Date) => {
-    let s = timeFormat.format(start).replace(/[ .]/g, '').replace(':00', '');
-    const e = timeFormat.format(end).replace(/[ .]/g, '').replace(':00', '');
-    if (s.slice(-2) === e.slice(-2)) s = s.slice(0, -2);
-    return `${s}-${e}`;
-  }
+  const eventTypes = [
+    {
+      id: "mainEvent",
+      label: "Main Events"
+    },
+    {
+      id: "sponsorBay",
+      label: "Sponsor Bay"
+    },
+    {
+      id: 'activities',
+      label: "Activities"
+    },
+    {
+      id: "meal",
+      label: "Meals"
+    },
+    {
+      id: "workshop",
+      label: "Workshops"
+    }
+  ];
 
-  const isReady = types && events;
   return isReady ? (
     <div className={styles.root}>
-      <ScheduleDisplay></ScheduleDisplay>
+      <div className={styles.scheduleHeading}>
+          <Typography
+            textType={"heading2"}
+            textColor={"copy-light"}
+            as="h2">Event Schedule</Typography>
+          <Typography
+            textType={"paragraph2"}
+            textColor={"copy-light"}>Click on each block for more details about each workshop and event.</Typography>
+      </div>
+      <div className={styles.scheduleRoot}>
+        <div className={styles.legendContainer}>
+          <Typography
+            textType='heading3'
+            textColor='copy-light'
+          >Legend</Typography>
+          {
+            eventTypes.map((eventType) => (
+              <div>
+                <Typography textType='paragraph2' textColor='copy-light'>
+                  <span className={cx(styles['event--' + eventType.id])}><BsSquareFill/></span> {eventType.label}
+                </Typography>
+              </div>
+            ))
+          }
+        </div>
+        <div className={cx(styles.scheduleContainer)}>
+          <div className={cx(styles.tabs)}>
+            {
+              tabs.map((tab, idx) => (
+                <div
+                className={cx(activeTab === idx && styles.active)}
+                onClick={() => setActiveTab(idx)}
+                >
+                  <Typography textType='paragraph2'>{tab.text}</Typography>
+                </div>
+              ))
+            }
+          </div>
+          <div className={cx(styles.schedule)}>
+            <ScheduleDisplay></ScheduleDisplay>
+          </div>
+        </div>
+      </div>
       {/*<Calendar*/}
       {/*  renderEvent={item => (*/}
       {/*    <div className={styles.event}>*/}
