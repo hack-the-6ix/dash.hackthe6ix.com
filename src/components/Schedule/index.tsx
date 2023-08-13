@@ -42,6 +42,7 @@ const scheduleData = {
                 startTime: new Date("August 18, 2023 19:00:00"),
                 endTime: null,
                 location: 'Entrance Area',
+                description: "Hacker Check-In has now started! Please come to the entrance area to check-in and get your swag!",
                 type: 'mainEvent',
                 width: 6,
                 offset: 0,
@@ -58,6 +59,7 @@ const scheduleData = {
                 startTime: new Date("August 18, 2023 17:00:00"),
                 endTime: new Date("August 18, 2023 18:00:00"),
                 location: 'ENG LG011',
+                description: "Welcome to Hack the 6ix 2023! We're so excited to have you here! We'll be starting off with some opening remarks from our sponsors and then we'll be getting into the details of the event!",
                 type: 'mainEvent',
                 width: 6,
                 offset: 0,
@@ -138,6 +140,7 @@ const scheduleData = {
 
 function Schedule() {
     const [selectedEventData, setSelectedEventData] = useState<EventData>();
+    const [showModal, setShowModal] = useState<boolean>(false);
 
     const formatEventTime = useCallback((eventData: EventData) => {
         let ret = `${eventData.startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
@@ -187,7 +190,7 @@ function Schedule() {
                                             '--event-height': eventData.height ?? 1,
                                             '--event-height-offset': eventData.heightOffset ?? 0
                                         } as CSSProperties}
-                                        onClick={() => {setSelectedEventData(eventData)}}
+                                        onClick={() => {setSelectedEventData(eventData); setShowModal(true)}}
                                     >
                                         <Typography
                                             textType={"heading4"}
@@ -207,41 +210,42 @@ function Schedule() {
                 }
             </div>
             <div
-                className={cx(styles.modalContainer, selectedEventData && styles.show)}
+                className={cx(styles.modalContainer, showModal && styles.show)}
                 onClick={(e) => {
                     if (e.target === e.currentTarget) {
-                        setSelectedEventData(undefined);
+                        setShowModal(false);
                     }
                 }}
             >
                 <div
                     className={cx(styles.modal)}
                 >
-                    <div
-                        className={cx(styles.modalDismiss)}
-                        onClick={() => setSelectedEventData(undefined)}
-                    >
-                        <RiCloseLine />
-                    </div>
-                    <Typography
-                        textType={"heading3"} as={"h3"}>{selectedEventData?.title}</Typography>
+                    <Typography textType={"heading3"} as={"h3"} className={cx(styles.modalHeader)}>
+                        {selectedEventData?.title}
+                        <div
+                            className={cx(styles.modalDismiss)}
+                            onClick={() => setShowModal(false)}
+                        >
+                            <RiCloseLine />
+                        </div>
+                    </Typography>
                     <div className={cx(styles.modalEventDetails)}>
                         <div>
                             <Typography textType={"paragraph2"}><FaClock /></Typography>
                             <Typography textType={"paragraph2"}>{selectedEventData && formatEventDateTime(selectedEventData)}</Typography>
                         </div>
-                        <div>
+                        {selectedEventData?.presenter && <div>
                             <Typography textType={"paragraph2"}>{selectedEventData?.presenter && <BsPersonCircle />}</Typography>
                             <Typography textType={"paragraph2"}>{selectedEventData?.presenter}</Typography>
-                        </div>
-                        <div>
+                        </div>}
+                        {selectedEventData?.location && <div>
                             <Typography textType={"paragraph2"}>{selectedEventData?.location && <FaLocationDot />}</Typography>
                             <Typography textType={"paragraph2"}>{selectedEventData?.location}</Typography>
-                        </div>
-                        <div>
+                        </div>}
+                        {selectedEventData?.description && <div>
                             <Typography textType={"paragraph2"}>{selectedEventData?.description && <FaNoteSticky />}</Typography>
                             <Typography textType={"paragraph2"}>{selectedEventData?.description}</Typography>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
