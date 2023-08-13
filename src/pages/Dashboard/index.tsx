@@ -3,7 +3,6 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import Protected from '../../components/Authentication/Protected';
 import useAuth from '../../components/Authentication/context';
-import HeadingSection from '../../components/HeadingSection';
 import TabSection, { Tab } from '../../components/TabSection';
 import HackerInfo from './HackerInfo';
 import Resources from './Resources';
@@ -96,23 +95,12 @@ function DashboardContent() {
 
   return (
     <main className={styles.root}>
-      <HeadingSection
-        title={`Welcome back, ${firstName}!`}
-        action={{
-          onClick: async () => {
-            await authCtx.revokeAuth();
-            navigate('/');
-          },
-          children: 'Sign Out',
-        }}
-        textType='heading2'
-        as='h2'
-      />
       <TabSection
         onChange={(_, idx) => {
           updateUrl(idx);
         }}
         value={selected}
+        type=""
         tabs={tabs}
       />
     </main>
