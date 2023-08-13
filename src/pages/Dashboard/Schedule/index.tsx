@@ -1,5 +1,5 @@
 import {BsSquareFill} from 'react-icons/bs';
-import { Typography } from "@ht6/react-ui";
+import { Typography, Button } from "@ht6/react-ui";
 import { CSSProperties, useEffect, useState } from "react";
 import ScheduleDisplay from "../../../components/Schedule";
 import styles from './Schedule.module.scss';
@@ -40,10 +40,18 @@ function Schedule() {
       label: "Meals"
     },
     {
-      id: "workshop",
+      id: "workshops",
       label: "Workshops"
     }
   ];
+
+  const currentTime = new Date();
+  const scrollToCurrentEvent = () => {
+    if (18 <= currentTime.getDate() && currentTime.getDate() <= 20 && currentTime.getMonth() === 7 && currentTime.getFullYear() === 2023) {
+      setActiveTab(currentTime.getDate() - 18);
+      document.getElementById('hour ' + currentTime.getHours().toString())?.scrollIntoView({behavior: "smooth", block: "center"});
+    }
+  }
 
   return isReady ? (
     <div className={styles.root}>
@@ -55,6 +63,7 @@ function Schedule() {
           <Typography
             textType={"paragraph2"}
             textColor={"copy-light"}>Click on each block for more details about each workshop and event.</Typography>
+          {/* <Button onClick={() => scrollToCurrentEvent()}>Scroll to current time</Button> */}
       </div>
       <div className={styles.scheduleRoot}>
         <div className={styles.legendContainer}>

@@ -138,6 +138,8 @@ const scheduleData = {
     ]
 } as ScheduleData;
 
+// const currentTime = new Date();
+
 function Schedule() {
     const [selectedEventData, setSelectedEventData] = useState<EventData>();
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -170,6 +172,7 @@ function Schedule() {
                             style={{
                                 '--start-hour': hour,
                             } as CSSProperties}
+                            id={'hour ' + hour.toString()}
                         ><Typography textType='paragraph2' textWeight={800}>{hour}:00</Typography></div>
                     ))
                 }
