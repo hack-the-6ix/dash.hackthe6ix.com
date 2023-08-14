@@ -3,7 +3,6 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import Protected from '../../components/Authentication/Protected';
 import useAuth from '../../components/Authentication/context';
-import HeadingSection from '../../components/HeadingSection';
 import TabSection, { Tab } from '../../components/TabSection';
 import HackerInfo from './HackerInfo';
 import Resources from './Resources';
@@ -21,11 +20,11 @@ const tabs: (Omit<Tab, 'element'> & {
     element: <HackerInfo />,
     id: 'hacker-info',
   },
-  {
-    label: <span>Resources</span>,
-    element: <Resources />,
-    id: 'resources',
-  },
+  // {
+  //   label: <span>Resources</span>,
+  //   element: <Resources />,
+  //   id: 'resources',
+  // },
   {
     label: <span>Schedule</span>,
     element: <Schedule/>,
@@ -64,20 +63,20 @@ function DashboardContent() {
   }, [needToUpdateNav]);
 
   useEffect(() => {
-    navigationManager.takeoverNavigation("dashboard", "None", [{
+    navigationManager.takeoverNavigation("dashboard", "EventInfo", [{
       id: "hacker-info",
       text: "Hacker Info",
       data: 0
     },
-      {
-        id: "resources",
-        text: "Resources",
-        data: 1
-      },
+      // {
+      //   id: "resources",
+      //   text: "Resources",
+      //   data: 1
+      // },
       {
         id: "schedule",
         text: "Schedule",
-        data: 2
+        data: 1
       }], (entry) => {
       setNeedToUpdateNav(entry.data);
     })
@@ -96,23 +95,12 @@ function DashboardContent() {
 
   return (
     <main className={styles.root}>
-      <HeadingSection
-        title={`Welcome back, ${firstName}!`}
-        action={{
-          onClick: async () => {
-            await authCtx.revokeAuth();
-            navigate('/');
-          },
-          children: 'Sign Out',
-        }}
-        textType='heading2'
-        as='h2'
-      />
       <TabSection
         onChange={(_, idx) => {
           updateUrl(idx);
         }}
         value={selected}
+        type=""
         tabs={tabs}
       />
     </main>

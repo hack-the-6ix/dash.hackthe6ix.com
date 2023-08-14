@@ -4,93 +4,332 @@
 @use '~@ht6/react-ui/dist/styles/colors.module';
 
 .container {
-  grid-template-columns: 1fr;
-  grid-gap: 2.75rem;
-  display: grid;
-
   p {
     margin-bottom: 1rem;
   }
-}
 
-.copy {
-  position: relative;
-}
+  .title{
+    letter-spacing: normal;
+    margin-bottom: 1rem;
+    @include localMixins.media(desktop){
+      text-align: center;   
+    }
+  }
+  .grid{
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: min-content auto;
+    gap: 3rem 6rem;
+    display: grid;
 
-.icon {
-  color: colors.getColor(primary-700);
-  margin: auto 1rem auto auto;
-  position: absolute;
-  width: 1rem;
-  height: auto;
-  inset: 0;
-}
+    @include localMixins.media(desktop){
+      grid-template-columns: 1fr;
+      row-gap: 4rem;
+    }
 
-.command {
-  @include mixins.transition(filter);
-  background-color: localColors.$bg-light-grey;
-  justify-content: center;
-  border-radius: 1.25rem;
-  padding: 0.75rem 2.75rem;
-  box-sizing: border-box;
-  text-align: center;
-  cursor: pointer;
-  display: flex;
-  border: none;
-  width: 100%;
+    .title{
+      margin-bottom: -2rem;
+    }
 
-  &:hover,
-  &:focus {
-    filter: brightness(0.96);
+    .heading, .row_border, .discord, .links{
+      grid-column: 1;
+    }
+
+    .heading{
+      align-self: start;
+      .subheading{
+        .date{
+          color: colors.getColor(warning-400);
+        }
+        margin-bottom: 1.5rem;
+
+        .link {
+          @include mixins.transition(color);
+          color: colors.getColor(neutral-300);
+          text-decoration: underline;
+
+          &:hover,
+          &:focus {
+            color: colors.getColor(neutral-300, hover);
+          }
+
+          &:active {
+            color: colors.getColor(neutral-300, active);
+          }
+        }
+      }
+  
+      @include localMixins.media(desktop){
+        text-align: center;   
+      }
+    }
+
+    .row_border{
+      border-bottom: 1px solid colors.getColor(neutral-50);
+      max-height: 0;
+      align-self: start;
+    }
+  
+    .status{
+      grid-column: 2;  
+      display: flex;
+      flex-direction: column;
+      row-gap: 2rem;
+      grid-row-start: 2;
+      grid-row-end: 6;
+
+      @include localMixins.media(desktop){
+        grid-column: 1;
+        grid-row: auto;
+        .socials{
+          display: none;
+        }
+      }
+
+      p{
+        margin-bottom: 0;
+      }
+
+      .status_indicator_text{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        h3{
+          width: auto;
+        }
+
+        .attending, .not_attending{
+          margin: 0;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+          background-color: #d1fae512; // No colour exists in the mixins that matches design
+          border-radius: 1rem;
+        }
+      }
+
+      .qr_code_container{
+        position: relative;
+        overflow: visible;
+        background-color: colors.getColor(neutral-50, null, 0.12);
+        padding: 0.75rem;
+        border-radius: 1.5rem;
+        &.show{
+          z-index: 1;
+        }
+
+        .button{
+          grid-template-columns: auto 1rem;
+          align-items: center;
+          grid-gap: 0.75rem;
+          display: grid;
+          padding: 0.75rem;
+          border-radius: 0.25rem;
+          box-sizing: border-box;
+          text-align: start;
+          background: none;
+          cursor: pointer;
+          border: none;
+          width: 100%;
+
+          .caret {
+            @include mixins.transition(transform color);
+            color: colors.getColor(neutral-50);
+            transform: rotate(0deg);
+            &.show {
+              transform: rotate(180deg);
+            }
+          
+            .disabled & {
+              color: colors.getColor(grey);
+            }
+          }
+        }
+
+        .qr_image{
+          @include mixins.transition(max-height);
+          max-height: 0;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          overflow: hidden;
+          row-gap: 2rem;
+          img{
+            display: block;
+          }
+          &.show{
+            max-height: 30rem;
+            padding: 1rem;
+          }
+        }
+      }
+    }
+
+    .discord{
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .heading{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        p{
+          margin-bottom: 0;
+        }
+      }
+
+      .discord_command_container{
+        padding: 2rem 4rem;
+        border-radius: 2rem;
+        background-color: colors.getColor(copy-light, null, 0.18);
+        column-gap: 1.5rem;
+        row-gap: 0.75rem;
+        display: grid;
+
+        .useful_link .text h3{
+          color: #8c9eff;
+        }
+
+        .copy {
+          position: relative;
+          .command {
+            @include mixins.transition(filter);
+            background-color: colors.getColor(neutral-50, null, 0.12);
+            justify-content: center;
+            border-radius: 1.25rem;
+            padding: 0.75rem 2.75rem;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            border: none;
+            width: 100%;
+            &:hover,
+            &:focus {
+              filter: brightness(0.9);
+            }
+          }
+        }        
+      }
+    }
+
+    .links{
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .heading{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        p{
+          margin-bottom: 0;
+        }
+      }
+
+      .links_container{
+        padding: 2rem 4rem;
+        border-radius: 2rem;
+        background-color: colors.getColor(copy-light, null, 0.18);
+        column-gap: 1.5rem;
+        row-gap: 0.75rem;
+        grid-template-columns: repeat(2, 1fr);
+        list-style-type: none;
+        display: grid;
+
+        @include localMixins.media(laptop){
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    > .socials{
+      display: none;
+      @include localMixins.media(desktop){
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+  
+  .useful_link{
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 5rem auto;
+    cursor: pointer;
+    gap: 1.5rem;
+    align-items: center;
+    height:100%;
+    &:hover .text h3 .arrow{
+      transform: translateX(0.5rem);
+    }
+
+    img{
+      grid-column: 1;
+      width: 100%;
+    }
+
+    .text{
+      align-items: center;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0.5rem 0;
+      h3 {
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        .arrow{
+          @include mixins.transition(transform);
+          margin-left: 0.25rem;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+      }
+    }
   }
 
-  &:active {
-    filter: brightness(0.92);
+  .guide{
+    color: #9CCC64;
   }
-}
 
-.links {
-  display: grid;
-  list-style-type: none;
-  grid-template-columns: repeat(3, 1fr);
-  position: relative;
-  grid-gap: 1.25rem;
-  padding: 0;
-  margin: 1rem 0 0;
-
-  @include localMixins.media(laptop) {
-    grid-template-columns: 1fr;
+  .devpost{
+    color: #2D88A8;
   }
-}
 
-.disabled {
-  pointer-events: none;
-  filter: blur(0.125rem) saturate(0);
-  opacity: 0.2;
-}
+  .socials{
+    color: colors.getColor(neutral-50);
+    .socials_row{
+      list-style-type: none;
+      display: flex;
+      padding: 0;
+      gap: 2rem;
+      a{
+        svg{
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+        @include mixins.transition(filter);
+        color: colors.getColor(neutral-50);
+        filter: brightness(1);
+        &:hover,
+        &:focus,
+        &:active {
+          filter: brightness(0.9);
+        }
+      }
 
-.qrBox {
-  background-color: localColors.$bg-light-grey;
-  justify-content: center;
-  display: flex;
-  border-radius: 1.25rem;
-  box-shadow: none;
-  padding: 1.25rem;
-}
-
-.qr {
-  width: 9.25rem;
-  height: 9.25rem;
+      @include localMixins.media(desktop){
+        justify-content: center;
+      }
+    }
+  }
 }
 
 .actions {
-  display: grid;
-  grid-template-columns: auto auto;
-  margin-top: 0.25rem;
-  grid-gap: 0.25rem;
-}
-
-.action {
-  font-size: 0.75rem;
-  padding: 0.3rem 1rem;
+  display: flex;
+  margin-top: 0.75rem;
+  gap: 0.5rem;
 }

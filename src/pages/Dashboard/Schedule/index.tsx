@@ -1,110 +1,140 @@
-import { Typography } from "@ht6/react-ui";
-import Airtable from "airtable";
-import { useEffect, useState } from "react";
-// import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import Calendar, { CalendarProps, ScheduleData } from "../../../components/Calendar";
+import {BsSquareFill} from 'react-icons/bs';
+import {Button, Typography} from "@ht6/react-ui";
+import {useEffect, useRef, useState} from "react";
+import ScheduleDisplay from "../../../components/Schedule";
 import styles from './Schedule.module.scss';
 
-type EventTypeRes = {
-  Name: string;
-  Color: `#${string}`;
-  Events: string[];
-  Hidden: boolean;
-};
+import cx from "classnames";
+import {scheduleDataFri, scheduleDataSat, scheduleDataSun} from "../../../schedule";
 
-type EventRes = {
-  Name: string;
-  Platform: string;
-  'HT6 Support': string;
-  Start: string;
-  End: string;
-  Description: string;
-  Host: string[];
-  'Type of Event': string[];
-  'Is Mentor added to Hopin session?': string[];
-  Day: string;
-  PlatformLink: string;
-}
-
-interface Event extends ScheduleData {
-  location: string;
-  name: string;
-}
-
-function parseDate(date: string) {
-  const d = new Date(date);
-  // Apply Toronto offset to fix GMT conversion
-  d.setMinutes(d.getMinutes() + 240);
-  return d;
-}
-
-const base = new Airtable({
-  // By all means steal this, its readonly
-  apiKey: process.env.REACT_APP_AIRTABLE_KEY,
-}).base(process.env.REACT_APP_AIRTABLE_ID!);
 
 function Schedule() {
-  const [events, setEvents] = useState<Event[]>();
-  const [types, setTypes] = useState<CalendarProps['categories']>();
-  useEffect(() => {
-    let mounted = true;
-    Promise.all([
-      base<EventTypeRes>('Type of Events').select({
-        filterByFormula: 'NOT({Hidden} = TRUE())',
-      }).all(),
-      base<EventRes>('Events 2022').select({
-        filterByFormula: 'NOT({Type of Event} = BLANK())',
-        sort: [{ field: 'Start', direction: 'asc' }],
-      }).all(),
-    ]).then(([_types, _events]) => {
-      if (!mounted) return;
-      setTypes(_types.map(type => ({
-        label: type.fields.Name,
-        color: type.fields.Color,
-        ref: type.id,
-      })));
-      setEvents(_events.map(event => ({
-        category: event.fields["Type of Event"][0],
-        location: event.fields["Platform"],
-        start: parseDate(event.fields.Start),
-        end: parseDate(event.fields.End),
-        name: event.fields.Name,
-      })));
-    })
-    return () => {
-      mounted = false;
-    }
-  }, []);
+  const isReady = true;
+  const [activeTab, setActiveTab] = useState<number>(0);
 
-  const timeFormat = new Intl.DateTimeFormat('en-CA', {
-    minute: '2-digit',
-    hour: 'numeric',
-    hour12: true,
-  });
-  const formatTimeRange = (start: Date, end: Date) => {
-    let s = timeFormat.format(start).replace(/[ .]/g, '').replace(':00', '');
-    const e = timeFormat.format(end).replace(/[ .]/g, '').replace(':00', '');
-    if (s.slice(-2) === e.slice(-2)) s = s.slice(0, -2);
-    return `${s}-${e}`;
+  const scheduleContainerRef = useRef<HTMLDivElement>(null);
+
+  const tabs = [
+    {
+      text: 'Fri. August 18',
+      scheduleData: scheduleDataFri
+    },
+    {
+      text: 'Sat. August 19',
+      scheduleData: scheduleDataSat
+    },
+    {
+      text: 'Sun. August 20',
+      scheduleData: scheduleDataSun
+    }
+  ];
+
+  const eventTypes = [
+    {
+      id: "occuringNow",
+      label: "Occuring Now"
+    },
+    {
+      id: "mainEvent",
+      label: "Main Events"
+    },
+    {
+      id: "meal",
+      label: "Meals"
+    },
+    {
+      id: "sponsorBay",
+      label: "Sponsor Bay"
+    },
+    {
+      id: 'activities',
+      label: "Activities"
+    },
+    {
+      id: "workshops",
+      label: "Workshops"
+    }
+  ];
+
+  useEffect(() => {
+    if(scheduleContainerRef.current) {
+      scheduleContainerRef.current.scrollTop = 0;
+    }
+  }, [activeTab]);
+
+  const currentTime = new Date();
+  const scrollToCurrentEvent = () => {
+    if (18 <= currentTime.getDate() && currentTime.getDate() <= 20 && currentTime.getMonth() === 7 && currentTime.getFullYear() === 2023) {
+      setActiveTab(currentTime.getDate() - 18);
+      document.getElementById('hour ' + currentTime.getHours().toString())?.scrollIntoView({behavior: "smooth", block: "center"});
+    }
+    else {
+      setActiveTab(0);
+    }
   }
 
-  const isReady = types && events;
   return isReady ? (
     <div className={styles.root}>
-      <Calendar
-        renderEvent={item => (
-          <div className={styles.event}>
-            <Typography className={styles.text} textType='paragraph2' textColor='primary-700'>
-              {item.name}
-            </Typography>
-            <Typography className={styles.text} textType='paragraph3' textColor='grey'>
-              {formatTimeRange(item.start, item.end)} | {item.location}
-            </Typography>
+      <div className={styles.scheduleHeading}>
+          <Typography
+            textType={"heading2"}
+            textColor={"copy-light"}
+            as="h2">Event Schedule</Typography>
+          <Typography
+            textType={"paragraph2"}
+            textColor={"copy-light"}>Click on each block for more details about each workshop and event.</Typography>
+      </div>
+      <div className={styles.scheduleRoot}>
+        <div className={styles.legendContainer}>
+          <Typography
+            textType='heading3'
+            textColor='copy-light'
+          >Legend</Typography>
+          {
+            eventTypes.map((eventType) => (
+              <div>
+                <Typography textType='paragraph2' textColor='copy-light'>
+                  <span className={cx(styles['event--' + eventType.id])}><BsSquareFill/></span> {eventType.label}
+                </Typography>
+              </div>
+            ))
+          }
+          <Button
+              className={cx(styles.legendScrollButton)}
+              onClick={() => scrollToCurrentEvent()} buttonVariant={"secondary"}>Scroll to Now</Button>
+        </div>
+        <div className={cx(styles.scheduleContainer)}>
+          <div className={cx(styles.tabs)}>
+            {
+              tabs.map((tab, idx) => (
+                <div
+                className={cx(activeTab === idx && styles.active)}
+                onClick={() => setActiveTab(idx)}
+                >
+                  <Typography textType='paragraph2'>{tab.text}</Typography>
+                </div>
+              ))
+            }
           </div>
-        )}
-        categories={types}
-        schedule={events}
-      />
+          <div ref={scheduleContainerRef} className={cx(styles.schedule)}>
+            <ScheduleDisplay scheduleData={tabs[activeTab].scheduleData}></ScheduleDisplay>
+          </div>
+        </div>
+      </div>
+      {/*<Calendar*/}
+      {/*  renderEvent={item => (*/}
+      {/*    <div className={styles.event}>*/}
+      {/*      <Typography className={styles.text} textType='paragraph2' textColor='primary-700'>*/}
+      {/*        {item.name}*/}
+      {/*      </Typography>*/}
+      {/*      <Typography className={styles.text} textType='paragraph3' textColor='grey'>*/}
+      {/*        {formatTimeRange(item.start, item.end)} | {item.location}*/}
+      {/*      </Typography>*/}
+      {/*    </div>*/}
+      {/*  )}*/}
+      {/*  categories={types}*/}
+      {/*  schedule={events}*/}
+      {/*/>*/}
       {/*<div className={styles.buttons}>
         <Button
           className={styles.button}
