@@ -24,8 +24,16 @@ function Schedule() {
 
   const eventTypes = [
     {
+      id: "occuringNow",
+      label: "Occuring Now"
+    },
+    {
       id: "mainEvent",
       label: "Main Events"
+    },
+    {
+      id: "meal",
+      label: "Meals"
     },
     {
       id: "sponsorBay",
@@ -34,10 +42,6 @@ function Schedule() {
     {
       id: 'activities',
       label: "Activities"
-    },
-    {
-      id: "meal",
-      label: "Meals"
     },
     {
       id: "workshops",
