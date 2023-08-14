@@ -114,7 +114,8 @@
   background-color: #313E53;
   border-radius: 12px;
 
-  flex-basis: 15vw;
+  flex-basis: 13vw;
+  flex-shrink: 0;
 
   @include localMixins.media(desktop) {
     flex-basis: 10vw;
@@ -127,6 +128,10 @@
   span {
     margin-right: 0.25rem;
   }
+}
+
+.legendScrollButton {
+  margin-top: 1.75rem;
 }
 
 .scheduleContainer {

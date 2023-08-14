@@ -1,24 +1,31 @@
 import {BsSquareFill} from 'react-icons/bs';
-import { Typography, Button } from "@ht6/react-ui";
-import { CSSProperties, useEffect, useState } from "react";
+import {Button, Typography} from "@ht6/react-ui";
+import {useEffect, useRef, useState} from "react";
 import ScheduleDisplay from "../../../components/Schedule";
 import styles from './Schedule.module.scss';
 
 import cx from "classnames";
+import {scheduleDataFri, scheduleDataSat, scheduleDataSun} from "../../../schedule";
 
 
 function Schedule() {
   const isReady = true;
   const [activeTab, setActiveTab] = useState<number>(0);
+
+  const scheduleContainerRef = useRef<HTMLDivElement>(null);
+
   const tabs = [
     {
-      text: 'Fri. August 18'
+      text: 'Fri. August 18',
+      scheduleData: scheduleDataFri
     },
     {
-      text: 'Sat. August 19'
+      text: 'Sat. August 19',
+      scheduleData: scheduleDataSat
     },
     {
-      text: 'Sun. August 20'
+      text: 'Sun. August 20',
+      scheduleData: scheduleDataSun
     }
   ];
 
@@ -49,11 +56,20 @@ function Schedule() {
     }
   ];
 
+  useEffect(() => {
+    if(scheduleContainerRef.current) {
+      scheduleContainerRef.current.scrollTop = 0;
+    }
+  }, [activeTab]);
+
   const currentTime = new Date();
   const scrollToCurrentEvent = () => {
     if (18 <= currentTime.getDate() && currentTime.getDate() <= 20 && currentTime.getMonth() === 7 && currentTime.getFullYear() === 2023) {
       setActiveTab(currentTime.getDate() - 18);
       document.getElementById('hour ' + currentTime.getHours().toString())?.scrollIntoView({behavior: "smooth", block: "center"});
+    }
+    else {
+      setActiveTab(0);
     }
   }
 
@@ -67,7 +83,6 @@ function Schedule() {
           <Typography
             textType={"paragraph2"}
             textColor={"copy-light"}>Click on each block for more details about each workshop and event.</Typography>
-          {/* <Button onClick={() => scrollToCurrentEvent()}>Scroll to current time</Button> */}
       </div>
       <div className={styles.scheduleRoot}>
         <div className={styles.legendContainer}>
@@ -84,6 +99,9 @@ function Schedule() {
               </div>
             ))
           }
+          <Button
+              className={cx(styles.legendScrollButton)}
+              onClick={() => scrollToCurrentEvent()} buttonVariant={"secondary"}>Scroll to Now</Button>
         </div>
         <div className={cx(styles.scheduleContainer)}>
           <div className={cx(styles.tabs)}>
@@ -98,8 +116,8 @@ function Schedule() {
               ))
             }
           </div>
-          <div className={cx(styles.schedule)}>
-            <ScheduleDisplay></ScheduleDisplay>
+          <div ref={scheduleContainerRef} className={cx(styles.schedule)}>
+            <ScheduleDisplay scheduleData={tabs[activeTab].scheduleData}></ScheduleDisplay>
           </div>
         </div>
       </div>

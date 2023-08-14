@@ -20,11 +20,17 @@
 
   font-family: 'Inter', sans-serif;
 
-  grid-template-columns: 50px repeat(6, minmax(4.5rem, 1fr));
+  --min-col-width: 5.5rem;
+
+  grid-template-columns: 50px repeat(6, minmax(var(--min-col-width), 1fr));
   grid-template-rows: repeat(calc(96 - var(--schedule-start-hour) * 4), 1fr);
   color: white;
 
   letter-spacing: 0;
+
+  @include localMixins.media(laptop) {
+    --min-col-width: 7rem;
+  }
 }
 
 .scheduleTime {
@@ -61,12 +67,10 @@
     opacity: 0.8;
   }
 
-  h4 {
-    font-size: 20px;
-  }
-  p {
-    font-size: 16px;
-  }
+}
+
+.hourText {
+  line-height: 0;
 }
 
 .currentEvent {
@@ -95,7 +99,8 @@
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
 
-  transition: opacity .4s ease;
+  @include mixins.transition(opacity);
+
 
   align-items: center;
   justify-content: center;
@@ -147,7 +152,6 @@
     column-gap: 0.5rem;
 
     span {
-      font-size: 16px !important;
       align-items: center;
       display: flex;
     }
