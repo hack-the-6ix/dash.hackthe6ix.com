@@ -20,11 +20,11 @@ const tabs: (Omit<Tab, 'element'> & {
     element: <HackerInfo />,
     id: 'hacker-info',
   },
-  {
-    label: <span>Resources</span>,
-    element: <Resources />,
-    id: 'resources',
-  },
+  // {
+  //   label: <span>Resources</span>,
+  //   element: <Resources />,
+  //   id: 'resources',
+  // },
   {
     label: <span>Schedule</span>,
     element: <Schedule/>,
@@ -63,20 +63,20 @@ function DashboardContent() {
   }, [needToUpdateNav]);
 
   useEffect(() => {
-    navigationManager.takeoverNavigation("dashboard", "None", [{
+    navigationManager.takeoverNavigation("dashboard", "EventInfo", [{
       id: "hacker-info",
       text: "Hacker Info",
       data: 0
     },
-      {
-        id: "resources",
-        text: "Resources",
-        data: 1
-      },
+      // {
+      //   id: "resources",
+      //   text: "Resources",
+      //   data: 1
+      // },
       {
         id: "schedule",
         text: "Schedule",
-        data: 2
+        data: 1
       }], (entry) => {
       setNeedToUpdateNav(entry.data);
     })

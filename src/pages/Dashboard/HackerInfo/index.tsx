@@ -10,14 +10,15 @@ import useAuth from '../../../components/Authentication/context';
 import { ServerResponse, useRequest } from '../../../utils/useRequest';
 
 import styles from './HackerInfo.module.scss';
+import {discordInviteLink, startDate} from "../../../config";
 
 const links = [
   {
-    logo: require('../../../assets/hopin.png'),
-    title: 'Hopin',
-    link: 'https://hopin.com/events/hack-the-6ix-2022?code=x251djeXmLiKPglrQsBHavu3B',
-    description: 'All our live events and workshops are here!',
-    color: styles.hopin
+    logo: require('../../../assets/hackerguide.png'),
+    title: 'Guide',
+    link: 'https://go.hackthe6ix.com/2023-hacker-guide',
+    description: 'Get all the information you\'ll need!',
+    color: styles.guide
   },
   {
     logo: require('../../../assets/devpost.png'),
@@ -80,6 +81,8 @@ function HackerInfo() {
     month: 'short',
     day: 'numeric',
   });
+
+  const currentDate = new Date();
   
   const unrsvp = async () => {
     toast.loading('Cancelling RSVP...', { id: 'rsvp-home' });
@@ -111,40 +114,39 @@ function HackerInfo() {
       <div className={styles.grid}>
         <Typography
         className={styles.title}
-        textType='heading1'
-        as='h1'
+        textType='heading2'
+        as='h2'
         textColor='neutral-50'>
           {`${welcomeMessage}, ${firstName}!`}
         </Typography>
         <div className={styles.heading}>
           <Typography
             className={styles.subheading}
-            textType='paragraph1'
+            textType='paragraph2'
             as='p'
             textColor='neutral-50'>
-            Explore your dashboard to find out what you can do before the event starts on <span className={styles.date}>August 18th.</span>
-          </Typography>
-          <Typography
-          className={styles.location}
-          textType='paragraph1'
-          as='p'
-          textColor='neutral-50'>
-            <HiLocationMarker /> Event Location:&nbsp;
-            <a 
-            href="https://goo.gl/maps/i3afDdq7F39HeGRu7"
-            className={styles.link}
-            rel='noreferrer noopener'
-            target='_blank'>
-              George Vari Engineering and Computing Centre, Toronto, ON
-            </a>
+            {startDate < currentDate ? (
+                <>
+                  Explore your dashboard to find out what you can do.
+                </>
+          ) : <>
+              Explore your dashboard to find out what you can do before the event starts on <span className={styles.date}>{startDate.toLocaleDateString([], {month: "long", day: "numeric"})}.</span>
+            </>}<br />
+            <HiLocationMarker /> Event Location: <a
+              href="https://goo.gl/maps/i3afDdq7F39HeGRu7"
+              className={styles.link}
+              rel='noreferrer noopener'
+              target='_blank'>
+            George Vari Engineering and Computing Centre, Toronto, ON
+          </a>
           </Typography>
         </div>
         <div className={styles.row_border}></div>
         <div className={styles.status}>
           <div className={styles.status_indicator_text}>
             <Typography
-            textType='heading3'
-            as='h3'
+            textType='heading4'
+            as='h4'
             textColor='neutral-50'>
               Your Status:&nbsp;
             </Typography>
@@ -169,7 +171,7 @@ function HackerInfo() {
                onClick={() => setShowQRCode((old) => !old)}
                className={cx(styles.button, showQRCode && styles.expanded)}
                textWeight='medium'
-               textType='heading3'
+               textType='heading4'
                type='button'
                as='button'
                textColor='neutral-50'>
@@ -189,7 +191,7 @@ function HackerInfo() {
                  as='p'
                  textColor='neutral-50'
                  >
-                Show this QR code to check-in, grab food, participate in activities, etc! We recommend screenshotting this.
+                Show this QR code to check-in! We recommend screenshotting this.
                 </Typography>
               </div>
             </Card>
@@ -259,7 +261,7 @@ function HackerInfo() {
             <Typography textColor='neutral-50' textType='heading3' as='h3'>
               Join Our Discord
             </Typography>
-            <Typography textColor='neutral-50' textType='paragraph1' as='p'>
+            <Typography textColor='neutral-50' textType='paragraph2' as='p'>
               Join our Discord server to get the latest updates and connect with fellow
               hackers, mentors, and sponsors!
             </Typography>
@@ -267,7 +269,7 @@ function HackerInfo() {
           <div className={styles.discord_command_container}>
             <a 
              className={styles.useful_link}
-             href='https://discord.com/invite/A5jM5Dg7N2'
+             href={discordInviteLink}
              target='_blank'
              rel='noreferrer noopener'
             >
@@ -277,25 +279,10 @@ function HackerInfo() {
                   Discord <HiArrowRight className={styles.arrow}/>
                 </Typography>
                 <Typography textColor='neutral-50' textType='paragraph1' as='p'>
-                  Issue the following command in the <b>#verification</b> channel to
-                  gain access:
+                  Follow the instructions in the #verification channel to gain full access.
                 </Typography>
               </div>
             </a>
-            <div className={styles.copy}>
-              <Typography
-                onClick={(e: MouseEvent<HTMLInputElement>) => {
-                  navigator.clipboard.writeText(e.currentTarget.value);
-                  toast.success('Copied to clipboard!');
-                }}
-                className={styles.command}
-                textColor='neutral-50'
-                textType='heading4'
-                value={`!verify ${email}`}
-                as='input'
-                readOnly
-              />
-            </div>
           </div>
         </div>
         <div className={styles.links}>
@@ -303,7 +290,7 @@ function HackerInfo() {
             <Typography textColor='neutral-50' textType='heading3' as='h3'>
               Useful Links
             </Typography>
-            <Typography textColor='neutral-50' textType='paragraph1' as='p'>
+            <Typography textColor='neutral-50' textType='paragraph2' as='p'>
             Explore these links to learn more about our event this year and get familiar with Hack the 6ix!
             </Typography>
           </div>
@@ -321,7 +308,7 @@ function HackerInfo() {
                     <Typography textType='heading3' as='h3' className={link.color}>
                       {link.title} <HiArrowRight className={styles.arrow}/>
                     </Typography>
-                    <Typography textColor='neutral-50' textType='paragraph1' as='p'>
+                    <Typography textColor='neutral-50' textType='paragraph2' as='p'>
                       {link.description}
                     </Typography>
                   </div>

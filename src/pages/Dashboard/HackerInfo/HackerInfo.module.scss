@@ -18,7 +18,7 @@
   .grid{
     grid-template-columns: 3fr 1fr;
     grid-template-rows: min-content auto;
-    gap: 3rem 9rem;
+    gap: 3rem 6rem;
     display: grid;
 
     @include localMixins.media(desktop){
@@ -41,20 +41,17 @@
           color: colors.getColor(warning-400);
         }
         margin-bottom: 1.5rem;
-      }
-  
-      .location{
-        margin-bottom: 0;
+
         .link {
           @include mixins.transition(color);
           color: colors.getColor(neutral-300);
           text-decoration: underline;
-        
+
           &:hover,
           &:focus {
             color: colors.getColor(neutral-300, hover);
           }
-        
+
           &:active {
             color: colors.getColor(neutral-300, active);
           }
@@ -138,9 +135,9 @@
           .caret {
             @include mixins.transition(transform color);
             color: colors.getColor(neutral-50);
-            transform: rotate(180deg);
+            transform: rotate(0deg);
             &.show {
-              transform: rotate(0deg);
+              transform: rotate(180deg);
             }
           
             .disabled & {
@@ -162,6 +159,7 @@
           }
           &.show{
             max-height: 30rem;
+            padding: 1rem;
           }
         }
       }
@@ -243,27 +241,6 @@
         @include localMixins.media(laptop){
           grid-template-columns: 1fr;
         }
-
-        .copy {
-          position: relative;
-          .command {
-            @include mixins.transition(filter);
-            background-color: colors.getColor(neutral-50, null, 0.12);
-            justify-content: center;
-            border-radius: 1.25rem;
-            padding: 0.75rem 2.75rem;
-            box-sizing: border-box;
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            border: none;
-            width: 100%;
-            &:hover,
-            &:focus {
-              filter: brightness(0.9);
-            }
-          }
-        }        
       }
     }
 
@@ -285,7 +262,7 @@
     align-items: center;
     height:100%;
     &:hover .text h3 .arrow{
-      margin-left: 0.75rem;
+      transform: translateX(0.5rem);
     }
 
     img{
@@ -294,19 +271,16 @@
     }
 
     .text{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
       align-items: center;
       height: 100%;
       box-sizing: border-box;
       padding: 0.5rem 0;
-      h3{
+      h3 {
         display: flex;
         align-items: center;
         text-transform: uppercase;
         .arrow{
-          @include mixins.transition(margin);
+          @include mixins.transition(transform);
           margin-left: 0.25rem;
         }
       }
@@ -317,8 +291,8 @@
     }
   }
 
-  .hopin{
-    color: #4881FF;
+  .guide{
+    color: #9CCC64;
   }
 
   .devpost{
@@ -352,4 +326,10 @@
       }
     }
   }
+}
+
+.actions {
+  display: flex;
+  margin-top: 0.75rem;
+  gap: 0.5rem;
 }

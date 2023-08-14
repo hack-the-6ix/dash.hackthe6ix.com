@@ -422,39 +422,39 @@ function ApplicationContent() {
     }
 
     if (authCtx.user.status.confirmed) {
-      return (
-          <div className={styles.container}>
-            <div className={styles.content}>
-              <Typography textType='heading3' textColor='neutral-400' as='p'>
-                Welcome Back, {authCtx.user.firstName}!
-              </Typography>
-              <Typography textType='heading2' textColor='neutral-50' as='p'>
-                Congratulations, you've been <span className={styles.textsuccess}>accepted</span> 🎉
-              </Typography>
-              <div style={{height: 35}}/>
-              <Typography textType='heading6' textColor='neutral-50' as='p'>
-                Welcome to Hack the 6ix 2023! We are excited to offer you the opportunity to hack with us.
-              </Typography>
-              <div style={{height: 25}}/>
-              <Typography textType='heading6' textColor='neutral-50' as='p'>
-                Thanks for confirming your attendance. If can no longer join us in person, please click the button below.
-              </Typography>
-              <div style={{height: 20}}/>
-              <div className={styles.buttoncontainer}>
-                <Button
-                    buttonVariant={"secondary"}
-                    className={styles.button}
-                    onClick={() => {decline()}
-                    }
-                >
-                  I can no longer attend
-                </Button>
-              </div>
-            </div>
-          </div>
-      );
-      // TODO: redirect once the dashboard is completed
-      // return <Navigate to='/home' replace />;
+      // return (
+      //     <div className={styles.container}>
+      //       <div className={styles.content}>
+      //         <Typography textType='heading3' textColor='neutral-400' as='p'>
+      //           Welcome Back, {authCtx.user.firstName}!
+      //         </Typography>
+      //         <Typography textType='heading2' textColor='neutral-50' as='p'>
+      //           Congratulations, you've been <span className={styles.textsuccess}>accepted</span> 🎉
+      //         </Typography>
+      //         <div style={{height: 35}}/>
+      //         <Typography textType='heading6' textColor='neutral-50' as='p'>
+      //           Welcome to Hack the 6ix 2023! We are excited to offer you the opportunity to hack with us.
+      //         </Typography>
+      //         <div style={{height: 25}}/>
+      //         <Typography textType='heading6' textColor='neutral-50' as='p'>
+      //           Thanks for confirming your attendance. If can no longer join us in person, please click the button below.
+      //         </Typography>
+      //         <div style={{height: 20}}/>
+      //         <div className={styles.buttoncontainer}>
+      //           <Button
+      //               buttonVariant={"secondary"}
+      //               className={styles.button}
+      //               onClick={() => {decline()}
+      //               }
+      //           >
+      //             I can no longer attend
+      //           </Button>
+      //         </div>
+      //       </div>
+      //     </div>
+      // );
+
+      return <Navigate to='/home' replace />;
     }
 
     if (authCtx.user.status.canRSVP) {

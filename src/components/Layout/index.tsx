@@ -10,6 +10,7 @@ import styles from './Layout.module.scss';
 import {useNavigationManager} from "../NavigationManager/context";
 import {Button} from "@ht6/react-ui";
 import useAuth from "../Authentication/context";
+import {endDate, startDate} from "../../config";
 
 export interface LayoutProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -85,6 +86,21 @@ function Layout({ children }: LayoutProps) {
                       </div>
                   </div>
               }
+              {
+                  navigationManager.navBottomMode === "EventInfo" &&
+                  <div className={cx(styles.navMobileStatus)}>
+                      <div className={cx(styles.navBottomInfoContainer)}>
+                          <Typography
+                              textType={"heading4"}
+                              as={"span"}
+                              textColor={"warning-400"}
+                          >
+                              {startDate.toLocaleDateString([], {month: "long", weekday: "short", day: "numeric"})} - {endDate.toLocaleDateString([], {month: "long", weekday: "short", day: "2-digit"})}
+                          </Typography>
+
+                      </div>
+                  </div>
+              }
           </div>
             <Button
                 icon={navOpen ? <RiCloseLine /> : <RiMenuLine />}
@@ -145,6 +161,20 @@ function Layout({ children }: LayoutProps) {
                                   textColor={"warning-400"}
                               >
                                   {formattedEndDate}
+                              </Typography>
+                          </div>
+                      </>
+                  }
+                  {
+                      navigationManager.navBottomMode === "EventInfo" &&
+                      <>
+                          <div className={cx(styles.navBottomInfoContainer)}>
+                              <Typography
+                                  textType={"heading5"}
+                                  as={"h5"}
+                                  textColor={"warning-400"}
+                              >
+                                  {startDate.toLocaleDateString([], {month: "long", weekday: "short", day: "numeric", year: "numeric"})}<br/>to<br/>{endDate.toLocaleDateString([], {month: "long", weekday: "short", day: "2-digit", year: "numeric"})}
                               </Typography>
                           </div>
                       </>
