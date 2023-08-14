@@ -22,7 +22,15 @@ function Schedule({
     const [selectedEventData, setSelectedEventData] = useState<EventData>();
     const [showModal, setShowModal] = useState<boolean>(false);
 
-    const currentDate = new Date();
+    const [currentDate, setCurrentDate] = useState<Date>(new Date());
+
+    useEffect(() => {
+        const dateTimeUpdater = setInterval(() => {
+            setCurrentDate(new Date());
+        }, 60 * 1000);
+
+        return () => clearInterval(dateTimeUpdater);
+    }, [])
 
     const formatEventTime = useCallback((eventData: EventData) => {
         let ret = `${eventData.startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
@@ -66,8 +74,8 @@ function Schedule({
                                             styles.scheduleItem,
                                             styles['event--' + eventData.type],
                                             (
-                                                eventData.startTime.getHours() <= currentDate.getHours() && eventData.endTime.getHours() >= currentDate.getHours() 
-                                                && currentDate.toDateString() === eventData.startTime.toDateString()
+                                                eventData.startTime.getTime() <= currentDate.getTime() + 15 * 60 * 1000
+                                                && eventData.endTime.getTime() >= currentDate.getTime()
                                             ) && styles.currentEvent
                                         )}
                                         style={{
