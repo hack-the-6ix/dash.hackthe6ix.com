@@ -13,7 +13,7 @@ export interface EventData {
     presenter?: string,
     description?: string,
     startTime: Date,
-    endTime: Date | null,
+    endTime: Date,
     location: string,
     type: string,
     width: number,
@@ -39,8 +39,8 @@ const scheduleData = {
         events: [
             {
                 title: 'Hacker Check-In Begins',
-                startTime: new Date("August 18, 2023 19:00:00"),
-                endTime: null,
+                startTime: new Date("August 18, 2023 15:00:00"),
+                endTime: new Date("August 18, 2023 15:00:00"),
                 location: 'Entrance Area',
                 description: "Hacker Check-In has now started! Please come to the entrance area to check-in and get your swag!",
                 type: 'mainEvent',
@@ -125,7 +125,7 @@ const scheduleData = {
             {
                 title: 'Hacking Starts!',
                 startTime: new Date("August 18, 2023 22:00:00"),
-                endTime: null,
+                endTime: new Date("August 18, 2023 22:00:00"),
                 location: null,
                 type: 'mainEvent',
                 width: 6,
@@ -138,7 +138,7 @@ const scheduleData = {
     ]
 } as ScheduleData;
 
-// const currentTime = new Date();
+const currentDate = new Date();
 
 function Schedule() {
     const [selectedEventData, setSelectedEventData] = useState<EventData>();
@@ -146,7 +146,7 @@ function Schedule() {
 
     const formatEventTime = useCallback((eventData: EventData) => {
         let ret = `${eventData.startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-        if(eventData.endTime) {
+        if (eventData.endTime || eventData.endTime === eventData.startTime) {
             ret += ` - ${eventData.endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
         }
 
@@ -184,7 +184,11 @@ function Schedule() {
                                     <div
                                         className={cx(
                                             styles.scheduleItem,
-                                            styles['event--' + eventData.type]
+                                            styles['event--' + eventData.type],
+                                            (
+                                                eventData.startTime.getHours() <= currentDate.getHours() && eventData.endTime.getHours() >= currentDate.getHours() 
+                                                && currentDate.toDateString() === eventData.startTime.toDateString()
+                                            ) && styles.currentEvent
                                         )}
                                         style={{
                                             '--start-hour': hourData.hour,

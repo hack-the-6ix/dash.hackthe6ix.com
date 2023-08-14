@@ -58,6 +58,24 @@
   &:hover {
     opacity: 0.8;
   }
+
+  h4 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+
+.currentEvent {
+  background-color: #CEF5F4;
+
+  h4 {
+    color: #16716D;
+  }
+  p {
+    color: #0D4442;
+  }
 }
 
 .modalContainer {
