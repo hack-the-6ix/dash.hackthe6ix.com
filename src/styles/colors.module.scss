@@ -1,3 +1,25 @@
 $bg-light: white;
 $bg-light-grey: #f0f0f0;
 $nav-bg: #071838;
+$content-bg: rgba(6, 22, 47, 1);
+
+$eventColorMap: (
+  mainEvent: (
+    borderColor: #0c82a2
+  ),
+  occuringNow: (
+    borderColor: #cef5f4
+  ),
+  sponsorBay: (
+    borderColor: #9b51e0
+  ),
+  activities: (
+    borderColor: #d97706
+  ),
+  workshops: (
+    borderColor: #059669
+  ),
+  meal: (
+    borderColor: #f4cccc
+  )
+);

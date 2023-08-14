@@ -1,0 +1,163 @@
+@use '~@ht6/react-ui/dist/styles/colors.module';
+@use '~@ht6/react-ui/dist/styles/mixins.module';
+@use '~@ht6/react-ui/dist/styles/fonts.module';
+@use '../../styles/colors.module' as localColors;
+@use '../../styles/mixins.module' as localMixins;
+@use 'sass:math';
+
+.event {
+  @each $event, $value in localColors.$eventColorMap {
+    &--#{$event} {
+      border-color: map-get($value, 'borderColor')
+    }
+  }
+}
+
+.scheduleRoot {
+  display: grid;
+  column-gap: 10px;
+  row-gap: 10px;
+
+  font-family: 'Inter', sans-serif;
+
+  --min-col-width: 5.5rem;
+
+  grid-template-columns: 50px repeat(6, minmax(var(--min-col-width), 1fr));
+  grid-template-rows: repeat(calc(96 - var(--schedule-start-hour) * 4), 1fr);
+  color: white;
+
+  letter-spacing: 0;
+
+  @include localMixins.media(laptop) {
+    --min-col-width: 7rem;
+  }
+}
+
+.scheduleTime {
+  grid-column-start: 1;
+  grid-column-end: span 1;
+
+  grid-row-start: calc(var(--start-hour) * 4 + 1 - var(--schedule-start-hour) * 4);
+  grid-row-end: span 4;
+
+  text-align: left;
+  font-weight: bold;
+}
+
+.scheduleItem {
+  grid-column-start: calc(var(--event-offset) + 2);
+  grid-column-end: span var(--event-width);
+  grid-row-start: calc(var(--start-hour) * 4 + 1 + calc(var(--event-height-offset) * 4) - var(--schedule-start-hour) * 4);
+  grid-row-end: span calc(var(--event-height) * 4);
+
+  background-color: #313e53;
+
+  border-left-style: solid;
+  border-left-width: 10px;
+
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+
+  padding: 24px;
+
+  cursor: pointer;
+  transition: opacity .4s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+}
+
+.hourText {
+  line-height: 0;
+}
+
+.currentEvent {
+  background-color: #CEF5F4;
+
+  h4 {
+    color: #16716D;
+  }
+  p {
+    color: #0D4442;
+  }
+}
+
+.modalContainer {
+  opacity: 0;
+
+  pointer-events: none;
+
+  position: fixed;
+  display: flex;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+
+  @include mixins.transition(opacity);
+
+
+  align-items: center;
+  justify-content: center;
+
+  &.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.modal {
+  position: relative; 
+  background-color: localColors.$content-bg;
+  padding: 2rem;
+  border-radius: 12px;
+
+  color: white;
+  width: 40vw;
+
+  @include localMixins.media(laptop) {
+    width: 60vw;
+  }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+
+  div {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+.modalEventDetails {
+  margin-top: 1.5rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  div {
+    display: flex;
+    align-content: start;
+
+    column-gap: 0.5rem;
+
+    span {
+      align-items: center;
+      display: flex;
+    }
+
+    &:nth-child {
+      flex-grow: 1;
+    }
+  }
+}
