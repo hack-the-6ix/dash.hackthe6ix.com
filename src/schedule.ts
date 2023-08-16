@@ -95,8 +95,21 @@ export const scheduleDataFri = {
                     description: "This workshop is an introduction to blockchain technology that educates all groups over 13 years of age on the fundamental principles, concepts, and theories behind the subject with no required prior experience or knowledge.",
                     width: 2,
                     offset: 2,
-                    height: 1.5,
+                    height: 1,
                     heightOffset: 0
+                },
+                {
+                    title: 'How I sold my first startup at 20 y/o',
+                    startTime: new Date("August 18, 2023 19:30:00"),
+                    endTime: new Date("August 18, 2023 20:30:00"),
+                    location: 'ENG 105',
+                    presenter: "Matthew Espinoza",
+                    type: 'workshops',
+                    description: "I'm a 21 y/o whose first startup was acquired by a $50m company. Since then, built a ton of profitable side projects. Today, I'm going full-force on something new.",
+                    width: 2,
+                    offset: 2,
+                    height: 1,
+                    heightOffset: 1
                 },
                 {
                     title: 'Sponsor Networking',
