@@ -95,8 +95,21 @@ export const scheduleDataFri = {
                     description: "This workshop is an introduction to blockchain technology that educates all groups over 13 years of age on the fundamental principles, concepts, and theories behind the subject with no required prior experience or knowledge.",
                     width: 2,
                     offset: 2,
-                    height: 1.5,
+                    height: 1,
                     heightOffset: 0
+                },
+                {
+                    title: 'How I sold my first startup at 20 y/o',
+                    startTime: new Date("August 18, 2023 19:30:00"),
+                    endTime: new Date("August 18, 2023 20:30:00"),
+                    location: 'ENG 105',
+                    presenter: "Matthew Espinoza",
+                    type: 'workshops',
+                    description: "I'm a 21 y/o whose first startup was acquired by a $50m company. Since then, built a ton of profitable side projects. Today, I'm going full-force on something new.",
+                    width: 2,
+                    offset: 2,
+                    height: 1,
+                    heightOffset: 1
                 },
                 {
                     title: 'Sponsor Networking',
@@ -148,12 +161,12 @@ export const scheduleDataFri = {
 export const scheduleDataSat = {
     startHour: 0,
     schedule: [{
-        hour: 2,
+        hour: 1,
         events: [
             {
                 title: 'Fireside Chat: Hackathons 101',
-                startTime: new Date("August 19, 2023 2:00:00"),
-                endTime: new Date("August 19, 2023 3:00:00"),
+                startTime: new Date("August 19, 2023 1:00:00"),
+                endTime: new Date("August 19, 2023 2:00:00"),
                 location: 'Ground Floor',
                 description: "If you're actually curious as to what goes into planning a hackathon (or are thinking of starting your own), this activity is for you. Our executives will be on hand to field your burning questions on everything that goes into running Hack the 6ix.",
                 type: 'activities',
@@ -191,7 +204,7 @@ export const scheduleDataSat = {
                     presenter: "Cindy Wong",
                     location: 'ENG 105',
                     type: 'workshops',
-                    description: "Data Observability is an emerging field in the Data space. What is Data Observability? Why is it important? How to implement Data Observability in your Data Lake?",
+                    description: "As businesses rely more heavily on data to make key decisions, Data Observability has become an important pillar in the Data world. This workshop provides an overview of Data Observability. It provides insights into commonly used tools and approaches to build Data Observability.",
                     width: 3,
                     offset: 0,
                     height: 1,
@@ -202,7 +215,7 @@ export const scheduleDataSat = {
                     presenter: "Izzy Vohsemer & Ren Black",
                     startTime: new Date("August 19, 2023 10:00:00"),
                     endTime: new Date("August 19, 2023 11:30:00"),
-                    description: "Design thinking is crucial in every project - especially at the start, because it encourages out-of-the-box thinking, empowering teams to dream big and create innovative solutions that resonate with people on a personal level. By making empathy a core part of any product, it ensures that the products and services are not just functional but also extremely meaningful.",
+                    description: "Join us to learn about the design thinking process in a hands-on environment by taking part in a fun micro design sprint. Together we will explore the basics and importance of problem framing, understanding your user, divergent and convergent ideation, as well as aligning with stakeholders, and tips for pitching your ideas. Whether you're a developer, a designer, or in business, the design thinking process is an essential asset in everyone's toolkit.",
                     location: 'ENG 106',
                     type: 'workshops',
                     width: 3,
